@@ -25,13 +25,30 @@ Build a professional minimalist portfolio to land a Product Manager role, featur
 - ✅ **Skills Section**: Product Management skills, Technical skills (Frontend/Backend/AI/Design/Tools), Languages badges
 - ✅ **Footer**: Basic copyright and tech stack
 
-## 🚧 In Progress / Next Steps
+## ✅ Recently Completed
 
-### Priority 1: Case Studies (Days 8-10)
-- [ ] Create case study component structure
-- [ ] CatchIT! case study with Figma embed
-- [ ] RatedPower case study (€230k → €2.5M growth)
-- [ ] Maxem Energy case study
+### Phase 1: Case Studies Structure (PR #1 - MERGED ✅)
+- ✅ TypeScript types for case studies
+- ✅ CaseStudy component (card + full variants)
+- ✅ CaseStudies grid component
+- ✅ Placeholder data for 3 case studies
+- ✅ 27/27 tests passing
+
+### Phase 2: CatchIT! Case Study (PR #2 - MERGED ✅)
+- ✅ Real Figma embed URL
+- ✅ Clickable case study cards with detail pages
+- ✅ Dynamic route /case-studies/[id]
+- ✅ CatchIT! thumbnail image
+- ✅ All 16 tests passing
+- ✅ Consolidated SPEC.md as single source of truth
+
+## 🚧 Next Steps
+
+### Priority 1: Phase 3 - RatedPower & Maxem Case Studies
+- [ ] Add real content for RatedPower case study
+- [ ] Add real content for Maxem case study
+- [ ] Replace [TBD] metrics with actual data
+- [ ] Add thumbnails for both case studies
 
 ### Priority 2: RAG Chatbot ⭐ (Days 11-12)
 - [ ] PostgreSQL + pgvector local setup
@@ -146,5 +163,6 @@ Build a professional minimalist portfolio to land a Product Manager role, featur
 - All changes tracked via PRs: https://github.com/itsamimario/Portfolio/pulls
 
 **Current Focus:**
-- Phase 2 PR #2 open and ready for merge
-- Next: Phase 3 - RatedPower & Maxem case studies
+- ✅ Phase 2 merged into main
+- 🔄 Ready to start Phase 3 - RatedPower & Maxem case studies
+- Progress: 2/13 phases complete (AHEAD OF SCHEDULE)
