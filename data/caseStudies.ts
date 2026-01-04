@@ -11,8 +11,8 @@ export const caseStudies: CaseStudy[] = [
     role: 'Founder & CEO',
     company: 'CatchIT!',
     period: '2024 - Present',
-    thumbnail: '/placeholders/catchit-thumbnail.jpg',
-    thumbnailAlt: 'CatchIT! app interface showing pixel-art characters on a map',
+    thumbnail: '/images/case-studies/catchit-thumbnail.png',
+    thumbnailAlt: 'CatchIT! pixel-art game showing landscape with character exploring',
     tagline: 'Building a location-based gaming platform that turns cities into playgrounds',
     challenge:
       'Create an engaging location-based game that combines urban exploration with collectible digital art, while building a sustainable business model in a competitive market dominated by established players like Pokémon GO.',
@@ -72,11 +72,11 @@ export const caseStudies: CaseStudy[] = [
     links: [
       {
         label: 'View Figma Design System',
-        url: '#',
+        url: 'https://www.figma.com/design/Z8yhY4aOz9WKLYbBvNkmdM/CatchIT',
         icon: 'figma',
       },
     ],
-    embedUrl: undefined, // To be added in Phase 2
+    embedUrl: 'https://embed.figma.com/design/Z8yhY4aOz9WKLYbBvNkmdM/CatchIT?node-id=2-198&embed-host=share',
   },
   {
     id: 'ratedpower',
