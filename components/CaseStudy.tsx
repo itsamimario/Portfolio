@@ -74,7 +74,7 @@ export function CaseStudy({ caseStudy, variant = 'card' }: CaseStudyProps) {
         </h2>
         <div className="space-y-6">
           {caseStudy.approach.map((step, index) => (
-            <div key={index} className="flex gap-4">
+            <div key={`approach-${step.title}`} className="flex gap-4">
               <div className="flex-shrink-0 w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold">
                 {index + 1}
               </div>
@@ -98,7 +98,7 @@ export function CaseStudy({ caseStudy, variant = 'card' }: CaseStudyProps) {
         </h2>
         <ul className="space-y-3">
           {caseStudy.keyDecisions.map((decision, index) => (
-            <li key={index} className="flex gap-3 text-gray-700">
+            <li key={`decision-${index}-${decision.slice(0, 20)}`} className="flex gap-3 text-gray-700">
               <span className="text-blue-600 flex-shrink-0">•</span>
               <span className="leading-relaxed">{decision}</span>
             </li>
@@ -112,9 +112,9 @@ export function CaseStudy({ caseStudy, variant = 'card' }: CaseStudyProps) {
           Results
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {caseStudy.results.map((result, index) => (
+          {caseStudy.results.map((result) => (
             <div
-              key={index}
+              key={`result-${result.metric}`}
               className="bg-gray-50 rounded-lg p-6 border border-gray-200"
             >
               <p className="text-sm text-gray-600 mb-2">{result.metric}</p>
@@ -135,9 +135,9 @@ export function CaseStudy({ caseStudy, variant = 'card' }: CaseStudyProps) {
           Tech Stack
         </h2>
         <div className="flex flex-wrap gap-3">
-          {caseStudy.techStack.map((tech, index) => (
+          {caseStudy.techStack.map((tech) => (
             <span
-              key={index}
+              key={`tech-${tech}`}
               className="px-4 py-2 bg-blue-50 text-blue-700 rounded-full text-sm font-medium"
             >
               {tech}
@@ -155,6 +155,7 @@ export function CaseStudy({ caseStudy, variant = 'card' }: CaseStudyProps) {
               title="Case study embed"
               className="w-full h-full"
               allowFullScreen
+              sandbox="allow-scripts allow-same-origin allow-popups"
             />
           </div>
         </section>
@@ -164,9 +165,9 @@ export function CaseStudy({ caseStudy, variant = 'card' }: CaseStudyProps) {
       {caseStudy.links && caseStudy.links.length > 0 && (
         <section className="mb-12">
           <div className="flex flex-wrap gap-4">
-            {caseStudy.links.map((link, index) => (
+            {caseStudy.links.map((link) => (
               <a
-                key={index}
+                key={`link-${link.label}`}
                 href={link.url}
                 target="_blank"
                 rel="noopener noreferrer"
