@@ -1,3 +1,6 @@
+import { CaseStudies } from "@/components/CaseStudies";
+import { caseStudies } from "@/data/caseStudies";
+
 export default function About() {
   return (
     <main className="min-h-screen bg-white">
@@ -34,7 +37,7 @@ export default function About() {
           </h2>
 
           <p className="text-lg text-gray-700 mb-8 leading-relaxed">
-            I'm a Product Manager based in Madrid with 6+ years leading cross-functional
+            I&apos;m a Product Manager based in Madrid with 6+ years leading cross-functional
             teams and shipping impactful digital products. I bridge strategy, design, and
             engineering to turn complex problems into elegant solutions.
           </p>
@@ -157,6 +160,9 @@ export default function About() {
           </div>
         </div>
       </section>
+
+      {/* Case Studies Section */}
+      <CaseStudies caseStudies={caseStudies} />
 
       {/* Footer */}
       <footer className="border-t border-gray-100 py-8">
