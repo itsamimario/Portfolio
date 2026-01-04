@@ -51,6 +51,13 @@ describe('CaseStudy Component', () => {
       expect(image).toBeInTheDocument();
     });
 
+    it('renders as a clickable link to case study detail page', () => {
+      render(<CaseStudy caseStudy={mockCaseStudy} variant="card" />);
+
+      const link = screen.getByRole('link');
+      expect(link).toHaveAttribute('href', '/case-studies/test-case-study');
+    });
+
     it('does not render full details in card variant', () => {
       render(<CaseStudy caseStudy={mockCaseStudy} variant="card" />);
 

@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import { CaseStudyProps } from '@/types/content';
 
 /**
@@ -8,27 +9,29 @@ import { CaseStudyProps } from '@/types/content';
 export function CaseStudy({ caseStudy, variant = 'card' }: CaseStudyProps) {
   if (variant === 'card') {
     return (
-      <article className="group bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-300">
-        <div className="relative h-48 w-full overflow-hidden">
-          <Image
-            src={caseStudy.thumbnail}
-            alt={caseStudy.thumbnailAlt}
-            fill
-            className="object-cover group-hover:scale-105 transition-transform duration-300"
-          />
-        </div>
-        <div className="p-6">
-          <h3 className="text-2xl font-bold text-gray-900 mb-2">
-            {caseStudy.title}
-          </h3>
-          <p className="text-sm text-gray-600 mb-3">
-            {caseStudy.role} • {caseStudy.period}
-          </p>
-          <p className="text-gray-700 leading-relaxed">
-            {caseStudy.tagline}
-          </p>
-        </div>
-      </article>
+      <Link href={`/case-studies/${caseStudy.id}`}>
+        <article className="group bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-300 cursor-pointer">
+          <div className="relative h-48 w-full overflow-hidden">
+            <Image
+              src={caseStudy.thumbnail}
+              alt={caseStudy.thumbnailAlt}
+              fill
+              className="object-cover group-hover:scale-105 transition-transform duration-300"
+            />
+          </div>
+          <div className="p-6">
+            <h3 className="text-2xl font-bold text-gray-900 mb-2">
+              {caseStudy.title}
+            </h3>
+            <p className="text-sm text-gray-600 mb-3">
+              {caseStudy.role} • {caseStudy.period}
+            </p>
+            <p className="text-gray-700 leading-relaxed">
+              {caseStudy.tagline}
+            </p>
+          </div>
+        </article>
+      </Link>
     );
   }
 
