@@ -49,15 +49,23 @@ Build a professional minimalist portfolio to land a Product Manager role, featur
 - ✅ Fixed thumbnail paths to standard location
 - ✅ All 28 tests passing
 
+### Phase 4: PostgreSQL + pgvector Setup (PR #4 - OPEN 🔄)
+- ✅ Created db/schema.sql with pgvector extension
+- ✅ Created db/migrations/001_initial_schema.sql
+- ✅ Created lib/db.ts with connection pool and vector search
+- ✅ Installed pg and @types/pg dependencies
+- ✅ Updated .env.example with DATABASE_URL
+- ✅ Documented PostgreSQL setup in README (macOS/Linux/Windows)
+
 ## 🚧 Next Steps
 
-### Priority 1: Phase 4 - PostgreSQL + pgvector Setup
-- [ ] Install PostgreSQL locally
-- [ ] Set up pgvector extension
-- [ ] Create database schema for embeddings
-- [ ] Add database connection in lib/db.ts
-- [ ] Create migration scripts
-- [ ] Write database tests
+### Priority 1: Phase 5 - RAG Chatbot Implementation
+- [ ] Embed content (CV, case studies, playbook) into database
+- [ ] Create embedding generation utilities
+- [ ] Build Chat UI component
+- [ ] Implement Next.js API routes for chat
+- [ ] Integrate Claude API with RAG retrieval
+- [ ] Add example questions UI
 
 ### Priority 2: RAG Chatbot ⭐ (Days 11-12)
 - [ ] PostgreSQL + pgvector local setup
@@ -173,5 +181,6 @@ Build a professional minimalist portfolio to land a Product Manager role, featur
 
 **Current Focus:**
 - ✅ Phase 3 merged into main
-- 🔄 Ready to start Phase 4 - PostgreSQL + pgvector setup
-- Progress: 3/13 phases complete (SIGNIFICANTLY AHEAD OF SCHEDULE)
+- ✅ Phase 4 complete (PR #4 open) - PostgreSQL + pgvector infrastructure
+- 🔄 Ready to start Phase 5 - RAG Chatbot Implementation
+- Progress: 4/13 phases complete (SIGNIFICANTLY AHEAD OF SCHEDULE)
