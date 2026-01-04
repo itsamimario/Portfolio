@@ -18,7 +18,7 @@ const config: Config = {
       fontFamily: {
         sans: ["Inter", "sans-serif"],
         mono: ["JetBrains Mono", "monospace"],
-        pixel: ["var(--font-pixel)", "monospace"],
+        pixel: ["var(--font-catchit)", "monospace"],
       },
     },
   },

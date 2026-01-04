@@ -1,8 +1,25 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
+
+const catchitFont = localFont({
+  src: [
+    {
+      path: "../public/fonts/Catchifont-regular.ttf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/Catchifont-bold.ttf",
+      weight: "700",
+      style: "normal",
+    },
+  ],
+  variable: "--font-catchit",
+});
 
 export const metadata: Metadata = {
   title: "Mario Bennekers - Product Manager & Technical Builder",
@@ -23,7 +40,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={`${inter.className} ${catchitFont.variable}`}>{children}</body>
     </html>
   );
 }
