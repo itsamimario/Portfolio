@@ -3,6 +3,9 @@
 **Last Updated:** January 4, 2026
 **Deadline:** January 15, 2026 (11 days remaining)
 
+## 📋 Primary Reference
+**SPEC.md** - Complete technical specification with all features, phases, and architecture
+
 ## 🎯 Project Goal
 Build a professional minimalist portfolio to land a Product Manager role, featuring a RAG chatbot as the star differentiator.
 
@@ -69,8 +72,7 @@ Build a professional minimalist portfolio to land a Product Manager role, featur
 │   └── fonts/
 │       ├── Catchifont-regular.ttf
 │       └── Catchifont-bold.ttf
-├── draft-portfolio.md      # Content specifications
-├── portfolio-personal.md   # Project tracking
+├── SPEC.md                 # Complete technical specification
 └── README.md              # Project documentation
 ```
 
@@ -132,7 +134,17 @@ Build a professional minimalist portfolio to land a Product Manager role, featur
 
 ## 📝 Notes
 
+**Project Documentation:**
+- **SPEC.md** is the single source of truth for all technical specifications, features, and phases
+- This file (.claude/claude.md) provides quick context for Claude Code sessions
+
+**Development:**
 - Dev server runs at: http://localhost:3000
 - Font files copied from: /Users/mbennekers/Library/Fonts/
-- Ahead of schedule: completed 4 days of work in 1 day
-- Focus next: Case Studies section with Figma embed for CatchIT!
+- Ahead of schedule: completed Phases 1 & 2 in 1 day
+- Following phase-based development workflow from pedram.md
+- All changes tracked via PRs: https://github.com/itsamimario/Portfolio/pulls
+
+**Current Focus:**
+- Phase 2 PR #2 open and ready for merge
+- Next: Phase 3 - RatedPower & Maxem case studies
