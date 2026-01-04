@@ -1,0 +1,73 @@
+name: Claude Code PR Review
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
+jobs:
+  claude-review:
+    runs-on: ubuntu-latest
+    name: Review PR with Claude Code
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.ref }}
+
+      - name: Claude Code Review
+        uses: anthropics/claude-code-action@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          anthropic-api-key: ${{ secrets.ANTHROPIC_API_KEY }}
+          pr-number: ${{ github.event.pull_request.number }}
+          review-prompt: |
+            Review this pull request focusing on:
+
+            1. **Code Quality**
+               - TypeScript best practices (strict mode, proper typing, no 'any')
+               - Clean, readable code with meaningful names
+               - Proper error handling
+
+            2. **Architecture**
+               - Follows Next.js 14 App Router conventions
+               - Proper separation of concerns
+               - Reusable components
+
+            3. **Testing**
+               - Tests are present and meaningful
+               - Good test coverage (aim for 80%+)
+               - Tests follow TDD principles
+
+            4. **Performance**
+               - No unnecessary re-renders
+               - Proper use of Next.js Image component
+               - Optimized bundle size
+
+            5. **Accessibility**
+               - Semantic HTML
+               - ARIA labels where needed
+               - Keyboard navigation support
+
+            6. **Design System**
+               - Follows the professional minimalist aesthetic
+               - Uses Tailwind CSS properly
+               - Consistent spacing and typography
+
+            7. **Security**
+               - No exposed secrets or API keys
+               - Input validation
+               - No XSS vulnerabilities
+
+            For any issues found:
+            - Create a GitHub issue for each significant problem
+            - Tag issues with appropriate labels (bug, enhancement, etc.)
+            - Reference the specific file and line number
+
+            Be constructive and specific in your feedback.
