@@ -42,13 +42,22 @@ Build a professional minimalist portfolio to land a Product Manager role, featur
 - ✅ All 16 tests passing
 - ✅ Consolidated SPEC.md as single source of truth
 
+### Phase 3: RatedPower & Maxem Case Studies (PR #3 - MERGED ✅)
+- ✅ RatedPower complete content (€230k → €2.5M growth story)
+- ✅ Maxem complete content (B2B platform leadership)
+- ✅ Updated all metrics (12+ features, 40% handoff reduction)
+- ✅ Fixed thumbnail paths to standard location
+- ✅ All 28 tests passing
+
 ## 🚧 Next Steps
 
-### Priority 1: Phase 3 - RatedPower & Maxem Case Studies
-- [ ] Add real content for RatedPower case study
-- [ ] Add real content for Maxem case study
-- [ ] Replace [TBD] metrics with actual data
-- [ ] Add thumbnails for both case studies
+### Priority 1: Phase 4 - PostgreSQL + pgvector Setup
+- [ ] Install PostgreSQL locally
+- [ ] Set up pgvector extension
+- [ ] Create database schema for embeddings
+- [ ] Add database connection in lib/db.ts
+- [ ] Create migration scripts
+- [ ] Write database tests
 
 ### Priority 2: RAG Chatbot ⭐ (Days 11-12)
 - [ ] PostgreSQL + pgvector local setup
@@ -134,12 +143,12 @@ Build a professional minimalist portfolio to land a Product Manager role, featur
 **Timeline:**
 - Days 1-2 (Jan 4-5): ✅ Setup complete (DONE EARLY on Jan 4)
 - Days 3-4 (Jan 6-7): ✅ Hero + About + Skills (DONE EARLY on Jan 4)
-- Days 5-7 (Jan 8-10): 🔄 Case Studies (NEXT)
-- Days 8-9 (Jan 11-12): ⏳ RAG Chatbot
+- Days 5-7 (Jan 8-10): ✅ Case Studies (Phases 1-3 complete on Jan 4)
+- Days 8-9 (Jan 11-12): 🔄 RAG Chatbot (NEXT)
 - Days 10-11 (Jan 13-14): ⏳ Product Playbook + polish
 - Day 12 (Jan 15): ⏳ Deploy + GitHub + testing
 
-**Status:** 🟢 AHEAD OF SCHEDULE (completed Days 1-4 work on Day 1)
+**Status:** 🟢 SIGNIFICANTLY AHEAD OF SCHEDULE (completed 7 days of work in 1 day)
 
 ## 🔑 Key Features
 
@@ -163,6 +172,6 @@ Build a professional minimalist portfolio to land a Product Manager role, featur
 - All changes tracked via PRs: https://github.com/itsamimario/Portfolio/pulls
 
 **Current Focus:**
-- ✅ Phase 2 merged into main
-- 🔄 Ready to start Phase 3 - RatedPower & Maxem case studies
-- Progress: 2/13 phases complete (AHEAD OF SCHEDULE)
+- ✅ Phase 3 merged into main
+- 🔄 Ready to start Phase 4 - PostgreSQL + pgvector setup
+- Progress: 3/13 phases complete (SIGNIFICANTLY AHEAD OF SCHEDULE)
