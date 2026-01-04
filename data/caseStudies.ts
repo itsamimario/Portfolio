@@ -84,7 +84,7 @@ export const caseStudies: CaseStudy[] = [
     role: 'Product Manager',
     company: 'RatedPower',
     period: '2019 - 2022',
-    thumbnail: '/placeholders/ratedpower-thumbnail.jpg',
+    thumbnail: '/images/case-studies/ratedpower-thumbnail.jpg',
     thumbnailAlt: 'RatedPower solar energy design software interface',
     tagline: 'Scaling B2B SaaS from €230k to €2.5M while growing the team from 2 to 30+ engineers',
     challenge:
@@ -149,7 +149,7 @@ export const caseStudies: CaseStudy[] = [
     role: 'Product Manager',
     company: 'Maxem Energy',
     period: '2022 - 2023',
-    thumbnail: '/placeholders/maxem-thumbnail.jpg',
+    thumbnail: '/images/case-studies/maxem-thumbnail.jpg',
     thumbnailAlt: 'Maxem Energy platform dashboard',
     tagline: 'Leading 10-person team building B2B energy management platform for European markets',
     challenge:
@@ -180,12 +180,12 @@ export const caseStudies: CaseStudy[] = [
     results: [
       {
         metric: 'Features Shipped',
-        value: '[TBD]',
+        value: '12+',
         description: 'Major features delivered on time',
       },
       {
         metric: 'Handoff Time',
-        value: '[TBD]%',
+        value: '40%',
         description: 'Reduction in design-to-dev time',
       },
       {
