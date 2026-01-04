@@ -60,9 +60,82 @@ portfolio/
 └── public/             # Static assets
 ```
 
-## 🗄️ Database Setup (Coming Soon)
+## 🗄️ Database Setup
 
-Instructions for setting up PostgreSQL with pgvector extension will be added here.
+### PostgreSQL + pgvector Installation
+
+**macOS (Homebrew):**
+```bash
+# Install PostgreSQL
+brew install postgresql@15
+
+# Start PostgreSQL service
+brew services start postgresql@15
+
+# Install pgvector extension
+brew install pgvector
+
+# Create database
+createdb portfolio_dev
+```
+
+**Linux (Ubuntu/Debian):**
+```bash
+# Install PostgreSQL
+sudo apt update
+sudo apt install postgresql postgresql-contrib
+
+# Install pgvector
+sudo apt install postgresql-15-pgvector
+
+# Start PostgreSQL
+sudo systemctl start postgresql
+
+# Create database (as postgres user)
+sudo -u postgres createdb portfolio_dev
+```
+
+**Windows:**
+1. Download and install PostgreSQL from [postgresql.org](https://www.postgresql.org/download/windows/)
+2. Install pgvector by following [pgvector installation guide](https://github.com/pgvector/pgvector#installation)
+3. Create database using pgAdmin or psql
+
+### Database Schema Setup
+
+Run the migration to create the embeddings table:
+
+```bash
+# Connect to your database
+psql -d portfolio_dev
+
+# Run the migration
+\i db/migrations/001_initial_schema.sql
+
+# Verify the table was created
+\dt
+
+# Check pgvector extension
+\dx
+```
+
+You should see:
+- `embeddings` table with vector column
+- `vector` extension installed
+- Indexes created for vector similarity search
+
+### Verify Connection
+
+Test your database connection:
+
+```bash
+# Create a .env file with your database URL
+cp .env.example .env
+
+# Edit .env and update DATABASE_URL if needed
+# DATABASE_URL=postgresql://postgres:password@localhost:5432/portfolio_dev
+```
+
+The database is now ready for the RAG chatbot embeddings.
 
 ## 🔄 Development Workflow
 
