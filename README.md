@@ -80,19 +80,19 @@ This project uses a phase-based development approach with automated Claude Code 
 
 See `SPEC.md` for detailed phase specifications.
 
-### GitHub Actions Setup
+### PR Review Process
 
-To enable automated PR reviews:
+For each phase:
 
-1. Install the Claude Code GitHub App on this repository
-2. Add `ANTHROPIC_API_KEY` to repository secrets:
-   - Go to Settings → Secrets and variables → Actions
-   - Add new secret: `ANTHROPIC_API_KEY` = your Anthropic API key
+1. **Open PR** from feature branch to main
+2. **Manual review** (optional): Use a second Claude Code window to review the PR
+3. **Create issues** for any feedback that should be addressed later
+4. **Merge** when satisfied with the implementation
 
-The workflow (`.github/workflows/pr-review.yml`) will automatically review PRs focusing on:
+Review focus areas:
 - Code quality and TypeScript best practices
 - Architecture and component design
-- Test coverage
+- Test coverage (80%+ threshold)
 - Performance and accessibility
 - Security
 
