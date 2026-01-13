@@ -95,7 +95,7 @@ We implemented this feature in **3 phases over ~6 months**, allowing validation 
 
 3. **Optimal Placement:** Calculate the straight line (structure plane) that sits closest to terrain while respecting all constraints - minimum ground clearance, maximum pole heights, keeping poles as short as possible
 
-**Bonus Output:** This calculation naturally produced CAD profile drawings showing exactly how each structure sat relative to terrain - valuable documentation clients could use for validation.
+**Bonus Output:** This calculation naturally produced CAD profile drawings showing exactly how each structure sat relative to terrain - valuable documentation clients could use for validation. We also included pile measurement calculations accounting for terrain slopes and manufacturer limitations.
 
 ### Phase 3: Earthwork Calculations
 
@@ -117,45 +117,81 @@ We implemented this feature in **3 phases over ~6 months**, allowing validation 
 
 ## Execution
 
-[TODO: How did you ship it?]
-- Timeline and phases
-- Cross-functional collaboration (engineering, design, domain experts)
-- Technical challenges
-- Iterations and pivots
+### Cross-functional Collaboration
+The **Customer Success team** (industrial engineers themselves) was deeply involved throughout:
+- Gathered detailed feedback from customers facing topography challenges
+- Helped test and validate implementations against real-world scenarios
+- Connected me directly with customers for validation calls
+
+### Customer Validation Process
+I embedded myself in the feedback loop:
+- Asked CS to include me in calls with customers who had complained about the missing feature
+- As the solution took shape, I shared our approach with these customers to validate it would meet their needs
+- Maintained a group of **4-5 power users** who I updated regularly to validate ideas before building
+
+### Professional Deliverables
+We built professional report exports (.pdf, .docx) containing all calculations, profiles, and earthwork volumes - documentation that stakeholders (investors, regulators) required for project approval.
+
+### No Major Pivots
+The thorough discovery process paid off - when we had to choose between approaches (NNI vs TIN, per-structure vs global earthworks), we had the data to decide confidently. We didn't have to backtrack on any major decisions.
 
 ---
 
 ## Results & Impact
 
-[TODO: What were the outcomes?]
-
-| Metric | Value | Description |
-|--------|-------|-------------|
-| [Metric 1] | [Value] | [Description] |
-| [Metric 2] | [Value] | [Description] |
-
 ### Business Impact
-- [TODO: Won back customers? Reduced churn? New sales?]
 
-### User Outcomes
-- [TODO: Time saved? Better designs? More land utilized?]
+**Won back lost customers:** Several clients who had chosen PVCase the previous year switched to RatedPower after this release.
+
+**Shifted market perception:** RatedPower's positioning evolved from "software for very early designs that needed no accuracy" to "sophisticated tool that developers could use for detailed engineering without hiring an engineer."
+
+**Opened new market segment:** The earthwork calculations caught the attention of technical users at companies who had previously dismissed our software. Some became customers after comparing our results against their manual methods.
+
+### Adoption & Efficiency
+
+| Feature | Adoption | Notes |
+|---------|----------|-------|
+| Topography Restrictions | Very high | Easy to use with default Google Maps data - almost all designs started using it |
+| Earthwork Calculations | Moderate | Required more user expertise, but users who adopted it were impressed |
+
+**Processing time:** What previously took engineers weeks of manual work in AutoCAD/Excel now completed in minutes within our automated workflow.
+
+### User Feedback
+
+**Positive:**
+- Impressed that a fully automated tool could provide earthwork calculations
+- Users understood and accepted the speed vs. accuracy trade-off for preliminary design
+- Changed perception of cloud tools: "as accurate as AutoCAD but with collaboration, no expensive hardware, safe storage, and easy iteration"
+
+**Constructive:**
+- Some technical users found accuracy gaps too large for their needs - expected and acceptable, as they weren't in our target phase of the design process
+- Feedback helped shape roadmap for future accuracy improvements
 
 ### Learnings
-- [TODO: What did you learn?]
+
+1. **Domain knowledge compounds:** My civil engineering background and PV construction experience accelerated discovery and helped me speak credibly with technical users.
+
+2. **Focus on your value proposition:** Speed and efficiency with "good enough" accuracy was the right trade-off for our target users. Trying to match AutoCAD's precision would have slowed us down without meaningful benefit.
+
+3. **Customer Success is a product superpower:** CS team's direct line to customer pain points and their engineering expertise made them invaluable partners throughout discovery, validation, and iteration.
+
+4. **Phased releases reduce risk:** Shipping in 3 phases let us validate with real users between releases, building confidence in our approach before investing in more complex features.
 
 ---
 
 ## Artifacts
 
-[TODO: Screenshots, diagrams, links to relevant materials]
+- [RatedPower Earthwork Tool](https://ratedpower.com/platform/earthwork/) - The feature I built is now one of RatedPower's flagship capabilities, marketed as a major platform differentiator
+
+[TODO: Add screenshots from original implementation if available]
 
 ---
 
 ## Skills Demonstrated
 
 - [x] Business orientation (competitive response, revenue protection)
-- [ ] User research
-- [x] Technical depth (understanding topography, slope calculations, file formats)
-- [ ] Data-driven decisions
-- [ ] Cross-functional leadership
-- [ ] Hands-on execution
+- [x] User research (customer interviews, power user validation group)
+- [x] Technical depth (topography, slope calculations, interpolation algorithms)
+- [x] Data-driven decisions (feedback pipeline, validation against real examples)
+- [x] Cross-functional leadership (CS team collaboration, engineering alignment)
+- [x] Hands-on execution (tested competitors, used domain expertise)
