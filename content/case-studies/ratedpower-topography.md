@@ -63,28 +63,55 @@ The decision was unanimous once we had the data:
 
 ## Approach & Key Decisions
 
-### The Solution (Three Parts)
+### Phased Delivery
+We implemented this feature in **3 phases over ~6 months**, allowing validation with customers between releases:
 
-**1. Structure Placement Validation**
-Allow the software to automatically check if each structure placement complies with slope restrictions, not just show a color-coded map.
+| Phase | Feature | Key Challenge |
+|-------|---------|---------------|
+| 1 | Custom topography upload | File format standardization, interpolation tuning |
+| 2 | Structure restriction validation | Defining slope restrictions, profile visualization |
+| 3 | Earthwork calculations | Accuracy vs. computational efficiency |
 
-**2. Custom Topography Upload**
-Let users upload their own topography files for accurate analysis when they have surveyed data. Fall back to SRTM 30 (Google Maps) data for preliminary analysis when they don't.
+### Phase 1: Custom Topography Upload
 
-**3. Earthwork Calculations**
-When a structure doesn't comply with restrictions, calculate the amount of earthwork needed to make it buildable - a capability competitors didn't have.
+**Build vs. Buy Decision:** Used existing **Nearest Neighbor Interpolation (NNI)** algorithm rather than building from scratch. This allowed us to interpolate terrain height at each structure pole location from uploaded survey data.
 
-### Options Considered
-[TODO: What alternatives did you evaluate?]
+**Technical Challenge:** NNI required extensive tuning - parameters like number of interpolation points and maximum distance significantly affected results. We tested against diverse real-world examples to find optimal configuration.
 
-### Trade-offs Evaluated
-[TODO: What trade-offs did you weigh?]
-- Accuracy vs. speed?
-- Build vs. buy?
-- Scope decisions?
+**Why NNI over TIN?** We evaluated Triangulated Irregular Network (TIN) but chose NNI because:
+- Much more computationally efficient
+- Results nearly identical when properly configured
+- Better suited for our automated, high-volume workflow
 
-### Why This Approach
-[TODO: Why did you choose this path?]
+**File Format Decision:** After gathering topography files from multiple clients, we found CAD files varied wildly in geographic references, scale, and formatting. We decided to support only **CSV/XYZ files with UTM coordinates** - a standardized format common among topographers. This reduced edge cases and support burden significantly.
+
+### Phase 2: Structure Restriction Validation
+
+**Custom Algorithm:** No existing solution fit our needs, so we built our own:
+
+1. **Structure Definition:** Define each structure type with its slope restrictions (max terrain slope, max pole height, min ground clearance)
+
+2. **Terrain Profile Analysis:** For each structure, paint the terrain profile below it
+
+3. **Optimal Placement:** Calculate the straight line (structure plane) that sits closest to terrain while respecting all constraints - minimum ground clearance, maximum pole heights, keeping poles as short as possible
+
+**Bonus Output:** This calculation naturally produced CAD profile drawings showing exactly how each structure sat relative to terrain - valuable documentation clients could use for validation.
+
+### Phase 3: Earthwork Calculations
+
+**The Approach:** When a structure couldn't fit within slope restrictions, calculate how much earth to move to make it work. Our algorithm modified the terrain below each structure individually to allow the required slope.
+
+**Trade-off: Speed vs. Accuracy**
+- Our per-structure approach was computationally fast
+- Real earthwork projects consider interactions between adjacent structures and terrain terraces
+- We validated against real examples and confirmed we stayed within **90% accuracy** - acceptable for preliminary design phase
+- The increase in accuracy from modeling structure interactions wasn't worth the computational cost and development time
+
+### What We Explicitly Decided NOT to Do
+
+1. **No inter-structure earthwork modeling:** Calculating how earthwork for one structure affects neighbors would dramatically increase complexity and computation time without meaningful accuracy gains for preliminary design.
+
+2. **No CAD file support (Phase 1):** Too much variation in geographic references, scales, and formatting. Standardizing on CSV/XYZ with UTM was the pragmatic choice.
 
 ---
 
