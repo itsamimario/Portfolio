@@ -171,6 +171,7 @@ Build a professional minimalist portfolio to land a Product Manager role, featur
 **Project Documentation:**
 - **SPEC.md** is the single source of truth for all technical specifications, features, and phases
 - This file (.claude/claude.md) provides quick context for Claude Code sessions
+- **Project Tracking File:** `/Users/mbennekers/Documents/WorkSpace/Projects/portfolio-personal.md` - Actualizar este archivo al finalizar sesiones de trabajo
 
 **Development:**
 - Dev server runs at: http://localhost:3000
