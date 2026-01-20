@@ -40,36 +40,32 @@ describe('MessageBubble', () => {
       ).toBeInTheDocument();
     });
 
-    it('applies right alignment for user messages', () => {
+    it('uses terminal prompt character > for user messages', () => {
+      render(<MessageBubble message={baseUserMessage} />);
+
+      // Terminal style uses > for user input
+      expect(screen.getByText('>')).toBeInTheDocument();
+    });
+
+    it('applies black text color (terminal style)', () => {
       const { container } = render(<MessageBubble message={baseUserMessage} />);
 
-      // User messages should be right-aligned (justify-end or similar)
       const wrapper = container.firstChild as HTMLElement;
-      expect(wrapper).toHaveClass('justify-end');
+      expect(wrapper.className).toMatch(/text-black/);
     });
 
-    it('applies blue background for user messages', () => {
-      render(<MessageBubble message={baseUserMessage} />);
+    it('uses pixel font for terminal aesthetic', () => {
+      const { container } = render(<MessageBubble message={baseUserMessage} />);
 
-      const messageBubble = screen.getByText(
-        'Hello, tell me about yourself'
-      ).closest('div');
-      expect(messageBubble).toHaveClass('bg-blue-600');
-    });
-
-    it('applies white text color for user messages', () => {
-      render(<MessageBubble message={baseUserMessage} />);
-
-      const messageBubble = screen.getByText(
-        'Hello, tell me about yourself'
-      ).closest('div');
-      expect(messageBubble).toHaveClass('text-white');
+      const wrapper = container.firstChild as HTMLElement;
+      expect(wrapper.className).toMatch(/font-pixel/);
     });
 
     it('does not show sources for user messages', () => {
       render(<MessageBubble message={baseUserMessage} />);
 
-      expect(screen.queryByText(/source/i)).not.toBeInTheDocument();
+      // User messages only show content, not sources
+      expect(screen.queryByText(/\[sources\]/i)).not.toBeInTheDocument();
     });
   });
 
@@ -82,32 +78,29 @@ describe('MessageBubble', () => {
       ).toBeInTheDocument();
     });
 
-    it('applies left alignment for assistant messages', () => {
+    it('uses terminal prompt character $ for assistant messages', () => {
+      render(<MessageBubble message={baseAssistantMessage} />);
+
+      // Terminal style uses $ for system/assistant output
+      expect(screen.getByText('$')).toBeInTheDocument();
+    });
+
+    it('applies black text color (terminal style)', () => {
       const { container } = render(
         <MessageBubble message={baseAssistantMessage} />
       );
 
-      // Assistant messages should be left-aligned (justify-start or similar)
       const wrapper = container.firstChild as HTMLElement;
-      expect(wrapper).toHaveClass('justify-start');
+      expect(wrapper.className).toMatch(/text-black/);
     });
 
-    it('applies gray background for assistant messages', () => {
-      render(<MessageBubble message={baseAssistantMessage} />);
+    it('uses pixel font for terminal aesthetic', () => {
+      const { container } = render(
+        <MessageBubble message={baseAssistantMessage} />
+      );
 
-      const messageBubble = screen
-        .getByText('I am Mario, a Product Manager with AI experience.')
-        .closest('div');
-      expect(messageBubble).toHaveClass('bg-gray-100');
-    });
-
-    it('applies dark text color for assistant messages', () => {
-      render(<MessageBubble message={baseAssistantMessage} />);
-
-      const messageBubble = screen
-        .getByText('I am Mario, a Product Manager with AI experience.')
-        .closest('div');
-      expect(messageBubble).toHaveClass('text-gray-900');
+      const wrapper = container.firstChild as HTMLElement;
+      expect(wrapper.className).toMatch(/font-pixel/);
     });
 
     it('shows sources when provided', () => {
@@ -198,31 +191,25 @@ describe('MessageBubble', () => {
   });
 
   describe('styling', () => {
-    it('applies rounded corners to message bubble', () => {
-      render(<MessageBubble message={baseUserMessage} />);
+    it('uses full width for terminal style', () => {
+      const { container } = render(<MessageBubble message={baseUserMessage} />);
 
-      const bubble = screen
-        .getByText('Hello, tell me about yourself')
-        .closest('div');
-      expect(bubble?.className).toMatch(/rounded/);
+      const wrapper = container.firstChild as HTMLElement;
+      expect(wrapper.className).toMatch(/w-full/);
     });
 
-    it('applies appropriate padding', () => {
-      render(<MessageBubble message={baseUserMessage} />);
+    it('uses flex layout for prompt and content', () => {
+      const { container } = render(<MessageBubble message={baseUserMessage} />);
 
-      const bubble = screen
-        .getByText('Hello, tell me about yourself')
-        .closest('div');
-      expect(bubble?.className).toMatch(/p-/);
+      const inner = container.querySelector('.flex.gap-2');
+      expect(inner).toBeInTheDocument();
     });
 
-    it('has max-width constraint for readability', () => {
+    it('has consistent text sizing', () => {
       render(<MessageBubble message={baseUserMessage} />);
 
-      const bubble = screen
-        .getByText('Hello, tell me about yourself')
-        .closest('div');
-      expect(bubble?.className).toMatch(/max-w-/);
+      const content = screen.getByText('Hello, tell me about yourself');
+      expect(content.className).toMatch(/text-lg/);
     });
   });
 });

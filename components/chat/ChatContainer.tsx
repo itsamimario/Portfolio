@@ -54,16 +54,16 @@ export function ChatContainer({}: ChatContainerProps): JSX.Element {
             </div>
 
             {/* Example Questions */}
-            <div className="mt-8">
-              <p className="text-sm text-gray-500 mb-3">Try asking:</p>
-              <div className="flex flex-wrap gap-2">
+            <div className="mt-8 font-pixel text-black">
+              <p className="text-lg mb-3">[try asking]</p>
+              <div className="flex flex-col gap-2">
                 {EXAMPLE_QUESTIONS.map((question, index) => (
                   <button
                     key={index}
                     onClick={() => handleExampleClick(question)}
-                    className="text-sm px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-full transition-colors"
+                    className="text-left text-lg hover:underline"
                   >
-                    {question}
+                    &gt; {question}
                   </button>
                 ))}
               </div>
@@ -76,20 +76,17 @@ export function ChatContainer({}: ChatContainerProps): JSX.Element {
 
         {/* Loading indicator */}
         {isLoading && (
-          <div className="flex items-center gap-2 p-4 text-gray-500">
-            <div className="flex gap-1">
-              <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-              <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-              <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
-            </div>
-            <span className="text-sm">Thinking...</span>
+          <div className="flex items-center gap-2 py-2 font-pixel text-black">
+            <span className="text-lg">$</span>
+            <span className="text-lg">processing</span>
+            <span className="w-3 h-5 bg-black animate-pulse" />
           </div>
         )}
 
         {/* Error display */}
         {error && (
-          <div className="mb-4 p-3 bg-red-50 text-red-700 rounded-lg">
-            {error}
+          <div className="py-2 font-pixel text-black">
+            <span className="text-lg">[error] {error}</span>
           </div>
         )}
       </div>

@@ -14,7 +14,7 @@ describe('NavigationLinks', () => {
 
       const aboutLink = screen.getByRole('link', { name: /about/i });
       expect(aboutLink).toBeInTheDocument();
-      expect(aboutLink).toHaveAttribute('href', '#about');
+      expect(aboutLink).toHaveAttribute('href', '/about');
     });
 
     it('renders Case Studies link', () => {
@@ -24,7 +24,7 @@ describe('NavigationLinks', () => {
         name: /case studies/i,
       });
       expect(caseStudiesLink).toBeInTheDocument();
-      expect(caseStudiesLink).toHaveAttribute('href', '#case-studies');
+      expect(caseStudiesLink).toHaveAttribute('href', '/case-studies');
     });
 
     it('renders Product Playbook link', () => {
@@ -34,7 +34,7 @@ describe('NavigationLinks', () => {
         name: /product playbook/i,
       });
       expect(playbookLink).toBeInTheDocument();
-      expect(playbookLink).toHaveAttribute('href', '#playbook');
+      expect(playbookLink).toHaveAttribute('href', '/playbook');
     });
 
     it('renders all three links', () => {
@@ -68,12 +68,12 @@ describe('NavigationLinks', () => {
       expect(nav).not.toHaveClass('sticky');
     });
 
-    it('applies background and shadow when sticky', () => {
+    it('applies background and border when sticky', () => {
       const { container } = render(<NavigationLinks isSticky={true} />);
 
       const nav = container.querySelector('nav');
       expect(nav).toHaveClass('bg-white');
-      expect(nav?.className).toMatch(/shadow/);
+      expect(nav?.className).toMatch(/border-b/);
     });
 
     it('applies z-index when sticky', () => {

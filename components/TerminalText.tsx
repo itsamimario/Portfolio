@@ -44,7 +44,7 @@ export default function TerminalText() {
     } else if (section.type === "big-bold") {
       return <span className="text-4xl md:text-5xl font-pixel font-bold">{text}</span>;
     } else {
-      return <span className="text-2xl md:text-3xl font-pixel">{text}</span>;
+      return <span className="text-lg md:text-xl font-pixel">{text}</span>;
     }
   };
 

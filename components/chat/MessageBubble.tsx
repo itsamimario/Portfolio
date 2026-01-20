@@ -18,30 +18,27 @@ export function MessageBubble({ message }: MessageBubbleProps): JSX.Element {
     <div
       role="article"
       aria-label={`${message.role} message`}
-      className={`flex w-full ${isUser ? 'justify-end' : 'justify-start'}`}
+      className="w-full font-pixel text-black"
     >
-      <div
-        className={`max-w-[80%] rounded-lg p-3 ${
-          isUser
-            ? 'bg-blue-600 text-white'
-            : 'bg-gray-100 text-gray-900'
-        }`}
-      >
-        <p className="whitespace-pre-wrap">{message.content}</p>
+      <div className="flex gap-2">
+        <span className="text-lg shrink-0">{isUser ? '>' : '$'}</span>
+        <div className="flex-1">
+          <p className="whitespace-pre-wrap text-lg">{message.content}</p>
 
-        {/* Sources section for assistant messages */}
-        {!isUser && message.sources && message.sources.length > 0 && (
-          <div className="mt-2 pt-2 border-t border-gray-300">
-            <p className="text-xs text-gray-600 mb-1">Sources:</p>
-            <ul className="text-xs text-gray-600">
-              {message.sources.map((source, index) => (
-                <li key={index} className="mb-1">
-                  {source.title || source.source}
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
+          {/* Sources section for assistant messages */}
+          {!isUser && message.sources && message.sources.length > 0 && (
+            <div className="mt-2 pt-2 border-t border-black">
+              <p className="text-sm mb-1">[sources]</p>
+              <ul className="text-sm">
+                {message.sources.map((source, index) => (
+                  <li key={index} className="mb-1">
+                    - {source.title || source.source}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

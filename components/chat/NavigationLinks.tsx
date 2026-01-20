@@ -15,29 +15,29 @@ export function NavigationLinks({
   isSticky = false,
 }: NavigationLinksProps): JSX.Element {
   const stickyClasses = isSticky
-    ? 'sticky top-0 bg-white shadow-sm z-10'
+    ? 'sticky top-0 bg-white border-b border-black z-10'
     : '';
 
   return (
     <nav
       aria-label="Portfolio navigation"
-      className={`flex gap-6 py-3 px-4 ${stickyClasses}`}
+      className={`flex gap-6 py-3 font-pixel text-black text-lg ${stickyClasses}`}
     >
       <a
-        href="#about"
-        className="text-gray-600 hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded transition-colors"
+        href="/about"
+        className="hover:underline focus:outline-none focus:underline"
       >
         About
       </a>
       <a
-        href="#case-studies"
-        className="text-gray-600 hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded transition-colors"
+        href="/case-studies"
+        className="hover:underline focus:outline-none focus:underline"
       >
         Case Studies
       </a>
       <a
-        href="#playbook"
-        className="text-gray-600 hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded transition-colors"
+        href="/playbook"
+        className="hover:underline focus:outline-none focus:underline"
       >
         Product Playbook
       </a>

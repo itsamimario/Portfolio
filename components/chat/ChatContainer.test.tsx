@@ -184,7 +184,7 @@ describe('ChatContainer', () => {
       expect(screen.getByText(/something went wrong/i)).toBeInTheDocument();
     });
 
-    it('error message has appropriate styling', () => {
+    it('error message has terminal-style formatting', () => {
       mockUseChatReturn = {
         ...mockUseChatReturn,
         error: 'API error',
@@ -192,8 +192,9 @@ describe('ChatContainer', () => {
 
       render(<ChatContainer />);
 
-      const errorElement = screen.getByText(/api error/i);
-      expect(errorElement.className).toMatch(/text-red|bg-red/);
+      // Terminal style uses [error] prefix
+      expect(screen.getByText(/\[error\]/i)).toBeInTheDocument();
+      expect(screen.getByText(/api error/i)).toBeInTheDocument();
     });
   });
 

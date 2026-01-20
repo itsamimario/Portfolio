@@ -30,24 +30,18 @@ describe('ChatInput', () => {
       ).toBeInTheDocument();
     });
 
-    it('uses default placeholder when not provided', () => {
+    it('has terminal-style prompt character', () => {
       render(<ChatInput onSend={mockOnSend} />);
 
-      expect(screen.getByRole('textbox')).toHaveAttribute(
-        'placeholder',
-        expect.stringMatching(/ask.*question/i)
-      );
+      // Terminal style uses > as prompt
+      expect(screen.getByText('>')).toBeInTheDocument();
     });
 
-    it('uses custom placeholder when provided', () => {
-      render(
-        <ChatInput onSend={mockOnSend} placeholder="Type your message..." />
-      );
+    it('has no visible placeholder for clean terminal look', () => {
+      render(<ChatInput onSend={mockOnSend} />);
 
-      expect(screen.getByRole('textbox')).toHaveAttribute(
-        'placeholder',
-        'Type your message...'
-      );
+      const input = screen.getByRole('textbox');
+      expect(input).toHaveAttribute('placeholder', '');
     });
   });
 
@@ -213,11 +207,11 @@ describe('ChatInput', () => {
       expect(input.className).toMatch(/flex-1|grow|w-full/);
     });
 
-    it('has border styling', () => {
+    it('has border styling on send button', () => {
       render(<ChatInput onSend={mockOnSend} />);
 
-      const input = screen.getByRole('textbox');
-      expect(input.className).toMatch(/border/);
+      const button = screen.getByRole('button', { name: /send/i });
+      expect(button.className).toMatch(/border/);
     });
   });
 });
