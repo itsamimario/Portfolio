@@ -92,7 +92,15 @@ export function MessageBubble({ message, onTypingComplete }: MessageBubbleProps)
       return (
         <div className="w-full font-pixel text-black">
           {lines.map((line, idx) => {
-            // "I'm Mario Bennekers" line - bold name
+            // "Hi!" line - 2 levels smaller
+            if (line === 'Hi!' || line.startsWith('Hi!')) {
+              return (
+                <div key={idx} className="text-2xl md:text-3xl">
+                  {line}
+                </div>
+              );
+            }
+            // "I'm Mario Bennekers" line - main size, bold name
             if (line.includes('Mario Bennekers')) {
               const parts = line.split('Mario Bennekers');
               return (
@@ -101,7 +109,15 @@ export function MessageBubble({ message, onTypingComplete }: MessageBubbleProps)
                 </div>
               );
             }
-            // Other title lines (Hi!, Product Manager)
+            // "Product Manager" line - 1 level smaller
+            if (line === 'Product Manager' || line.includes('Product Manager')) {
+              return (
+                <div key={idx} className="text-3xl md:text-4xl">
+                  {line}
+                </div>
+              );
+            }
+            // Other title lines - default size
             return (
               <div key={idx} className="text-4xl md:text-5xl">
                 {line}
@@ -129,21 +145,32 @@ export function MessageBubble({ message, onTypingComplete }: MessageBubbleProps)
   }
 
   // Nav-links variant - navigation links with classic blue underlined style
+  // Text types first, then links appear after typing completes
   if (variant === 'nav-links') {
+    const text = shouldAnimate ? displayedText : message.content;
+
     return (
       <div className="w-full font-pixel text-black">
-        <div className="text-lg md:text-xl mb-4">{message.content}</div>
-        <div className="flex gap-6 font-pixel text-lg">
-          <Link href="/about" className="text-blue-600 underline hover:text-blue-800">
-            About
-          </Link>
-          <Link href="/case-studies" className="text-blue-600 underline hover:text-blue-800">
-            Case Studies
-          </Link>
-          <Link href="/playbook" className="text-blue-600 underline hover:text-blue-800">
-            Product Playbook
-          </Link>
+        <div className="text-lg md:text-xl mb-4 inline">
+          {text}
         </div>
+        {shouldAnimate && !isComplete && (
+          <span className="inline-block w-3 h-5 bg-black ml-1 animate-pulse align-middle" />
+        )}
+        {/* Links appear only after typing is complete */}
+        {isComplete && (
+          <div className="flex gap-6 font-pixel text-lg mt-4">
+            <Link href="/about" className="text-blue-600 underline hover:text-blue-800">
+              About
+            </Link>
+            <Link href="/case-studies" className="text-blue-600 underline hover:text-blue-800">
+              Case Studies
+            </Link>
+            <Link href="/playbook" className="text-blue-600 underline hover:text-blue-800">
+              Product Playbook
+            </Link>
+          </div>
+        )}
       </div>
     );
   }

@@ -32,7 +32,7 @@ const INITIAL_MESSAGES: ChatMessage[] = [
     content: "Or navigate directly to:",
     timestamp: new Date(),
     variant: 'nav-links',
-    isTyping: false, // Nav links appear instantly
+    isTyping: true, // Nav links text types, then links appear
   },
 ];
 

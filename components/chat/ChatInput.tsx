@@ -58,17 +58,15 @@ export function ChatInput({
     }
   };
 
-  // Show cursor when: no text, not disabled, cursor enabled, and input has focus
-  const displayCursor = message.length === 0 && !disabled && showCursorProp && isFocused;
+  // Show cursor when: not disabled (bot not typing), cursor enabled, and input has focus
+  // Cursor stays visible while user types, only hidden during bot response
+  const displayCursor = !disabled && showCursorProp && isFocused;
 
   return (
     <form onSubmit={handleSubmit} className="flex items-center gap-2 font-pixel text-black">
       <span className="text-xl">&gt;</span>
       <div className="flex-1 flex items-center relative">
-        {/* Blinking cursor on the left side (where user types) */}
-        {displayCursor && (
-          <span className="absolute left-0 w-3 h-6 bg-black animate-pulse" />
-        )}
+        {/* Invisible input captures keystrokes */}
         <input
           ref={inputRef}
           type="text"
@@ -81,8 +79,13 @@ export function ChatInput({
           disabled={disabled}
           maxLength={2000}
           aria-label="Chat message input"
-          className="flex-1 bg-transparent border-none outline-none text-xl text-black placeholder-transparent disabled:opacity-50 disabled:cursor-not-allowed caret-transparent pl-1"
+          className="absolute inset-0 w-full bg-transparent border-none outline-none text-xl text-transparent caret-transparent disabled:cursor-not-allowed"
         />
+        {/* Visible text display + cursor that follows text */}
+        <span className="text-xl whitespace-pre">{message}</span>
+        {displayCursor && (
+          <span className="w-3 h-6 bg-black animate-pulse shrink-0" />
+        )}
       </div>
       <button
         type="submit"
