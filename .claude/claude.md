@@ -112,10 +112,16 @@ About    Case Studies    Product Playbook    ← Plain text links (no borders)
 - ✅ Code review approved
 - ✅ Security review approved
 
-### Phase 7b: Homepage Integration (PR #8 - IN PROGRESS)
-- ✅ Integrated ChatContainer on homepage
-- ✅ Full chat experience now live
-- ✅ All tests passing, build successful
+### Phase 7b: Chat Flow Refactor (MERGED ✅)
+- ✅ Message-based architecture: all content rendered as chat messages
+- ✅ Sequential typing animation for intro messages (hi → name → title → description → nav)
+- ✅ Split intro into 5 separate messages for smooth animation without layout shifts
+- ✅ Navigation links with classic blue underline styling
+- ✅ Sticky header appears when nav links scroll out of view
+- ✅ Auto-scroll during typing animation
+- ✅ Input cursor positioned on left, only visible after intro completes
+- ✅ Placeholder text "type something here" when input not focused
+- ✅ 201 tests passing
 
 ## 🚧 Next Steps
 
@@ -219,9 +225,10 @@ About    Case Studies    Product Playbook    ← Plain text links (no borders)
 - Days 8-9 (Jan 11-12): ✅ Database + Embeddings (Phases 4-5)
 - Days 10-11 (Jan 13-14): ✅ Chat API (Phase 6)
 - Day 12 (Jan 15): ✅ Chat UI (Phase 7)
-- Day 13+: ⏳ Product Playbook + Deploy
+- Day 13 (Jan 20): ✅ Chat Flow Refactor (Phase 7b)
+- Day 14+: ⏳ Bot response tuning + Product Playbook + Deploy
 
-**Status:** 🟢 Phase 7 complete - 7/13 phases done
+**Status:** 🟢 Phase 7b complete - 8/13 phases done
 
 ## 🔑 Key Features
 
@@ -245,6 +252,6 @@ About    Case Studies    Product Playbook    ← Plain text links (no borders)
 - All changes tracked via PRs: https://github.com/itsamimario/Portfolio/pulls
 
 **Current Focus:**
-- ✅ Phase 7 complete (Chat UI components)
-- 🔄 Next: Integrate ChatContainer on homepage
-- Progress: 7/13 phases complete
+- ✅ Phase 7 + 7b complete (Chat UI with sequential typing animation)
+- 🔄 Next: Tune bot responses and Product Playbook
+- Progress: 8/13 phases complete
