@@ -81,10 +81,18 @@ export function ChatInput({
           aria-label="Chat message input"
           className="absolute inset-0 w-full bg-transparent border-none outline-none text-xl text-transparent caret-transparent disabled:cursor-not-allowed"
         />
+        {/* Placeholder when not focused and empty */}
+        {!isFocused && message.length === 0 && showCursorProp && (
+          <span className="text-xl text-gray-400">type something here</span>
+        )}
         {/* Visible text display + cursor that follows text */}
-        <span className="text-xl whitespace-pre">{message}</span>
-        {displayCursor && (
-          <span className="w-3 h-6 bg-black animate-pulse shrink-0" />
+        {(isFocused || message.length > 0) && (
+          <>
+            <span className="text-xl whitespace-pre">{message}</span>
+            {displayCursor && (
+              <span className="w-3 h-6 bg-black animate-pulse shrink-0" />
+            )}
+          </>
         )}
       </div>
       <button
