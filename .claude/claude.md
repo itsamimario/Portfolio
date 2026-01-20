@@ -1,7 +1,7 @@
 # Mario Bennekers Portfolio - Claude Project Context
 
-**Last Updated:** January 4, 2026
-**Deadline:** January 15, 2026 (11 days remaining)
+**Last Updated:** January 20, 2026
+**Deadline:** January 15, 2026 (PAST)
 
 ## 📋 Primary Reference
 **SPEC.md** - Complete technical specification with all features, phases, and architecture
@@ -57,24 +57,29 @@ Build a professional minimalist portfolio to land a Product Manager role, featur
 - ✅ Updated .env.example with DATABASE_URL
 - ✅ Documented PostgreSQL setup in README (macOS/Linux/Windows)
 
+### Phase 5: Content Embedding (PR #5 - MERGED ✅)
+- ✅ Created `lib/content-loader.ts` - Loads markdown content from files
+- ✅ Created `lib/chunker.ts` - Splits content into semantic chunks
+- ✅ Created `lib/openai-embeddings.ts` - OpenAI embedding generation
+- ✅ Created `types/embeddings.ts` - Type definitions
+- ✅ Created `scripts/embed-content.ts` - CLI script to embed all content
+- ✅ 25 content chunks embedded in PostgreSQL database
+- ✅ All tests passing
+
+### Phase 6: Chat API (PR #6 - IN PROGRESS)
+- ✅ Created `types/chat.ts` - Chat request/response types
+- ✅ Created `lib/chat.ts` - RAG chat service (search + Claude integration)
+- ✅ Created `app/api/chat/route.ts` - Next.js API endpoint
+- ✅ 18 tests passing (9 service tests + 10 API route tests)
+- ✅ Code review approved
+- ✅ Security review approved
+
 ## 🚧 Next Steps
 
-### Priority 1: Phase 5 - RAG Chatbot Implementation
-- [ ] Embed content (CV, case studies, playbook) into database
-- [ ] Create embedding generation utilities
+### Priority 1: Phase 7 - Chat UI
 - [ ] Build Chat UI component
-- [ ] Implement Next.js API routes for chat
-- [ ] Integrate Claude API with RAG retrieval
 - [ ] Add example questions UI
-
-### Priority 2: RAG Chatbot ⭐ (Days 11-12)
-- [ ] PostgreSQL + pgvector local setup
-- [ ] Database schema for embeddings
-- [ ] Embed content (CV, case studies, playbook)
-- [ ] Chat UI component
-- [ ] Next.js API routes for chat
-- [ ] Claude API integration
-- [ ] Example questions UI
+- [ ] Integration with chat API
 
 ### Priority 3: Product Playbook (Days 13-14)
 - [ ] Vision & Alignment section
@@ -149,14 +154,15 @@ Build a professional minimalist portfolio to land a Product Manager role, featur
 ## 📊 Progress Tracking
 
 **Timeline:**
-- Days 1-2 (Jan 4-5): ✅ Setup complete (DONE EARLY on Jan 4)
-- Days 3-4 (Jan 6-7): ✅ Hero + About + Skills (DONE EARLY on Jan 4)
-- Days 5-7 (Jan 8-10): ✅ Case Studies (Phases 1-3 complete on Jan 4)
-- Days 8-9 (Jan 11-12): 🔄 RAG Chatbot (NEXT)
-- Days 10-11 (Jan 13-14): ⏳ Product Playbook + polish
-- Day 12 (Jan 15): ⏳ Deploy + GitHub + testing
+- Days 1-2 (Jan 4-5): ✅ Setup complete
+- Days 3-4 (Jan 6-7): ✅ Hero + About + Skills
+- Days 5-7 (Jan 8-10): ✅ Case Studies (Phases 1-3)
+- Days 8-9 (Jan 11-12): ✅ Database + Embeddings (Phases 4-5)
+- Days 10-11 (Jan 13-14): ✅ Chat API (Phase 6)
+- Day 12 (Jan 15): ⏳ Chat UI + Polish
+- Day 13+: ⏳ Product Playbook + Deploy
 
-**Status:** 🟢 SIGNIFICANTLY AHEAD OF SCHEDULE (completed 7 days of work in 1 day)
+**Status:** 🟢 Phase 6 complete - 6/13 phases done
 
 ## 🔑 Key Features
 
@@ -180,6 +186,7 @@ Build a professional minimalist portfolio to land a Product Manager role, featur
 - All changes tracked via PRs: https://github.com/itsamimario/Portfolio/pulls
 
 **Current Focus:**
-- ✅ Phase 4 merged into main
-- 🔄 Ready to start Phase 5 - RAG Chatbot Implementation
-- Progress: 4/13 phases complete (SIGNIFICANTLY AHEAD OF SCHEDULE)
+- ✅ Phase 5 merged into main (Content Embedding)
+- ✅ Phase 6 complete (Chat API) - PR ready
+- 🔄 Next: Phase 7 - Chat UI
+- Progress: 6/13 phases complete
