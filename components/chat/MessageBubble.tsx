@@ -20,23 +20,25 @@ function useTypingAnimation(
 ) {
   const [displayedText, setDisplayedText] = useState(enabled ? '' : content);
   const [isComplete, setIsComplete] = useState(!enabled);
-  const hasCalledComplete = useRef(false);
+  // Use ref for callback to avoid re-triggering effect when callback changes
+  const onCompleteRef = useRef(onComplete);
+  onCompleteRef.current = onComplete;
+  // Track if this specific animation run has completed
+  const animationIdRef = useRef(0);
 
   useEffect(() => {
+    // Generate unique ID for this animation run
+    const currentAnimationId = ++animationIdRef.current;
+
     if (!enabled) {
       setDisplayedText(content);
       setIsComplete(true);
-      if (!hasCalledComplete.current && onComplete) {
-        hasCalledComplete.current = true;
-        // Small delay to ensure render completes
-        setTimeout(onComplete, 50);
-      }
+      // Don't call onComplete when disabled - only when animation actually runs
       return;
     }
 
     setDisplayedText('');
     setIsComplete(false);
-    hasCalledComplete.current = false;
     let index = 0;
 
     const timer = setInterval(() => {
@@ -46,15 +48,15 @@ function useTypingAnimation(
       } else {
         setIsComplete(true);
         clearInterval(timer);
-        if (!hasCalledComplete.current && onComplete) {
-          hasCalledComplete.current = true;
-          onComplete();
+        // Only call if this is still the current animation
+        if (currentAnimationId === animationIdRef.current && onCompleteRef.current) {
+          onCompleteRef.current();
         }
       }
     }, speed);
 
     return () => clearInterval(timer);
-  }, [content, enabled, speed, onComplete]);
+  }, [content, enabled, speed]); // Removed onComplete from deps
 
   return { displayedText, isComplete };
 }
