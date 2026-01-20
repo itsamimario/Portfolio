@@ -1,136 +1,119 @@
 # Portfolio Website
 
 **Company:** Personal Project
-**Role:** Designer & Developer
+**Role:** Product Manager & Developer
 **Period:** January 2026
 
 ---
 
 ## Context
 
-Building a professional portfolio to land a Product Manager role, with a RAG-powered chatbot as the star differentiator. The goal: demonstrate both product thinking and hands-on technical execution in a single, cohesive experience.
-
-### Why This Matters
-- Hiring managers see dozens of generic portfolios
-- A conversational AI assistant showcases practical AI/ML skills
-- The chat-first interface demonstrates UX innovation
-
----
-
-## Discovery & Research
-
-### Target Audience Analysis
-- **Primary:** Hiring managers at tech companies looking for PMs with technical depth
-- **Secondary:** Recruiters scanning for differentiators
-- **Tertiary:** Fellow PMs interested in portfolio approaches
-
-### Competitive Analysis
-- Most PM portfolios are static case study collections
-- Few demonstrate actual technical implementation
-- Almost none have interactive AI components
+Building a professional portfolio to demonstrate Product Manager capabilities with hands-on technical execution. The differentiator: a RAG-powered AI chatbot that can answer questions about my experience, skills, and case studies.
 
 ---
 
 ## Approach & Key Decisions
 
-### Architecture Decision: Chat-First Interface
-Instead of a traditional portfolio layout, the homepage IS the chat interface. Visitors land directly in a conversational experience.
+### Chat-First Interface
+The homepage IS the chat interface. Visitors land directly in a conversation with an AI that knows everything about me. This forces the AI implementation to be excellent—it's the first thing people see.
 
-**Options Considered:**
-1. Traditional layout with chatbot in corner widget
-2. Separate chat page linked from navigation
-3. Chat-first: homepage IS the conversation
-
-**Why Chat-First:**
-- Immediate differentiation from other portfolios
-- Forces the AI to be good (it's the first thing visitors see)
-- Demonstrates confidence in the technical implementation
-
-### Message-Based Architecture
-All content (intro text, navigation, user messages, bot responses) rendered as chat messages. This unified approach enables:
-- Sequential typing animations
-- Consistent styling and behavior
-- Smooth transitions between static and dynamic content
+### Design
+Minimalist aesthetic with subtle pixel-art elements from CatchIT! project. Clean typography, professional colors, focused on content over decoration.
 
 ---
 
-## Execution
+## RAG System Architecture
 
-### Sequential Typing Animation
-Built a sophisticated typing animation system that reveals intro messages one by one:
+### Vector Database Setup
+PostgreSQL with pgvector extension for storing and searching embeddings:
+- Created schema with `embedding vector(1536)` column for OpenAI embeddings
+- Implemented cosine similarity search using `<=>` operator
+- Connection pooling for efficient database access
 
-**Technical challenges solved:**
-- **Layout shifts:** Split intro into 5 separate messages to prevent text "resizing" during animation
-- **Animation loops:** Fixed infinite re-render bug by using refs for callbacks instead of effect dependencies
-- **Scroll coordination:** Added onTypingUpdate callback that fires on each character for smooth auto-scroll
+### Content Embedding Pipeline
+Built a complete pipeline to vectorize portfolio content:
 
-### React Hooks Architecture
-Custom `useTypingAnimation` hook with careful attention to React patterns:
-```typescript
-// Used refs to avoid triggering effects when callbacks change
-const onCompleteRef = useRef(onComplete);
-onCompleteRef.current = onComplete;
+1. **Content Loader** - Recursively loads markdown files from content directory
+2. **Chunker** - Splits content into semantic chunks (max 500 tokens) preserving context
+3. **Embedding Generator** - OpenAI text-embedding-3-small (1536 dimensions)
+4. **Storage** - Chunks stored with metadata (source, title, content type)
 
-// Animation ID tracking to prevent stale callbacks
-const animationIdRef = useRef(0);
-```
+### Retrieval-Augmented Generation
+The chat API combines semantic search with Claude:
+1. User query → embed with OpenAI
+2. Vector similarity search → top 5 relevant chunks
+3. Inject retrieved context into Claude prompt
+4. Stream response back to user with source attribution
 
-### Intersection Observer for Sticky Navigation
-When the inline navigation links scroll out of view, a sticky header appears. Implementation required:
-- Re-running observer when nav-links message becomes visible (sequential animation)
-- Proper cleanup to prevent memory leaks
-- Root margin tuning for smooth transition
+---
 
-### RAG Chatbot Implementation
-- **Embedding:** OpenAI text-embedding-3-small for content vectorization
-- **Storage:** PostgreSQL + pgvector for similarity search
-- **Retrieval:** Cosine similarity search with configurable threshold
-- **Generation:** Claude API with retrieved context injection
+## Development Process: Claude Code + Ralph Wiggum
 
-### Test-Driven Development
-201 tests covering:
-- Component rendering and accessibility
-- Hook behavior and state management
-- API routes and error handling
-- Animation timing and callbacks
+### Agent-Based Development
+Used Claude Code with specialized agents orchestrated through a structured workflow:
+
+| Agent | Purpose |
+|-------|---------|
+| **planner** | Creates implementation plans for each phase |
+| **architect** | Validates technical decisions and patterns |
+| **tdd-guide** | Writes tests FIRST before implementation |
+| **code-reviewer** | Reviews all code before commit |
+| **security-reviewer** | Audits API routes and data handling |
+
+### Ralph Wiggum Process
+Autonomous development loop that dramatically accelerated delivery:
+- Agent works through implementation plan autonomously
+- Runs tests, fixes issues, iterates without manual intervention
+- Human reviews at phase completion, not every step
+- Completed 8 phases in a single day
+
+### Workflow Rules
+Strict gates ensured quality:
+- No code written without tests first (TDD)
+- No commits without code review approval
+- Security review required for all API endpoints
+- Documentation updated at each phase completion
 
 ---
 
 ## Results & Impact
 
-| Metric | Value | Description |
-|--------|-------|-------------|
-| Test Coverage | 201 tests | Comprehensive TDD approach |
-| Content Chunks | 25 | Embedded in vector database |
-| Phases Completed | 8/13 | Ahead of schedule |
-| Animation States | 5 | Sequential intro messages |
+| Metric | Value |
+|--------|-------|
+| Content Chunks | 25 embedded in vector DB |
+| Test Coverage | 201 tests passing |
+| Development Speed | 8 phases in 1 day |
+| RAG Response Time | < 2 seconds |
 
-### Technical Learnings
-- **React effects are tricky:** Callback dependencies in useEffect can cause infinite loops; refs are the solution
-- **Animation UX matters:** Small delays between messages (200ms) feel more natural than instant reveals
-- **Intersection Observer gotchas:** Must re-observe when target elements are dynamically added
+### What Made This Work
+- **Structured phases** - Clear boundaries and deliverables
+- **Agent specialization** - Right tool for each task
+- **Autonomous loops** - Ralph Wiggum reduced manual overhead
+- **Quality gates** - TDD + reviews caught issues early
+
+---
+
+## Tech Stack
+
+- **Frontend:** Next.js 14, TypeScript, Tailwind CSS
+- **Database:** PostgreSQL + pgvector
+- **AI:** Claude API (generation), OpenAI (embeddings)
+- **Development:** Claude Code, specialized agents, Ralph Wiggum
+
+---
+
+## Skills Demonstrated
+
+- [x] RAG system design and implementation
+- [x] Vector database architecture (pgvector)
+- [x] AI/ML pipeline development
+- [x] Agent-based development workflows
+- [x] Autonomous development process design
+- [x] TDD with comprehensive test coverage
+- [x] Product thinking with technical execution
 
 ---
 
 ## Artifacts
 
 - [GitHub Repository](https://github.com/itsamimario/Portfolio)
-- Live site: [Coming soon]
-
----
-
-## Tech Stack
-
-Next.js 14, TypeScript, Tailwind CSS, PostgreSQL, pgvector, Claude API, OpenAI Embeddings
-
----
-
-## Skills Demonstrated
-
-- [x] Product thinking - Chat-first UX as differentiator
-- [x] Architecture decisions - Message-based unified content model
-- [x] TypeScript/React - Custom hooks, refs, effect management
-- [x] RAG implementation - Embeddings, vector search, Claude integration
-- [x] Debugging complex bugs - Animation loop fix via ref pattern
-- [x] TDD discipline - 201 tests, comprehensive coverage
-- [x] UX polish - Sequential animations, sticky nav, cursor behavior
