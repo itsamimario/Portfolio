@@ -13,7 +13,7 @@ import { MessageList } from './MessageList';
 import { NavigationLinks } from './NavigationLinks';
 
 // IDs of intro messages that should animate sequentially
-const INTRO_MESSAGE_IDS = ['intro-1', 'intro-2', 'nav-links'];
+const INTRO_MESSAGE_IDS = ['intro-hi', 'intro-name', 'intro-title', 'intro-description', 'nav-links'];
 
 /**
  * Main chat container that orchestrates all chat components

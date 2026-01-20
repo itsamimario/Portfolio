@@ -81,49 +81,58 @@ export function MessageBubble({ message, onTypingComplete }: MessageBubbleProps)
     onTypingComplete
   );
 
-  // Intro variant - handles both title block and description text
+  // Intro variant - each line is a separate message for smooth animation
   if (variant === 'intro') {
     const text = shouldAnimate ? displayedText : message.content;
-    const hasNewlines = message.content.includes('\n');
 
-    // Title block (Hi!, I'm Mario Bennekers, Product Manager)
-    if (hasNewlines) {
-      const lines = text.split('\n');
+    // Determine styling based on message ID
+    // intro-hi: "Hi!" - 2 levels smaller
+    if (message.id === 'intro-hi') {
       return (
         <div className="w-full font-pixel text-black">
-          {lines.map((line, idx) => {
-            // "Hi!" line - 2 levels smaller
-            if (line === 'Hi!' || line.startsWith('Hi!')) {
-              return (
-                <div key={idx} className="text-2xl md:text-3xl">
-                  {line}
-                </div>
-              );
-            }
-            // "I'm Mario Bennekers" line - main size, bold name
-            if (line.includes('Mario Bennekers')) {
-              const parts = line.split('Mario Bennekers');
-              return (
-                <div key={idx} className="text-4xl md:text-5xl">
-                  {parts[0]}<span className="font-bold">Mario Bennekers</span>{parts[1] || ''}
-                </div>
-              );
-            }
-            // "Product Manager" line - 1 level smaller
-            if (line === 'Product Manager' || line.includes('Product Manager')) {
-              return (
-                <div key={idx} className="text-3xl md:text-4xl">
-                  {line}
-                </div>
-              );
-            }
-            // Other title lines - default size
-            return (
-              <div key={idx} className="text-4xl md:text-5xl">
-                {line}
-              </div>
-            );
-          })}
+          <div className="text-2xl md:text-3xl inline">
+            {text}
+          </div>
+          {shouldAnimate && !isComplete && (
+            <span className="inline-block w-2 h-5 bg-black ml-1 animate-pulse align-middle" />
+          )}
+        </div>
+      );
+    }
+
+    // intro-name: "I'm Mario Bennekers" - main size, bold name
+    if (message.id === 'intro-name') {
+      // Handle typing animation - only bold when full name is visible
+      const fullName = 'Mario Bennekers';
+      const hasFullName = text.includes(fullName);
+
+      return (
+        <div className="w-full font-pixel text-black">
+          <div className="text-4xl md:text-5xl inline">
+            {hasFullName ? (
+              <>
+                {text.split(fullName)[0]}
+                <span className="font-bold">{fullName}</span>
+                {text.split(fullName)[1] || ''}
+              </>
+            ) : (
+              text
+            )}
+          </div>
+          {shouldAnimate && !isComplete && (
+            <span className="inline-block w-3 h-8 bg-black ml-1 animate-pulse align-middle" />
+          )}
+        </div>
+      );
+    }
+
+    // intro-title: "Product Manager" - 1 level smaller
+    if (message.id === 'intro-title') {
+      return (
+        <div className="w-full font-pixel text-black">
+          <div className="text-3xl md:text-4xl inline">
+            {text}
+          </div>
           {shouldAnimate && !isComplete && (
             <span className="inline-block w-3 h-6 bg-black ml-1 animate-pulse align-middle" />
           )}
@@ -131,7 +140,7 @@ export function MessageBubble({ message, onTypingComplete }: MessageBubbleProps)
       );
     }
 
-    // Description text (single line intro, no $ prefix)
+    // intro-description: Description text - smaller body text
     return (
       <div className="w-full font-pixel text-black">
         <p className="text-lg md:text-xl inline">

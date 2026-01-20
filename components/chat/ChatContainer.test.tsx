@@ -29,20 +29,36 @@ const mockClearMessages = jest.fn();
 const createMockUseChatReturn = (overrides = {}) => ({
   messages: [
     {
-      id: 'intro-1',
+      id: 'intro-hi',
       role: 'assistant' as const,
-      content: "Hi!\nI'm Mario Bennekers\nProduct Manager",
+      content: "Hi!",
       timestamp: new Date(),
       variant: 'intro' as const,
-      isTyping: false, // Already complete in tests
+      isTyping: false,
     },
     {
-      id: 'intro-2',
+      id: 'intro-name',
+      role: 'assistant' as const,
+      content: "I'm Mario Bennekers",
+      timestamp: new Date(),
+      variant: 'intro' as const,
+      isTyping: false,
+    },
+    {
+      id: 'intro-title',
+      role: 'assistant' as const,
+      content: "Product Manager",
+      timestamp: new Date(),
+      variant: 'intro' as const,
+      isTyping: false,
+    },
+    {
+      id: 'intro-description',
       role: 'assistant' as const,
       content: "This is my portfolio, feel free to navigate through it or ask directly any question about myself.",
       timestamp: new Date(),
       variant: 'intro' as const,
-      isTyping: false, // Already complete in tests
+      isTyping: false,
     },
     {
       id: 'nav-links',
@@ -50,7 +66,7 @@ const createMockUseChatReturn = (overrides = {}) => ({
       content: "Or navigate directly to:",
       timestamp: new Date(),
       variant: 'nav-links' as const,
-      isTyping: false, // Already complete in tests
+      isTyping: false,
     },
   ],
   isLoading: false,

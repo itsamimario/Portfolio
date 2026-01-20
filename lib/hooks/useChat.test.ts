@@ -20,11 +20,13 @@ describe('useChat hook', () => {
     it('has initial intro messages', () => {
       const { result } = renderHook(() => useChat());
 
-      // Should have 3 initial messages (intro-1, intro-2, nav-links)
-      expect(result.current.messages.length).toBe(3);
-      expect(result.current.messages[0].id).toBe('intro-1');
-      expect(result.current.messages[1].id).toBe('intro-2');
-      expect(result.current.messages[2].id).toBe('nav-links');
+      // Should have 5 initial messages (intro-hi, intro-name, intro-title, intro-description, nav-links)
+      expect(result.current.messages.length).toBe(5);
+      expect(result.current.messages[0].id).toBe('intro-hi');
+      expect(result.current.messages[1].id).toBe('intro-name');
+      expect(result.current.messages[2].id).toBe('intro-title');
+      expect(result.current.messages[3].id).toBe('intro-description');
+      expect(result.current.messages[4].id).toBe('nav-links');
     });
 
     it('has isLoading false initially', () => {
@@ -285,15 +287,15 @@ describe('useChat hook', () => {
       });
 
       // Should have more than initial messages
-      expect(result.current.messages.length).toBeGreaterThan(3);
+      expect(result.current.messages.length).toBeGreaterThan(5);
 
       act(() => {
         result.current.clearMessages();
       });
 
-      // Should reset to initial 3 messages
-      expect(result.current.messages.length).toBe(3);
-      expect(result.current.messages[0].id).toBe('intro-1');
+      // Should reset to initial 5 messages
+      expect(result.current.messages.length).toBe(5);
+      expect(result.current.messages[0].id).toBe('intro-hi');
     });
 
     it('clears error state', async () => {

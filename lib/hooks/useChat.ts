@@ -8,22 +8,39 @@ import type { ChatMessage, UseChatReturn } from '@/types/chat-ui';
 
 /**
  * Initial greeting messages that appear when chat loads
+ * Each line is a separate message to avoid layout shifts during typing animation
  */
 const INITIAL_MESSAGES: ChatMessage[] = [
   {
-    id: 'intro-1',
+    id: 'intro-hi',
     role: 'assistant',
-    content: "Hi!\nI'm Mario Bennekers\nProduct Manager",
+    content: "Hi!",
     timestamp: new Date(),
     variant: 'intro',
     isTyping: true,
   },
   {
-    id: 'intro-2',
+    id: 'intro-name',
+    role: 'assistant',
+    content: "I'm Mario Bennekers",
+    timestamp: new Date(),
+    variant: 'intro',
+    isTyping: true,
+  },
+  {
+    id: 'intro-title',
+    role: 'assistant',
+    content: "Product Manager",
+    timestamp: new Date(),
+    variant: 'intro',
+    isTyping: true,
+  },
+  {
+    id: 'intro-description',
     role: 'assistant',
     content: "This is my portfolio, feel free to navigate through it or ask directly any question about myself.",
     timestamp: new Date(),
-    variant: 'intro', // Part of intro - no $ prefix
+    variant: 'intro',
     isTyping: true,
   },
   {
@@ -32,7 +49,7 @@ const INITIAL_MESSAGES: ChatMessage[] = [
     content: "Or navigate directly to:",
     timestamp: new Date(),
     variant: 'nav-links',
-    isTyping: true, // Nav links text types, then links appear
+    isTyping: true,
   },
 ];
 
