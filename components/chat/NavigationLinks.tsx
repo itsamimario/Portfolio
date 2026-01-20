@@ -14,30 +14,29 @@ import type { NavigationLinksProps } from '@/types/chat-ui';
 export function NavigationLinks({
   isSticky = false,
 }: NavigationLinksProps): JSX.Element {
-  const stickyClasses = isSticky
-    ? 'sticky top-0 bg-white border-b border-black z-10'
-    : '';
+  // Sticky header: add left padding to align with message content
+  const stickyClasses = isSticky ? 'pl-4' : '';
 
   return (
     <nav
       aria-label="Portfolio navigation"
-      className={`flex gap-6 py-3 font-pixel text-black text-lg ${stickyClasses}`}
+      className={`flex gap-6 py-3 font-pixel text-lg ${stickyClasses}`}
     >
       <a
         href="/about"
-        className="hover:underline focus:outline-none focus:underline"
+        className="text-blue-600 underline hover:text-blue-800 focus:outline-none"
       >
         About
       </a>
       <a
         href="/case-studies"
-        className="hover:underline focus:outline-none focus:underline"
+        className="text-blue-600 underline hover:text-blue-800 focus:outline-none"
       >
         Case Studies
       </a>
       <a
         href="/playbook"
-        className="hover:underline focus:outline-none focus:underline"
+        className="text-blue-600 underline hover:text-blue-800 focus:outline-none"
       >
         Product Playbook
       </a>

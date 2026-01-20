@@ -15,8 +15,9 @@ import { MessageBubble } from './MessageBubble';
  * @param messages - Array of chat messages to display
  * @param navLinksRef - Optional ref for the nav-links message (for intersection observer)
  * @param onTypingComplete - Callback when a message finishes typing animation
+ * @param onTypingUpdate - Callback during typing animation for scroll updates
  */
-export function MessageList({ messages, navLinksRef, onTypingComplete }: MessageListProps): JSX.Element {
+export function MessageList({ messages, navLinksRef, onTypingComplete, onTypingUpdate }: MessageListProps): JSX.Element {
   return (
     <div
       role="log"
@@ -33,7 +34,11 @@ export function MessageList({ messages, navLinksRef, onTypingComplete }: Message
         if (message.variant === 'nav-links' && navLinksRef) {
           return (
             <div key={message.id} ref={navLinksRef}>
-              <MessageBubble message={message} onTypingComplete={handleTypingComplete} />
+              <MessageBubble
+                message={message}
+                onTypingComplete={handleTypingComplete}
+                onTypingUpdate={message.isTyping ? onTypingUpdate : undefined}
+              />
             </div>
           );
         }
@@ -42,6 +47,7 @@ export function MessageList({ messages, navLinksRef, onTypingComplete }: Message
             key={message.id}
             message={message}
             onTypingComplete={handleTypingComplete}
+            onTypingUpdate={message.isTyping ? onTypingUpdate : undefined}
           />
         );
       })}

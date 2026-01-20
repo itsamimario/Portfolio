@@ -36,6 +36,11 @@ export function ChatContainer({}: ChatContainerProps): JSX.Element {
   // Track which intro messages have completed typing
   const [completedIntroIds, setCompletedIntroIds] = useState<Set<string>>(new Set());
 
+  // Scroll to bottom during typing animation
+  const handleTypingUpdate = useCallback(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, []);
+
   // Handle typing completion for intro messages
   const handleTypingComplete = useCallback((messageId: string) => {
     // Track completed message
@@ -117,7 +122,7 @@ export function ChatContainer({}: ChatContainerProps): JSX.Element {
 
       {/* Sticky Navigation - appears when inline nav scrolls out of view */}
       {showStickyNav && (
-        <div className="sticky top-0 z-10 bg-white border-b border-black">
+        <div className="sticky top-0 z-10 bg-white">
           <NavigationLinks isSticky={true} />
         </div>
       )}
@@ -128,6 +133,7 @@ export function ChatContainer({}: ChatContainerProps): JSX.Element {
           messages={visibleMessages}
           navLinksRef={navLinksRef}
           onTypingComplete={handleTypingComplete}
+          onTypingUpdate={handleTypingUpdate}
         />
 
         {/* Loading indicator */}

@@ -16,13 +16,16 @@ function useTypingAnimation(
   content: string,
   enabled: boolean,
   speed: number = 20,
-  onComplete?: () => void
+  onComplete?: () => void,
+  onUpdate?: () => void
 ) {
   const [displayedText, setDisplayedText] = useState(enabled ? '' : content);
   const [isComplete, setIsComplete] = useState(!enabled);
-  // Use ref for callback to avoid re-triggering effect when callback changes
+  // Use refs for callbacks to avoid re-triggering effect when they change
   const onCompleteRef = useRef(onComplete);
   onCompleteRef.current = onComplete;
+  const onUpdateRef = useRef(onUpdate);
+  onUpdateRef.current = onUpdate;
   // Track if this specific animation run has completed
   const animationIdRef = useRef(0);
 
@@ -45,6 +48,10 @@ function useTypingAnimation(
       if (index < content.length) {
         setDisplayedText(content.slice(0, index + 1));
         index++;
+        // Call onUpdate to trigger scroll during typing
+        if (onUpdateRef.current) {
+          onUpdateRef.current();
+        }
       } else {
         setIsComplete(true);
         clearInterval(timer);
@@ -56,7 +63,7 @@ function useTypingAnimation(
     }, speed);
 
     return () => clearInterval(timer);
-  }, [content, enabled, speed]); // Removed onComplete from deps
+  }, [content, enabled, speed]); // Callbacks accessed via refs
 
   return { displayedText, isComplete };
 }
@@ -71,7 +78,7 @@ function useTypingAnimation(
  * - Typing animation for assistant messages
  * - Special variants: 'intro' for big text, 'nav-links' for navigation
  */
-export function MessageBubble({ message, onTypingComplete }: MessageBubbleProps): JSX.Element {
+export function MessageBubble({ message, onTypingComplete, onTypingUpdate }: MessageBubbleProps): JSX.Element {
   const isUser = message.role === 'user';
   const variant = message.variant || 'regular';
   const shouldAnimate = !isUser && message.isTyping;
@@ -80,7 +87,8 @@ export function MessageBubble({ message, onTypingComplete }: MessageBubbleProps)
     message.content,
     shouldAnimate || false,
     variant === 'intro' ? 30 : 15,
-    onTypingComplete
+    onTypingComplete,
+    onTypingUpdate
   );
 
   // Intro variant - each line is a separate message for smooth animation

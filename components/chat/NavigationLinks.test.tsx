@@ -46,41 +46,28 @@ describe('NavigationLinks', () => {
   });
 
   describe('sticky behavior', () => {
-    it('applies sticky styles when isSticky is true', () => {
+    // Note: sticky positioning is handled by parent container (ChatContainer)
+    // NavigationLinks only adds padding when isSticky for alignment
+
+    it('applies left padding when isSticky is true', () => {
       const { container } = render(<NavigationLinks isSticky={true} />);
 
       const nav = container.querySelector('nav');
-      expect(nav).toHaveClass('sticky');
-      expect(nav).toHaveClass('top-0');
+      expect(nav?.className).toMatch(/pl-/);
     });
 
-    it('does not apply sticky styles when isSticky is false', () => {
+    it('does not apply extra padding when isSticky is false', () => {
       const { container } = render(<NavigationLinks isSticky={false} />);
 
       const nav = container.querySelector('nav');
-      expect(nav).not.toHaveClass('sticky');
+      expect(nav).not.toHaveClass('pl-4');
     });
 
-    it('defaults to non-sticky when prop is not provided', () => {
+    it('defaults to non-sticky styling when prop is not provided', () => {
       const { container } = render(<NavigationLinks />);
 
       const nav = container.querySelector('nav');
-      expect(nav).not.toHaveClass('sticky');
-    });
-
-    it('applies background and border when sticky', () => {
-      const { container } = render(<NavigationLinks isSticky={true} />);
-
-      const nav = container.querySelector('nav');
-      expect(nav).toHaveClass('bg-white');
-      expect(nav?.className).toMatch(/border-b/);
-    });
-
-    it('applies z-index when sticky', () => {
-      const { container } = render(<NavigationLinks isSticky={true} />);
-
-      const nav = container.querySelector('nav');
-      expect(nav?.className).toMatch(/z-/);
+      expect(nav).not.toHaveClass('pl-4');
     });
   });
 
