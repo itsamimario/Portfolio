@@ -9,6 +9,30 @@
 ## 🎯 Project Goal
 Build a professional minimalist portfolio to land a Product Manager role, featuring a RAG chatbot as the star differentiator.
 
+## 🏠 Homepage Design (Chat-First)
+The homepage IS the chat interface. Visitors land directly in a conversational experience.
+
+**Initial State:**
+```
+Hi! I'm Mario Bennekers, Product Manager
+
+This is my portfolio, feel free to navigate through it
+or ask directly any question about myself.
+
+Or you can navigate directly to:
+About    Case Studies    Product Playbook    ← Plain text links (no borders)
+
+┌─────────────────────────────────────────┐
+│ Ask me anything...                      │  ← Chat input
+└─────────────────────────────────────────┘
+```
+
+**After User Sends Message:**
+- Intro text fades out
+- Navigation links become sticky header at top
+- Messages appear in scrollable area above input
+- Input stays at bottom
+
 ## ✅ Completed (Days 1-3)
 
 ### Setup & Infrastructure
@@ -20,10 +44,9 @@ Build a professional minimalist portfolio to land a Product Manager role, featur
 - ✅ Environment variables template (.env.example)
 
 ### Content Sections Built
-- ✅ **Hero Section**: Name with pixel-art font, tagline, 2 CTAs (AI assistant, Case Studies)
-- ✅ **About Section**: Intro, Background (education, experience, current role, languages), What I do, Key strengths
-- ✅ **Skills Section**: Product Management skills, Technical skills (Frontend/Backend/AI/Design/Tools), Languages badges
-- ✅ **Footer**: Basic copyright and tech stack
+- ✅ **Homepage**: Chat-first interface with terminal-style intro
+- ✅ **About Page**: Full portfolio (Hero, About, Skills, Case Studies, Footer)
+- ✅ **Case Study Pages**: Dynamic routes for detailed case studies
 
 ## ✅ Recently Completed
 
@@ -66,7 +89,7 @@ Build a professional minimalist portfolio to land a Product Manager role, featur
 - ✅ 25 content chunks embedded in PostgreSQL database
 - ✅ All tests passing
 
-### Phase 6: Chat API (PR #6 - IN PROGRESS)
+### Phase 6: Chat API (PR #6 - MERGED ✅)
 - ✅ Created `types/chat.ts` - Chat request/response types
 - ✅ Created `lib/chat.ts` - RAG chat service (search + Claude integration)
 - ✅ Created `app/api/chat/route.ts` - Next.js API endpoint
@@ -76,10 +99,14 @@ Build a professional minimalist portfolio to land a Product Manager role, featur
 
 ## 🚧 Next Steps
 
-### Priority 1: Phase 7 - Chat UI
-- [ ] Build Chat UI component
-- [ ] Add example questions UI
-- [ ] Integration with chat API
+### Priority 1: Phase 7 - Chat UI (Homepage Integration)
+- [ ] Enable chat input on homepage (currently disabled)
+- [ ] Add navigation text links above input (About, Case Studies, Product Playbook)
+- [ ] Add message list component (user/assistant bubbles)
+- [ ] Implement sticky navigation when chatting
+- [ ] Connect to `/api/chat` endpoint
+- [ ] Add loading states and error handling
+- [ ] Mobile responsive
 
 ### Priority 3: Product Playbook (Days 13-14)
 - [ ] Vision & Alignment section
@@ -101,18 +128,30 @@ Build a professional minimalist portfolio to land a Product Manager role, featur
 ```
 /Users/mbennekers/Code/Portfolio/
 ├── app/
-│   ├── layout.tsx          # Root layout with fonts
-│   ├── page.tsx            # Home page (Hero, About, Skills)
-│   └── globals.css         # Global styles + Tailwind
-├── components/             # React components (to be built)
-├── lib/                    # Utilities (to be built)
-├── types/                  # TypeScript types (to be built)
-├── public/
-│   └── fonts/
-│       ├── Catchifont-regular.ttf
-│       └── Catchifont-bold.ttf
-├── SPEC.md                 # Complete technical specification
-└── README.md              # Project documentation
+│   ├── layout.tsx              # Root layout with fonts
+│   ├── page.tsx                # Homepage (chat-first interface)
+│   ├── about/page.tsx          # About page (full portfolio)
+│   ├── case-studies/[id]/      # Dynamic case study pages
+│   └── api/chat/route.ts       # RAG chatbot API endpoint ✅
+├── components/
+│   ├── TerminalText.tsx        # Animated intro text ✅
+│   ├── CaseStudies.tsx         # Case studies grid ✅
+│   └── CaseStudy.tsx           # Individual case study ✅
+├── lib/
+│   ├── db.ts                   # Database connection ✅
+│   ├── chat.ts                 # Chat service (RAG) ✅
+│   ├── openai-embeddings.ts    # Embedding generation ✅
+│   ├── content-loader.ts       # Content loading ✅
+│   └── chunker.ts              # Text chunking ✅
+├── types/
+│   ├── chat.ts                 # Chat types ✅
+│   ├── content.ts              # Content types ✅
+│   └── embeddings.ts           # Embedding types ✅
+├── content/                    # Markdown content for RAG ✅
+├── scripts/embed-content.ts    # Embedding CLI ✅
+├── db/schema.sql               # Database schema ✅
+├── SPEC.md                     # Complete technical specification
+└── README.md                   # Project documentation
 ```
 
 ## 🛠️ Tech Stack
@@ -186,7 +225,6 @@ Build a professional minimalist portfolio to land a Product Manager role, featur
 - All changes tracked via PRs: https://github.com/itsamimario/Portfolio/pulls
 
 **Current Focus:**
-- ✅ Phase 5 merged into main (Content Embedding)
-- ✅ Phase 6 complete (Chat API) - PR ready
-- 🔄 Next: Phase 7 - Chat UI
+- ✅ Phase 6 merged into main (Chat API)
+- 🔄 Next: Phase 7 - Chat UI (Homepage Integration)
 - Progress: 6/13 phases complete
