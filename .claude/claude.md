@@ -97,7 +97,7 @@ About    Case Studies    Product Playbook    ← Plain text links (no borders)
 - ✅ Code review approved
 - ✅ Security review approved
 
-### Phase 7: Chat UI (PR #7 - IN PROGRESS)
+### Phase 7: Chat UI (PR #7 - MERGED ✅)
 - ✅ Created `types/chat-ui.ts` - Chat UI type definitions
 - ✅ Created `lib/hooks/useChat.ts` - Custom hook for chat state management
 - ✅ Created `components/chat/ChatInput.tsx` - Input with send button
@@ -112,11 +112,12 @@ About    Case Studies    Product Playbook    ← Plain text links (no borders)
 - ✅ Code review approved
 - ✅ Security review approved
 
-## 🚧 Next Steps
+### Phase 7b: Homepage Integration (PR #8 - IN PROGRESS)
+- ✅ Integrated ChatContainer on homepage
+- ✅ Full chat experience now live
+- ✅ All tests passing, build successful
 
-### Priority 1: Integrate ChatContainer on Homepage
-- [ ] Replace current homepage content with ChatContainer
-- [ ] Test full chat flow end-to-end
+## 🚧 Next Steps
 
 ### Priority 3: Product Playbook (Days 13-14)
 - [ ] Vision & Alignment section
