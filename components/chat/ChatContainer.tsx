@@ -95,6 +95,7 @@ export function ChatContainer({}: ChatContainerProps): JSX.Element {
   }, [visibleMessages]);
 
   // Intersection observer to show/hide sticky nav
+  // Re-run when visibleIntroCount changes (nav-links appears last in sequence)
   useEffect(() => {
     if (!navLinksRef.current) return;
 
@@ -108,7 +109,7 @@ export function ChatContainer({}: ChatContainerProps): JSX.Element {
 
     observer.observe(navLinksRef.current);
     return () => observer.disconnect();
-  }, []);
+  }, [visibleIntroCount]); // Re-run when new messages are revealed
 
   return (
     <main className="flex flex-col max-w-3xl mx-auto min-h-screen">
