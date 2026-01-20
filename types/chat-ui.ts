@@ -45,6 +45,7 @@ export interface UseChatReturn extends UseChatState {
  */
 export interface MessageBubbleProps {
   message: ChatMessage;
+  onTypingComplete?: () => void;
 }
 
 /**
@@ -54,6 +55,7 @@ export interface ChatInputProps {
   onSend: (message: string) => void;
   disabled?: boolean;
   placeholder?: string;
+  showCursor?: boolean;
 }
 
 /**
@@ -69,6 +71,7 @@ export interface NavigationLinksProps {
 export interface MessageListProps {
   messages: ChatMessage[];
   navLinksRef?: React.RefObject<HTMLDivElement>;
+  onTypingComplete?: (messageId: string) => void;
 }
 
 /**

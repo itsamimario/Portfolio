@@ -24,6 +24,8 @@ const mockSendMessage = jest.fn();
 const mockClearMessages = jest.fn();
 
 // Default mock return with initial messages
+// Note: All intro messages have isTyping: false for tests so they render immediately
+// In production, they animate sequentially with isTyping: true
 const createMockUseChatReturn = (overrides = {}) => ({
   messages: [
     {
@@ -32,7 +34,7 @@ const createMockUseChatReturn = (overrides = {}) => ({
       content: "Hi!\nI'm Mario Bennekers\nProduct Manager",
       timestamp: new Date(),
       variant: 'intro' as const,
-      isTyping: false,
+      isTyping: false, // Already complete in tests
     },
     {
       id: 'intro-2',
@@ -40,7 +42,7 @@ const createMockUseChatReturn = (overrides = {}) => ({
       content: "This is my portfolio, feel free to navigate through it or ask directly any question about myself.",
       timestamp: new Date(),
       variant: 'intro' as const,
-      isTyping: false,
+      isTyping: false, // Already complete in tests
     },
     {
       id: 'nav-links',
@@ -48,7 +50,7 @@ const createMockUseChatReturn = (overrides = {}) => ({
       content: "Or navigate directly to:",
       timestamp: new Date(),
       variant: 'nav-links' as const,
-      isTyping: false,
+      isTyping: false, // Already complete in tests
     },
   ],
   isLoading: false,

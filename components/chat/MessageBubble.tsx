@@ -5,26 +5,38 @@
 
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import type { MessageBubbleProps } from '@/types/chat-ui';
 
 /**
  * Typing animation hook for assistant messages
  */
-function useTypingAnimation(content: string, enabled: boolean, speed: number = 20) {
+function useTypingAnimation(
+  content: string,
+  enabled: boolean,
+  speed: number = 20,
+  onComplete?: () => void
+) {
   const [displayedText, setDisplayedText] = useState(enabled ? '' : content);
   const [isComplete, setIsComplete] = useState(!enabled);
+  const hasCalledComplete = useRef(false);
 
   useEffect(() => {
     if (!enabled) {
       setDisplayedText(content);
       setIsComplete(true);
+      if (!hasCalledComplete.current && onComplete) {
+        hasCalledComplete.current = true;
+        // Small delay to ensure render completes
+        setTimeout(onComplete, 50);
+      }
       return;
     }
 
     setDisplayedText('');
     setIsComplete(false);
+    hasCalledComplete.current = false;
     let index = 0;
 
     const timer = setInterval(() => {
@@ -34,11 +46,15 @@ function useTypingAnimation(content: string, enabled: boolean, speed: number = 2
       } else {
         setIsComplete(true);
         clearInterval(timer);
+        if (!hasCalledComplete.current && onComplete) {
+          hasCalledComplete.current = true;
+          onComplete();
+        }
       }
     }, speed);
 
     return () => clearInterval(timer);
-  }, [content, enabled, speed]);
+  }, [content, enabled, speed, onComplete]);
 
   return { displayedText, isComplete };
 }
@@ -53,7 +69,7 @@ function useTypingAnimation(content: string, enabled: boolean, speed: number = 2
  * - Typing animation for assistant messages
  * - Special variants: 'intro' for big text, 'nav-links' for navigation
  */
-export function MessageBubble({ message }: MessageBubbleProps): JSX.Element {
+export function MessageBubble({ message, onTypingComplete }: MessageBubbleProps): JSX.Element {
   const isUser = message.role === 'user';
   const variant = message.variant || 'regular';
   const shouldAnimate = !isUser && message.isTyping;
@@ -61,7 +77,8 @@ export function MessageBubble({ message }: MessageBubbleProps): JSX.Element {
   const { displayedText, isComplete } = useTypingAnimation(
     message.content,
     shouldAnimate || false,
-    variant === 'intro' ? 30 : 15
+    variant === 'intro' ? 30 : 15,
+    onTypingComplete
   );
 
   // Intro variant - handles both title block and description text
@@ -111,19 +128,19 @@ export function MessageBubble({ message }: MessageBubbleProps): JSX.Element {
     );
   }
 
-  // Nav-links variant - navigation links
+  // Nav-links variant - navigation links with classic blue underlined style
   if (variant === 'nav-links') {
     return (
       <div className="w-full font-pixel text-black">
         <div className="text-lg md:text-xl mb-4">{message.content}</div>
         <div className="flex gap-6 font-pixel text-lg">
-          <Link href="/about" className="hover:underline">
+          <Link href="/about" className="text-blue-600 underline hover:text-blue-800">
             About
           </Link>
-          <Link href="/case-studies" className="hover:underline">
+          <Link href="/case-studies" className="text-blue-600 underline hover:text-blue-800">
             Case Studies
           </Link>
-          <Link href="/playbook" className="hover:underline">
+          <Link href="/playbook" className="text-blue-600 underline hover:text-blue-800">
             Product Playbook
           </Link>
         </div>
