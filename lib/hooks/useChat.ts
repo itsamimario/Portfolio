@@ -7,12 +7,42 @@ import { useState, useCallback } from 'react';
 import type { ChatMessage, UseChatReturn } from '@/types/chat-ui';
 
 /**
+ * Initial greeting messages that appear when chat loads
+ */
+const INITIAL_MESSAGES: ChatMessage[] = [
+  {
+    id: 'intro-1',
+    role: 'assistant',
+    content: "Hi!\nI'm Mario Bennekers\nProduct Manager",
+    timestamp: new Date(),
+    variant: 'intro',
+    isTyping: true,
+  },
+  {
+    id: 'intro-2',
+    role: 'assistant',
+    content: "This is my portfolio, feel free to navigate through it or ask directly any question about myself.",
+    timestamp: new Date(),
+    variant: 'intro', // Part of intro - no $ prefix
+    isTyping: true,
+  },
+  {
+    id: 'nav-links',
+    role: 'assistant',
+    content: "Or navigate directly to:",
+    timestamp: new Date(),
+    variant: 'nav-links',
+    isTyping: false, // Nav links appear instantly
+  },
+];
+
+/**
  * Custom hook for managing chat state and interactions
  *
  * @returns Chat state and methods
  */
 export function useChat(): UseChatReturn {
-  const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const [messages, setMessages] = useState<ChatMessage[]>(INITIAL_MESSAGES);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -59,13 +89,14 @@ export function useChat(): UseChatReturn {
       // Generate unique ID for assistant message
       const assistantMessageId = `assistant-${Date.now()}-${Math.random().toString(36).substring(2, 11)}`;
 
-      // Add assistant response
+      // Add assistant response with typing animation
       const assistantMessage: ChatMessage = {
         id: assistantMessageId,
         role: 'assistant',
         content: data.answer,
         sources: data.sources,
         timestamp: new Date(),
+        isTyping: true,
       };
 
       setMessages((prev) => [...prev, assistantMessage]);
@@ -78,7 +109,7 @@ export function useChat(): UseChatReturn {
   }, []);
 
   const clearMessages = useCallback((): void => {
-    setMessages([]);
+    setMessages(INITIAL_MESSAGES);
     setError(null);
   }, []);
 

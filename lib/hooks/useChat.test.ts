@@ -1,7 +1,6 @@
 /**
  * Tests for useChat hook
- * TDD: Write tests FIRST before implementation
- * Phase 7: Chat UI
+ * Phase 7: Chat UI - Message-based architecture
  */
 
 import { renderHook, act, waitFor } from '@testing-library/react';
@@ -18,10 +17,14 @@ describe('useChat hook', () => {
   });
 
   describe('initial state', () => {
-    it('has empty messages array initially', () => {
+    it('has initial intro messages', () => {
       const { result } = renderHook(() => useChat());
 
-      expect(result.current.messages).toEqual([]);
+      // Should have 3 initial messages (intro-1, intro-2, nav-links)
+      expect(result.current.messages.length).toBe(3);
+      expect(result.current.messages[0].id).toBe('intro-1');
+      expect(result.current.messages[1].id).toBe('intro-2');
+      expect(result.current.messages[2].id).toBe('nav-links');
     });
 
     it('has isLoading false initially', () => {
@@ -61,17 +64,18 @@ describe('useChat hook', () => {
       });
 
       const { result } = renderHook(() => useChat());
+      const initialLength = result.current.messages.length;
 
       await act(async () => {
         result.current.sendMessage('Hello');
       });
 
-      // User message should be added immediately
-      const userMessage = result.current.messages.find(
+      // User message should be added after initial messages
+      const userMessages = result.current.messages.filter(
         (m) => m.role === 'user'
       );
-      expect(userMessage).toBeDefined();
-      expect(userMessage?.content).toBe('Hello');
+      expect(userMessages).toHaveLength(1);
+      expect(userMessages[0].content).toBe('Hello');
     });
 
     it('calls API with the message', async () => {
@@ -116,12 +120,13 @@ describe('useChat hook', () => {
       });
 
       await waitFor(() => {
-        const assistantMessage = result.current.messages.find(
-          (m) => m.role === 'assistant'
+        // Find the non-intro assistant message
+        const assistantResponses = result.current.messages.filter(
+          (m) => m.role === 'assistant' && !m.variant
         );
-        expect(assistantMessage).toBeDefined();
-        expect(assistantMessage?.content).toBe('I have 10 years of experience.');
-        expect(assistantMessage?.sources).toHaveLength(1);
+        expect(assistantResponses).toHaveLength(1);
+        expect(assistantResponses[0].content).toBe('I have 10 years of experience.');
+        expect(assistantResponses[0].sources).toHaveLength(1);
       });
     });
 
@@ -258,16 +263,16 @@ describe('useChat hook', () => {
         await result.current.sendMessage('My message');
       });
 
-      const userMessage = result.current.messages.find(
+      const userMessages = result.current.messages.filter(
         (m) => m.role === 'user'
       );
-      expect(userMessage).toBeDefined();
-      expect(userMessage?.content).toBe('My message');
+      expect(userMessages).toHaveLength(1);
+      expect(userMessages[0].content).toBe('My message');
     });
   });
 
   describe('clearMessages', () => {
-    it('clears all messages', async () => {
+    it('resets to initial messages', async () => {
       mockFetch.mockResolvedValueOnce({
         ok: true,
         json: () => Promise.resolve({ answer: 'Response', sources: [] }),
@@ -279,13 +284,16 @@ describe('useChat hook', () => {
         await result.current.sendMessage('Test');
       });
 
-      expect(result.current.messages.length).toBeGreaterThan(0);
+      // Should have more than initial messages
+      expect(result.current.messages.length).toBeGreaterThan(3);
 
       act(() => {
         result.current.clearMessages();
       });
 
-      expect(result.current.messages).toEqual([]);
+      // Should reset to initial 3 messages
+      expect(result.current.messages.length).toBe(3);
+      expect(result.current.messages[0].id).toBe('intro-1');
     });
 
     it('clears error state', async () => {
@@ -324,11 +332,11 @@ describe('useChat hook', () => {
         await result.current.sendMessage('Test');
       });
 
-      const userMessage = result.current.messages.find(
+      const userMessages = result.current.messages.filter(
         (m) => m.role === 'user'
       );
-      expect(userMessage?.timestamp).toBeInstanceOf(Date);
-      expect(userMessage?.timestamp.getTime()).toBeGreaterThanOrEqual(
+      expect(userMessages[0].timestamp).toBeInstanceOf(Date);
+      expect(userMessages[0].timestamp.getTime()).toBeGreaterThanOrEqual(
         beforeSend.getTime()
       );
     });
@@ -346,10 +354,10 @@ describe('useChat hook', () => {
       });
 
       await waitFor(() => {
-        const assistantMessage = result.current.messages.find(
-          (m) => m.role === 'assistant'
+        const assistantResponses = result.current.messages.filter(
+          (m) => m.role === 'assistant' && !m.variant
         );
-        expect(assistantMessage?.timestamp).toBeInstanceOf(Date);
+        expect(assistantResponses[0].timestamp).toBeInstanceOf(Date);
       });
     });
   });

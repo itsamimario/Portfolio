@@ -1,7 +1,6 @@
 /**
  * Tests for MessageList component
- * TDD: Write tests FIRST before implementation
- * Phase 7: Chat UI
+ * Phase 7: Chat UI - Message-based architecture
  */
 
 import { render, screen } from '@testing-library/react';
@@ -57,27 +56,10 @@ describe('MessageList', () => {
     });
   });
 
-  describe('scrolling behavior', () => {
-    it('has container with overflow-y scroll', () => {
-      const { container } = render(<MessageList messages={mockMessages} />);
-
-      const list = container.firstChild as HTMLElement;
-      expect(list.className).toMatch(/overflow-y/);
-    });
-
-    it('has max height for scrollable area', () => {
-      const { container } = render(<MessageList messages={mockMessages} />);
-
-      const list = container.firstChild as HTMLElement;
-      expect(list.className).toMatch(/max-h-|h-/);
-    });
-  });
-
   describe('accessibility', () => {
     it('uses semantic list structure', () => {
       const { container } = render(<MessageList messages={mockMessages} />);
 
-      // Could be a div with role="log" or similar
       const list = container.firstChild;
       expect(list).toHaveAttribute('role', 'log');
     });
@@ -104,12 +86,26 @@ describe('MessageList', () => {
       const list = container.firstChild as HTMLElement;
       expect(list.className).toMatch(/space-y-|gap-/);
     });
+  });
 
-    it('has padding for content', () => {
-      const { container } = render(<MessageList messages={mockMessages} />);
+  describe('nav-links variant', () => {
+    it('wraps nav-links message with ref when provided', () => {
+      const navLinksMessage: ChatMessage = {
+        id: 'nav-links',
+        role: 'assistant',
+        content: 'Or navigate directly to:',
+        timestamp: new Date(),
+        variant: 'nav-links',
+      };
 
-      const list = container.firstChild as HTMLElement;
-      expect(list.className).toMatch(/p-|px-|py-/);
+      const mockRef = { current: null };
+      const { container } = render(
+        <MessageList messages={[navLinksMessage]} navLinksRef={mockRef} />
+      );
+
+      // The nav-links message should be wrapped in a div
+      const wrapper = container.querySelector('[role="log"] > div');
+      expect(wrapper).toBeInTheDocument();
     });
   });
 });

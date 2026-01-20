@@ -6,6 +6,11 @@
 import type { ChatSource } from './chat';
 
 /**
+ * Message variant types for special rendering
+ */
+export type MessageVariant = 'regular' | 'intro' | 'nav-links';
+
+/**
  * Chat message from either user or assistant
  */
 export interface ChatMessage {
@@ -14,6 +19,8 @@ export interface ChatMessage {
   content: string;
   sources?: ChatSource[];
   timestamp: Date;
+  variant?: MessageVariant;
+  isTyping?: boolean; // For typing animation state
 }
 
 /**
@@ -61,6 +68,7 @@ export interface NavigationLinksProps {
  */
 export interface MessageListProps {
   messages: ChatMessage[];
+  navLinksRef?: React.RefObject<HTMLDivElement>;
 }
 
 /**

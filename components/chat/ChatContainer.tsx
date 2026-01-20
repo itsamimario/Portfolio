@@ -5,78 +5,68 @@
 
 'use client';
 
+import { useRef, useEffect, useState } from 'react';
 import type { ChatContainerProps } from '@/types/chat-ui';
 import { useChat } from '@/lib/hooks/useChat';
 import { ChatInput } from './ChatInput';
 import { MessageList } from './MessageList';
 import { NavigationLinks } from './NavigationLinks';
-import TerminalText from '@/components/TerminalText';
-
-const EXAMPLE_QUESTIONS = [
-  'What is your experience as a Product Manager?',
-  'Tell me about your work at RatedPower',
-  'What are your key skills?',
-];
 
 /**
  * Main chat container that orchestrates all chat components
  *
  * Features:
- * - Shows TerminalText greeting initially
- * - Displays MessageList when messages exist
- * - Manages sticky NavigationLinks after first message
- * - Shows example questions initially
- * - Handles loading and error states
+ * - All content rendered as messages (intro, nav, user messages, responses)
+ * - User messages align right
+ * - Assistant messages have typing animation
+ * - Sticky nav header appears when nav-links message scrolls out of view
+ * - Auto-scroll to bottom on new messages
  */
 export function ChatContainer({}: ChatContainerProps): JSX.Element {
   const { messages, isLoading, error, sendMessage } = useChat();
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const navLinksRef = useRef<HTMLDivElement>(null);
+  const [showStickyNav, setShowStickyNav] = useState(false);
 
-  const hasMessages = messages.length > 0;
+  // Auto-scroll to bottom when new messages arrive
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
 
-  const handleExampleClick = (question: string) => {
-    sendMessage(question);
-  };
+  // Intersection observer to show/hide sticky nav
+  useEffect(() => {
+    if (!navLinksRef.current) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        // Show sticky nav when inline nav is NOT visible
+        setShowStickyNav(!entry.isIntersecting);
+      },
+      { threshold: 0, rootMargin: '-60px 0px 0px 0px' }
+    );
+
+    observer.observe(navLinksRef.current);
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <main className="flex flex-col max-w-3xl mx-auto min-h-screen p-4">
+    <main className="flex flex-col max-w-3xl mx-auto min-h-screen">
       <h1 className="sr-only">Mario Bennekers - Portfolio Chat</h1>
 
-      {/* Navigation Links */}
-      <NavigationLinks isSticky={hasMessages} />
+      {/* Sticky Navigation - appears when inline nav scrolls out of view */}
+      {showStickyNav && (
+        <div className="sticky top-0 z-10 bg-white border-b border-black">
+          <NavigationLinks isSticky={true} />
+        </div>
+      )}
 
-      {/* Content Area */}
-      <div className="flex-1 flex flex-col">
-        {/* Initial state: Terminal greeting */}
-        {!hasMessages && (
-          <div className="flex-1 flex flex-col justify-center">
-            <div data-testid="terminal-text">
-              <TerminalText />
-            </div>
-
-            {/* Example Questions */}
-            <div className="mt-8 font-pixel text-black">
-              <p className="text-lg mb-3">[try asking]</p>
-              <div className="flex flex-col gap-2">
-                {EXAMPLE_QUESTIONS.map((question, index) => (
-                  <button
-                    key={index}
-                    onClick={() => handleExampleClick(question)}
-                    className="text-left text-lg hover:underline"
-                  >
-                    &gt; {question}
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Messages state: Show message list */}
-        {hasMessages && <MessageList messages={messages} />}
+      {/* Messages Area */}
+      <div className="flex-1 flex flex-col justify-end p-4">
+        <MessageList messages={messages} navLinksRef={navLinksRef} />
 
         {/* Loading indicator */}
         {isLoading && (
-          <div className="flex items-center gap-2 py-2 font-pixel text-black">
+          <div className="flex items-center gap-2 py-2 font-pixel text-black mt-4">
             <span className="text-lg">$</span>
             <span className="text-lg">processing</span>
             <span className="w-3 h-5 bg-black animate-pulse" />
@@ -85,14 +75,17 @@ export function ChatContainer({}: ChatContainerProps): JSX.Element {
 
         {/* Error display */}
         {error && (
-          <div className="py-2 font-pixel text-black">
+          <div className="py-2 font-pixel text-black mt-4">
             <span className="text-lg">[error] {error}</span>
           </div>
         )}
+
+        {/* Scroll anchor */}
+        <div ref={messagesEndRef} />
       </div>
 
-      {/* Input area - always visible */}
-      <div className="mt-4">
+      {/* Input area - always visible at bottom */}
+      <div className="sticky bottom-0 bg-white p-4">
         <ChatInput onSend={sendMessage} disabled={isLoading} />
       </div>
     </main>

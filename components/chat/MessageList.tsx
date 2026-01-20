@@ -5,36 +5,35 @@
 
 'use client';
 
-import { useEffect, useRef } from 'react';
 import type { MessageListProps } from '@/types/chat-ui';
 import { MessageBubble } from './MessageBubble';
 
 /**
- * Displays a scrollable list of chat messages
+ * Displays a list of chat messages
+ * All messages scroll together - intro, nav, user messages, and responses
  *
  * @param messages - Array of chat messages to display
+ * @param navLinksRef - Optional ref for the nav-links message (for intersection observer)
  */
-export function MessageList({ messages }: MessageListProps): JSX.Element {
-  const listRef = useRef<HTMLDivElement>(null);
-
-  // Auto-scroll to bottom when new messages arrive
-  useEffect(() => {
-    if (listRef.current) {
-      listRef.current.scrollTop = listRef.current.scrollHeight;
-    }
-  }, [messages.length]);
-
+export function MessageList({ messages, navLinksRef }: MessageListProps): JSX.Element {
   return (
     <div
-      ref={listRef}
       role="log"
       aria-live="polite"
       aria-label="Chat messages"
-      className="overflow-y-auto h-96 space-y-4 p-4"
+      className="space-y-4"
     >
-      {messages.map((message) => (
-        <MessageBubble key={message.id} message={message} />
-      ))}
+      {messages.map((message) => {
+        // Wrap nav-links message with ref for intersection observer
+        if (message.variant === 'nav-links' && navLinksRef) {
+          return (
+            <div key={message.id} ref={navLinksRef}>
+              <MessageBubble message={message} />
+            </div>
+          );
+        }
+        return <MessageBubble key={message.id} message={message} />;
+      })}
     </div>
   );
 }
