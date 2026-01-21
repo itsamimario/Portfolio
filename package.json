@@ -4,12 +4,17 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "dev:full": "npm run db:start && npm run dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
+    "db:start": "docker start portfolio-postgres || docker run -d --name portfolio-postgres -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=portfolio -p 5433:5432 pgvector/pgvector:pg16",
+    "db:stop": "docker stop portfolio-postgres",
+    "db:setup": "docker exec portfolio-postgres psql -U postgres -d portfolio -f - < db/schema.sql && npm run db:embed",
+    "db:embed": "export $(grep -v '^#' .env | xargs) && npx tsx scripts/embed-content.ts",
     "save": "git add -A && git commit -m 'Save progress' && git log -1 --oneline"
   },
   "dependencies": {

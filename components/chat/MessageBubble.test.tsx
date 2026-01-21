@@ -103,59 +103,27 @@ describe('MessageBubble', () => {
       expect(wrapper.className).toMatch(/font-pixel/);
     });
 
-    it('shows sources when provided', () => {
+    it('does not show sources section (sources are now inline links)', () => {
       render(<MessageBubble message={baseAssistantMessage} />);
 
-      expect(screen.getByText(/About Me/i)).toBeInTheDocument();
+      // Sources are no longer displayed as a separate section
+      // They should be integrated as inline links in the response
+      expect(screen.queryByText(/\[sources\]/i)).not.toBeInTheDocument();
     });
 
-    it('shows multiple sources when provided', () => {
-      const messageWithMultipleSources: ChatMessage = {
-        ...baseAssistantMessage,
-        sources: [
-          {
-            content: 'Source 1 content',
-            source: 'about',
-            title: 'About Me',
-            similarity: 0.92,
-          },
-          {
-            content: 'Source 2 content',
-            source: 'case-study',
-            title: 'RatedPower',
-            similarity: 0.85,
-          },
-        ],
-      };
-
-      render(<MessageBubble message={messageWithMultipleSources} />);
-
-      expect(screen.getByText(/About Me/i)).toBeInTheDocument();
-      expect(screen.getByText(/RatedPower/i)).toBeInTheDocument();
-    });
-
-    it('does not show sources section when sources array is empty', () => {
-      const messageWithoutSources: ChatMessage = {
-        ...baseAssistantMessage,
-        sources: [],
-      };
-
-      render(<MessageBubble message={messageWithoutSources} />);
-
-      expect(screen.queryByText(/sources/i)).not.toBeInTheDocument();
-    });
-
-    it('does not show sources section when sources is undefined', () => {
-      const messageWithoutSources: ChatMessage = {
-        id: 'assistant-2',
+    it('renders markdown links as clickable links', () => {
+      const messageWithLink: ChatMessage = {
+        id: 'assistant-link',
         role: 'assistant',
-        content: 'Simple response without additional data',
+        content: 'Check out my [RatedPower project](/case-studies/ratedpower-topography) for details.',
         timestamp: new Date(),
       };
 
-      render(<MessageBubble message={messageWithoutSources} />);
+      render(<MessageBubble message={messageWithLink} />);
 
-      expect(screen.queryByText(/sources/i)).not.toBeInTheDocument();
+      const link = screen.getByRole('link', { name: /RatedPower project/i });
+      expect(link).toBeInTheDocument();
+      expect(link).toHaveAttribute('href', '/case-studies/ratedpower-topography');
     });
   });
 

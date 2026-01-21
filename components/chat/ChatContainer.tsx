@@ -27,7 +27,19 @@ const INTRO_MESSAGE_IDS = ['intro-hi', 'intro-name', 'intro-title', 'intro-descr
  * - Auto-scroll to bottom on new messages
  */
 export function ChatContainer({}: ChatContainerProps): JSX.Element {
-  const { messages, isLoading, error, sendMessage } = useChat();
+  const { messages, isLoading, error, sendMessage, clearMessages } = useChat();
+
+  // Check if there's a conversation (messages beyond intro)
+  const hasConversation = messages.some(
+    (msg) => msg.role === 'user' || (!msg.variant && msg.role === 'assistant')
+  );
+
+  // Handle clear with animation reset
+  const handleClear = useCallback(() => {
+    clearMessages();
+    setVisibleIntroCount(1);
+    setCompletedIntroIds(new Set());
+  }, [clearMessages]);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const navLinksRef = useRef<HTMLDivElement>(null);
   const [showStickyNav, setShowStickyNav] = useState(false);
@@ -158,11 +170,24 @@ export function ChatContainer({}: ChatContainerProps): JSX.Element {
 
       {/* Input area - always visible at bottom */}
       <div className="sticky bottom-0 bg-white p-4">
-        <ChatInput
-          onSend={sendMessage}
-          disabled={isLoading}
-          showCursor={isIntroComplete}
-        />
+        <div className="flex items-center gap-4">
+          <div className="flex-1">
+            <ChatInput
+              onSend={sendMessage}
+              disabled={isLoading}
+              showCursor={isIntroComplete}
+            />
+          </div>
+          {hasConversation && (
+            <button
+              onClick={handleClear}
+              className="font-pixel text-sm text-gray-400 hover:text-black transition-colors"
+              aria-label="Clear conversation"
+            >
+              clear
+            </button>
+          )}
+        </div>
       </div>
     </main>
   );

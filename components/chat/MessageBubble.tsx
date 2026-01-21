@@ -10,6 +10,64 @@ import Link from 'next/link';
 import type { MessageBubbleProps } from '@/types/chat-ui';
 
 /**
+ * Parse markdown links and render as Next.js Link components
+ * Converts [text](url) to clickable links
+ */
+function renderWithLinks(text: string): React.ReactNode {
+  // Regex to match markdown links: [text](url)
+  const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
+  const parts: React.ReactNode[] = [];
+  let lastIndex = 0;
+  let match;
+  let key = 0;
+
+  while ((match = linkRegex.exec(text)) !== null) {
+    // Add text before the link
+    if (match.index > lastIndex) {
+      parts.push(text.slice(lastIndex, match.index));
+    }
+
+    const linkText = match[1];
+    const url = match[2];
+
+    // Check if it's an internal link (starts with /)
+    if (url.startsWith('/')) {
+      parts.push(
+        <Link
+          key={key++}
+          href={url}
+          className="text-blue-600 underline hover:text-blue-800"
+        >
+          {linkText}
+        </Link>
+      );
+    } else {
+      // External link
+      parts.push(
+        <a
+          key={key++}
+          href={url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-blue-600 underline hover:text-blue-800"
+        >
+          {linkText}
+        </a>
+      );
+    }
+
+    lastIndex = match.index + match[0].length;
+  }
+
+  // Add remaining text after the last link
+  if (lastIndex < text.length) {
+    parts.push(text.slice(lastIndex));
+  }
+
+  return parts.length > 0 ? parts : text;
+}
+
+/**
  * Typing animation hook for assistant messages
  */
 function useTypingAnimation(
@@ -197,6 +255,9 @@ export function MessageBubble({ message, onTypingComplete, onTypingUpdate }: Mes
   // Regular messages
   const text = shouldAnimate ? displayedText : message.content;
 
+  // Render text with markdown links converted to actual links
+  const renderedText = isUser ? text : renderWithLinks(text);
+
   return (
     <div
       role="article"
@@ -207,24 +268,10 @@ export function MessageBubble({ message, onTypingComplete, onTypingUpdate }: Mes
         <span className="text-lg shrink-0">{isUser ? '>' : '$'}</span>
         <div className={`flex-1 ${isUser ? 'text-right' : ''}`}>
           <p className="whitespace-pre-wrap text-lg inline">
-            {text}
+            {renderedText}
           </p>
           {shouldAnimate && !isComplete && (
             <span className="inline-block w-3 h-5 bg-black ml-1 animate-pulse align-middle" />
-          )}
-
-          {/* Sources section for assistant messages */}
-          {!isUser && isComplete && message.sources && message.sources.length > 0 && (
-            <div className="mt-2 pt-2 border-t border-black text-left">
-              <p className="text-sm mb-1">[sources]</p>
-              <ul className="text-sm">
-                {message.sources.map((source, index) => (
-                  <li key={index} className="mb-1">
-                    - {source.title || source.source}
-                  </li>
-                ))}
-              </ul>
-            </div>
           )}
         </div>
       </div>

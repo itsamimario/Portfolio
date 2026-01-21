@@ -187,4 +187,103 @@ describe('chat service', () => {
       expect(response).toHaveProperty('answer');
     });
   });
+
+  describe('isGreeting', () => {
+    it('detects simple greetings', async () => {
+      const { isGreeting } = await import('./chat');
+
+      expect(isGreeting('hi')).toBe(true);
+      expect(isGreeting('hello')).toBe(true);
+      expect(isGreeting('hey')).toBe(true);
+      expect(isGreeting('Hi!')).toBe(true);
+      expect(isGreeting('Hello there')).toBe(true);
+    });
+
+    it('does not detect questions as greetings', async () => {
+      const { isGreeting } = await import('./chat');
+
+      expect(isGreeting('What is your experience?')).toBe(false);
+      expect(isGreeting('Tell me about Mario')).toBe(false);
+      expect(isGreeting('Hi, what projects have you worked on?')).toBe(false);
+    });
+
+    it('handles edge cases', async () => {
+      const { isGreeting } = await import('./chat');
+
+      expect(isGreeting('hiya')).toBe(true);
+      expect(isGreeting('howdy')).toBe(true);
+      expect(isGreeting('good morning')).toBe(true);
+      expect(isGreeting('good afternoon')).toBe(true);
+      expect(isGreeting('hola')).toBe(true); // Spanish greeting
+      expect(isGreeting('yo')).toBe(true);
+      expect(isGreeting('heya')).toBe(true);
+    });
+  });
+
+  describe('greeting responses', () => {
+    it('responds to greetings without RAG search', async () => {
+      const { chat } = await import('./chat');
+
+      mockAnthropicCreate.mockResolvedValueOnce({
+        content: [
+          {
+            type: 'text',
+            text: "Hello! I'm happy to help you learn about Mario's work.",
+          },
+        ],
+      });
+
+      const response = await chat('hi');
+
+      // Should NOT call vector search for greetings
+      expect(mockVectorSearch).not.toHaveBeenCalled();
+      expect(mockOpenAICreate).not.toHaveBeenCalled();
+      expect(response.answer).toBeTruthy();
+      expect(response.sources).toHaveLength(0);
+    });
+
+    it('uses greeting-specific prompt for greetings', async () => {
+      const { chat } = await import('./chat');
+
+      await chat('hello');
+
+      // Verify Claude was called with greeting-specific instructions
+      expect(mockAnthropicCreate).toHaveBeenCalledWith(
+        expect.objectContaining({
+          messages: expect.arrayContaining([
+            expect.objectContaining({
+              role: 'user',
+              content: expect.stringContaining('greeting'),
+            }),
+          ]),
+        })
+      );
+    });
+  });
+
+  describe('personality and tone', () => {
+    it('system prompt includes Mario personality', async () => {
+      const { generateChatResponse } = await import('./chat');
+
+      await generateChatResponse('What is your background?');
+
+      expect(mockAnthropicCreate).toHaveBeenCalledWith(
+        expect.objectContaining({
+          system: expect.stringContaining('Mario'),
+        })
+      );
+    });
+
+    it('system prompt encourages first-person voice', async () => {
+      const { generateChatResponse } = await import('./chat');
+
+      await generateChatResponse('Tell me about yourself');
+
+      expect(mockAnthropicCreate).toHaveBeenCalledWith(
+        expect.objectContaining({
+          system: expect.stringMatching(/first.person|speak as Mario|I am Mario/i),
+        })
+      );
+    });
+  });
 });

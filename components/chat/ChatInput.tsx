@@ -64,7 +64,7 @@ export function ChatInput({
 
   return (
     <form onSubmit={handleSubmit} className="flex items-center gap-2 font-pixel text-black">
-      <span className="text-xl">&gt;</span>
+      <span className="text-lg">&gt;</span>
       <div className="flex-1 flex items-center relative">
         {/* Invisible input captures keystrokes */}
         <input
@@ -79,18 +79,18 @@ export function ChatInput({
           disabled={disabled}
           maxLength={2000}
           aria-label="Chat message input"
-          className="absolute inset-0 w-full bg-transparent border-none outline-none text-xl text-transparent caret-transparent disabled:cursor-not-allowed"
+          className="absolute inset-0 w-full bg-transparent border-none outline-none text-lg text-transparent caret-transparent disabled:cursor-not-allowed"
         />
         {/* Placeholder when not focused and empty */}
         {!isFocused && message.length === 0 && showCursorProp && (
-          <span className="text-xl text-gray-400">type something here</span>
+          <span className="text-lg text-gray-400">type something here</span>
         )}
         {/* Visible text display + cursor that follows text */}
         {(isFocused || message.length > 0) && (
           <>
-            <span className="text-xl whitespace-pre">{message}</span>
+            <span className="text-lg whitespace-pre">{message}</span>
             {displayCursor && (
-              <span className="w-3 h-6 bg-black animate-pulse shrink-0" />
+              <span className="w-3 h-5 bg-black animate-pulse shrink-0" />
             )}
           </>
         )}
@@ -100,7 +100,7 @@ export function ChatInput({
         disabled={disabled}
         aria-label="Send message"
         aria-busy={disabled}
-        className="px-3 py-1 border border-black text-black bg-transparent hover:bg-black hover:text-white focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-sm"
+        className="px-3 py-1 border-2 border-black text-black bg-transparent hover:bg-black hover:text-white focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-sm"
       >
         SEND
       </button>

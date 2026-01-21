@@ -10,10 +10,22 @@ import { useChat } from './useChat';
 const mockFetch = jest.fn();
 global.fetch = mockFetch;
 
+// Mock localStorage
+const localStorageMock = {
+  getItem: jest.fn(),
+  setItem: jest.fn(),
+  removeItem: jest.fn(),
+  clear: jest.fn(),
+};
+Object.defineProperty(window, 'localStorage', { value: localStorageMock });
+
 describe('useChat hook', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     mockFetch.mockReset();
+    localStorageMock.getItem.mockReturnValue(null);
+    localStorageMock.setItem.mockClear();
+    localStorageMock.removeItem.mockClear();
   });
 
   describe('initial state', () => {
