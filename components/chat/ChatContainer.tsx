@@ -70,7 +70,7 @@ export function ChatContainer({}: ChatContainerProps): JSX.Element {
 
   // Calculate visible messages - show intro messages sequentially, all other messages immediately
   const visibleMessages = useMemo(() => {
-    return messages.map((message, index) => {
+    return messages.map((message) => {
       const introIndex = INTRO_MESSAGE_IDS.indexOf(message.id);
 
       // Non-intro messages are always visible
@@ -112,7 +112,7 @@ export function ChatContainer({}: ChatContainerProps): JSX.Element {
   }, [visibleMessages]);
 
   // Intersection observer to show/hide sticky nav
-  // Re-run when visibleIntroCount changes (nav-links appears last in sequence)
+  // Re-run when messages change (including when restored from localStorage)
   useEffect(() => {
     if (!navLinksRef.current) return;
 
@@ -126,7 +126,7 @@ export function ChatContainer({}: ChatContainerProps): JSX.Element {
 
     observer.observe(navLinksRef.current);
     return () => observer.disconnect();
-  }, [visibleIntroCount]); // Re-run when new messages are revealed
+  }, [visibleMessages]); // Re-run when messages change (including localStorage restore)
 
   return (
     <main className="flex flex-col max-w-3xl mx-auto min-h-screen">
