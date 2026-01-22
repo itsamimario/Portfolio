@@ -48,29 +48,36 @@ Build a professional portfolio that demonstrates:
 /
 ├── app/
 │   ├── layout.tsx              # Root layout with fonts
-│   ├── page.tsx                # Home page
+│   ├── page.tsx                # Homepage (chat-first interface)
+│   ├── about/page.tsx          # About page (full portfolio)
+│   ├── case-studies/[id]/      # Dynamic case study pages
 │   ├── api/
 │   │   └── chat/
-│   │       └── route.ts        # RAG chatbot endpoint
+│   │       └── route.ts        # RAG chatbot endpoint ✅
 │   └── globals.css             # Global styles
 ├── components/
-│   ├── Hero.tsx                # Hero section
-│   ├── About.tsx               # About section
-│   ├── Skills.tsx              # Skills section
-│   ├── CaseStudies.tsx         # Case studies grid
-│   ├── CaseStudy.tsx           # Individual case study
-│   ├── Chatbot.tsx             # RAG chatbot UI
-│   ├── ProductPlaybook.tsx     # Product playbook
-│   ├── Contact.tsx             # Contact section
-│   └── Navigation.tsx          # Nav component
+│   ├── TerminalText.tsx        # Animated intro text ✅
+│   ├── ChatInput.tsx           # Chat input component (Phase 7)
+│   ├── MessageList.tsx         # Chat messages (Phase 7)
+│   ├── CaseStudies.tsx         # Case studies grid ✅
+│   ├── CaseStudy.tsx           # Individual case study ✅
+│   ├── ProductPlaybook.tsx     # Product playbook (Phase 9)
+│   └── Contact.tsx             # Contact section (Phase 11)
 ├── lib/
-│   ├── db.ts                   # Database connection
-│   ├── embeddings.ts           # Vector embeddings logic
-│   ├── rag.ts                  # RAG implementation
-│   └── claude.ts               # Claude API client
+│   ├── db.ts                   # Database connection ✅
+│   ├── chat.ts                 # Chat service (RAG) ✅
+│   ├── openai-embeddings.ts    # Embedding generation ✅
+│   ├── content-loader.ts       # Content loading ✅
+│   └── chunker.ts              # Text chunking ✅
 ├── types/
-│   ├── chat.ts                 # Chat types
-│   └── content.ts              # Content types
+│   ├── chat.ts                 # Chat types ✅
+│   ├── content.ts              # Content types ✅
+│   └── embeddings.ts           # Embedding types ✅
+├── content/                    # Markdown content for RAG ✅
+├── scripts/
+│   └── embed-content.ts        # Embedding CLI ✅
+├── db/
+│   └── schema.sql              # Database schema ✅
 ├── public/
 │   └── fonts/
 │       ├── Catchifont-regular.ttf
@@ -113,23 +120,57 @@ Build a professional portfolio that demonstrates:
 
 ## 📋 Features Specification
 
-### 1. Hero Section
-**Requirements:**
-- Name in Catchitfont (pixel-art typography)
-- Professional tagline showcasing PM + technical skills
-- Two CTAs:
-  - Primary: "Talk to my AI assistant" (opens chatbot)
-  - Secondary: "View Case Studies" (scrolls to case studies)
-- Clean background with subtle pixel-art animation
-- Mobile responsive
+### 1. Homepage - Chat-First Interface ⭐
+**Design Philosophy:** The homepage IS the chat interface. Visitors land directly in a conversational experience.
 
-**Content:**
+**Layout (top to bottom):**
 ```
-Headline: "Mario Bennekers"
-Subheadline: "Product Manager & Technical Builder"
-Tagline: "I combine strategic product thinking with hands-on technical
-execution to build products that scale and teams that thrive."
+┌─────────────────────────────────────────────────────────────┐
+│                                                             │
+│  Hi!                                                        │
+│  I'm Mario Bennekers                                        │
+│  Product Manager                                            │
+│                                                             │
+│  This is my portfolio, feel free to navigate through it     │
+│  or ask directly any question about myself.                 │
+│                                                             │
+│  Or you can navigate directly to:                           │
+│  About    Case Studies    Product Playbook                  │  ← Navigation tabs (plain text, no borders)
+│                                                             │
+│  ┌─────────────────────────────────────────────────────┐    │
+│  │ Ask me anything...                                  │    │  ← Chat input
+│  └─────────────────────────────────────────────────────┘    │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
 ```
+
+**When user sends a message:**
+```
+┌─────────────────────────────────────────────────────────────┐
+│  About    Case Studies    Product Playbook                  │  ← Sticky nav at top
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  [User message bubble]                                      │
+│                                                             │
+│  [Assistant response bubble with sources]                   │
+│                                                             │
+│  [More messages...]                                         │
+│                                                             │
+│  ┌─────────────────────────────────────────────────────┐    │
+│  │ Ask me anything...                                  │    │  ← Input stays at bottom
+│  └─────────────────────────────────────────────────────┘    │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+```
+
+**Requirements:**
+- Terminal-style animated intro text (typing effect)
+- Navigation tabs: plain text links, no borders/buttons
+- Navigation becomes sticky header when chat starts
+- Chat input at bottom of viewport
+- Messages appear above input
+- Mobile responsive
+- Pixel-art font (Catchitfont) for intro text
 
 ### 2. About Section
 **Requirements:**
@@ -175,49 +216,38 @@ execution to build products that scale and teams that thrive."
 **Content:** See draft-portfolio.md lines 120-196
 
 ### 5. RAG Chatbot 🤖 (Star Feature)
-**Requirements:**
+**Note:** The chat UI is integrated into the homepage (see Section 1). This section covers the backend.
 
 **Database Setup:**
 - PostgreSQL with pgvector extension
-- Schema:
-  ```sql
-  CREATE TABLE embeddings (
-    id SERIAL PRIMARY KEY,
-    content TEXT NOT NULL,
-    embedding vector(1536),
-    metadata JSONB,
-    created_at TIMESTAMP DEFAULT NOW()
-  );
-  CREATE INDEX ON embeddings USING ivfflat (embedding vector_cosine_ops);
-  ```
+- Schema: see `db/schema.sql`
 
-**Content to Embed:**
-- CV/resume
-- Case studies (all 3)
-- Product Playbook
+**Content Embedded:** ✅ Complete (25 chunks)
+- About page content
+- Case studies (CatchIT!, RatedPower, Maxem)
 - Skills & experience details
 
-**API Route (`/api/chat`):**
-1. Receive user query
-2. Generate query embedding (Claude API)
+**API Route (`/api/chat`):** ✅ Complete
+1. Receive user query (POST with `{ question: string }`)
+2. Generate query embedding (OpenAI text-embedding-3-small)
 3. Vector similarity search (pgvector)
 4. Retrieve top 5 relevant chunks
 5. Construct prompt with context
 6. Call Claude API for response
-7. Return response to UI
+7. Return `{ answer, sources }` to UI
 
-**UI Component:**
-- Chat interface (messages list + input)
-- Example questions displayed initially:
-  - "What experience does Mario have in product management?"
-  - "How did Mario scale the team at RatedPower?"
-  - "What frameworks does Mario use for product discovery?"
-- Loading states (subtle pixel-art animation)
-- Error handling
-- Mobile responsive
-
-**Tech Note Displayed:**
-"Built with Next.js, TypeScript, PostgreSQL + pgvector, and Claude API"
+**Response Format:**
+```typescript
+{
+  answer: string;
+  sources: Array<{
+    content: string;
+    source: string;
+    title?: string;
+    similarity: number;
+  }>;
+}
+```
 
 ### 6. Product Playbook
 **Requirements:**
@@ -251,11 +281,14 @@ execution to build products that scale and teams that thrive."
 - Subtle pixel-art easter egg (optional)
 
 ### 9. Navigation
+**Note:** Navigation is integrated into the homepage chat interface (see Section 1).
+
 **Requirements:**
-- Fixed/sticky header (appears on scroll)
-- Links: About, Skills, Case Studies, Playbook, Contact, Chat
-- Mobile hamburger menu
-- Smooth scroll behavior
+- Plain text links above chat input: About, Case Studies, Product Playbook
+- Links navigate to respective pages (`/about`, `/case-studies`, `/playbook`)
+- Becomes sticky header when user starts chatting
+- No borders or button styling - just text
+- Mobile responsive
 
 ---
 
@@ -405,21 +438,30 @@ execution to build products that scale and teams that thrive."
 
 ---
 
-### Phase 8: Chatbot UI
-**Branch:** `phase-8-chatbot-ui`
-**Goal:** Build chat interface component
+### Phase 7: Chat UI (Homepage Integration)
+**Branch:** `phase-7-chat-ui`
+**Goal:** Integrate chat functionality into homepage
 
 **Tasks:**
-- Create `Chatbot.tsx` component
-- Message list with user/assistant bubbles
-- Input field with send button
-- Example questions displayed initially
-- Loading states (pixel-art animation)
-- Error handling UI
+- Enable chat input on homepage (currently disabled)
+- Add message list component (user/assistant bubbles)
+- Add navigation text links (About, Case Studies, Product Playbook)
+- Implement sticky navigation when chatting
+- Connect to `/api/chat` endpoint
+- Add loading states
+- Add error handling UI
 - Mobile responsive
 - Write component tests
 
-**Deliverable:** Complete chatbot UI
+**UI Flow:**
+1. User lands on homepage with intro text + input
+2. Navigation links shown above input
+3. User types question and submits
+4. Intro text fades, nav becomes sticky header
+5. Messages appear in scrollable area above input
+6. Sources shown with each response
+
+**Deliverable:** Fully functional chat-first homepage
 
 ---
 
@@ -545,37 +587,20 @@ SUPABASE_SERVICE_KEY=xxx
 
 ## 📝 Notes
 
-### Current Status (January 4, 2026)
-**Status:** 🟢 AHEAD OF SCHEDULE - Completed Phases 1 & 2 in 1 day
+### Current Status (January 20, 2026)
+**Status:** 🟢 Phase 6 complete - Ready for Phase 7
 
-**Completed:**
-- ✅ Project initialized with Next.js 14 + TypeScript + Tailwind CSS
-- ✅ Hero, About, Skills sections complete
-- ✅ Catchitfont integrated (pixel-art typography)
-- ✅ **Phase 1:** Case studies structure (components + tests) - PR #1 merged
-- ✅ **Phase 2:** CatchIT! case study with Figma embed + clickable cards - PR #2 open
-- ✅ GitHub repo public: https://github.com/itsamimario/Portfolio
-- ✅ Test coverage: 43/43 tests passing
-- ✅ TDD workflow implemented
+**Completed Phases:**
+- ✅ **Phase 1:** Case studies structure - PR #1 merged
+- ✅ **Phase 2:** CatchIT! case study - PR #2 merged
+- ✅ **Phase 3:** RatedPower & Maxem case studies - PR #3 merged
+- ✅ **Phase 4:** PostgreSQL + pgvector setup - PR #4 merged
+- ✅ **Phase 5:** Content embedding (25 chunks) - PR #5 merged
+- ✅ **Phase 6:** Chat API with Claude integration - PR #6 merged
 
-**Phase 1 Achievements:**
-- TypeScript types for case studies (types/content.ts)
-- CaseStudy component (card + full variants)
-- CaseStudies grid component
-- Placeholder data for 3 case studies
-- 27/27 tests passing
-- Fixed security issues (iframe sandbox, stable keys)
+**Test Coverage:** 98 tests passing
 
-**Phase 2 Achievements:**
-- Real Figma embed URL for CatchIT!
-- Clickable case study cards
-- Dynamic route for detail pages (/case-studies/[id])
-- "Back to About" navigation
-- All 16 tests passing
-- Fixed webpack module error
-- Fixed homepage UI issues
-
-**Next:** Phase 3 - RatedPower & Maxem case studies
+**Next:** Phase 7 - Chat UI (Homepage Integration)
 
 ### Workflow
 Following pedram.md phase-based approach:
@@ -611,6 +636,6 @@ Following pedram.md phase-based approach:
 
 ---
 
-**Last Updated:** January 4, 2026
-**Next Phase:** Phase 3 - RatedPower & Maxem Case Studies
-**Progress:** 2/13 phases complete ✅ (AHEAD OF SCHEDULE)
+**Last Updated:** January 20, 2026
+**Next Phase:** Phase 7 - Chat UI (Homepage Integration)
+**Progress:** 6/13 phases complete ✅

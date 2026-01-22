@@ -1,13 +1,14 @@
 import { CaseStudy } from '@/types/content';
 
 /**
- * Placeholder case study data
- * To be replaced with real content in future phases
+ * Case study data
+ * Each case study has its own detailed page
  */
 export const caseStudies: CaseStudy[] = [
+  // CatchIT! Case Studies
   {
-    id: 'catchit',
-    title: 'CatchIT!',
+    id: 'catchit-product-conceptualization',
+    title: 'Product Conceptualization',
     role: 'Founder & CEO',
     company: 'CatchIT!',
     period: '2024 - Present',
@@ -46,14 +47,14 @@ export const caseStudies: CaseStudy[] = [
     ],
     results: [
       {
-        metric: 'Active Users',
-        value: '[TBD]',
-        description: 'Monthly active users',
+        metric: 'D1 Retention',
+        value: '50%',
+        description: 'Day 1 user retention',
       },
       {
-        metric: 'Retention',
-        value: '[TBD]%',
-        description: 'User retention rate',
+        metric: 'D7 Retention',
+        value: '35%',
+        description: 'Day 7 user retention',
       },
       {
         metric: 'Design System',
@@ -79,128 +80,154 @@ export const caseStudies: CaseStudy[] = [
     embedUrl: 'https://embed.figma.com/design/Z8yhY4aOz9WKLYbBvNkmdM/CatchIT?node-id=2-198&embed-host=share',
   },
   {
-    id: 'ratedpower',
-    title: 'RatedPower',
+    id: 'catchit-ai-chatbot',
+    title: 'AI Chatbot',
+    role: 'Founder & CEO',
+    company: 'CatchIT!',
+    period: '2024 - Present',
+    tagline: 'Building an AI-powered customer support and engagement chatbot',
+    underConstruction: true,
+  },
+
+  // Freelance Case Studies
+  {
+    id: 'ecometro-product-strategy',
+    title: 'Ecometro Product Strategy',
+    role: 'Interim Product Lead',
+    company: 'Ecometro',
+    period: '2024',
+    tagline: 'Building the product team and preparing a sustainability platform for market',
+    underConstruction: true,
+  },
+  {
+    id: 'imageryst-renewables-pivot',
+    title: 'Imageryst Renewables Pivot',
+    role: 'Product Consultant',
+    company: 'Imageryst',
+    period: '2024',
+    tagline: 'Adapting satellite imagery technology to the renewables market',
+    underConstruction: true,
+  },
+
+  // RatedPower Case Studies
+  {
+    id: 'ratedpower-topography',
+    title: 'Topography Tool',
     role: 'Product Manager',
     company: 'RatedPower',
     period: '2019 - 2022',
-    thumbnail: '/images/case-studies/ratedpower-thumbnail.jpg',
-    thumbnailAlt: 'RatedPower solar energy design software interface',
-    tagline: 'Scaling B2B SaaS from €230k to €2.5M while growing the team from 2 to 30+ engineers',
-    challenge:
-      'Scale a B2B SaaS product for solar energy design while rapidly growing the engineering team from 2 to 30+ people, maintaining product quality, and expanding into new international markets.',
-    approach: [
-      {
-        title: 'Product Strategy',
-        description:
-          'Defined roadmap focused on enterprise features and international expansion to European and LATAM markets.',
-      },
-      {
-        title: 'Team Scaling',
-        description:
-          'Hired and led product team, implemented agile rituals, and established clear engineering processes.',
-      },
-      {
-        title: 'Process Improvement',
-        description:
-          'Introduced structured discovery, roadmap transparency, and data-driven prioritization framework.',
-      },
-      {
-        title: 'UX Enhancements',
-        description:
-          'Collaborated with designers to improve adoption across PV segment through user research and iterative testing.',
-      },
-    ],
-    keyDecisions: [
-      'Prioritized enterprise features over consumer market',
-      'Implemented transparent roadmap sharing with customers',
-      'Balanced technical debt paydown with new feature development',
-      'Established data-driven prioritization framework',
-    ],
-    results: [
-      {
-        metric: 'Revenue Growth',
-        value: '10x',
-        description: '€230k → €2.5M in 3 years',
-      },
-      {
-        metric: 'Team Growth',
-        value: '15x',
-        description: '2 → 30+ engineers',
-      },
-      {
-        metric: 'Market Expansion',
-        value: '3',
-        description: 'Regions (Europe, LATAM, Asia)',
-      },
-    ],
-    techStack: [
-      'React',
-      'Python',
-      'PostgreSQL',
-      'AWS',
-      'Jira',
-      'Google Analytics',
-    ],
+    tagline: 'Automated terrain analysis and earthwork calculations for solar plant design',
+    underConstruction: true,
   },
   {
-    id: 'maxem-energy',
-    title: 'Maxem Energy',
+    id: 'ratedpower-financial-calculator',
+    title: 'Financial Calculator',
+    role: 'Product Manager',
+    company: 'RatedPower',
+    period: '2019 - 2022',
+    tagline: 'Financial modeling tool for solar plant investment analysis',
+    underConstruction: true,
+  },
+  {
+    id: 'ratedpower-crm-integration',
+    title: 'CRM Integration',
+    role: 'Product Manager',
+    company: 'RatedPower',
+    period: '2019 - 2022',
+    tagline: 'Seamless integration between solar design platform and CRM systems',
+    underConstruction: true,
+  },
+
+  // Maxem Case Studies
+  {
+    id: 'maxem-smart-energy-algorithm',
+    title: 'Smart Energy Algorithm',
     role: 'Product Manager',
     company: 'Maxem Energy',
     period: '2022 - 2023',
-    thumbnail: '/images/case-studies/maxem-thumbnail.jpg',
-    thumbnailAlt: 'Maxem Energy platform dashboard',
-    tagline: 'Leading 10-person team building B2B energy management platform for European markets',
+    tagline: 'Intelligent energy management system combining cloud and local control',
+    underConstruction: true,
+  },
+  {
+    id: 'maxem-portable-battery-system',
+    title: 'Portable Battery System',
+    role: 'Product Manager',
+    company: 'Maxem Energy',
+    period: '2022 - 2023',
+    tagline: 'B2B portable battery solution for events and temporary installations',
+    underConstruction: true,
+  },
+
+  // Portfolio Case Study
+  {
+    id: 'portfolio',
+    title: 'This Portfolio',
+    role: 'Product Manager & Developer',
+    company: 'Personal Project',
+    period: 'January 2026',
+    tagline: 'RAG-powered portfolio with AI chatbot built using Claude Code',
     challenge:
-      'Lead product development for a 10-person team building B2B energy management software for European markets, while establishing product processes and creating design system.',
+      'Build a professional portfolio that demonstrates both Product Manager capabilities and hands-on technical execution, with an AI chatbot as the star differentiator.',
     approach: [
       {
-        title: 'Product Leadership',
+        title: 'Chat-First Interface',
         description:
-          'Defined quarterly roadmap and feature prioritization based on customer feedback and business goals.',
+          'Homepage IS the chat interface. Visitors land directly in conversation with an AI that knows everything about me.',
       },
       {
-        title: 'Design System',
+        title: 'RAG Architecture',
         description:
-          'Created comprehensive design system in Figma to unify UX across the platform and reduce design-to-development handoff time.',
+          'PostgreSQL + pgvector for embeddings, OpenAI for vectorization, Claude for generation.',
       },
       {
-        title: 'Cross-functional Collaboration',
+        title: 'Agent-Based Development',
         description:
-          'Aligned engineering, sales, and customer success teams through regular syncs and shared documentation.',
+          'Used Claude Code with specialized agents (planner, tdd-guide, code-reviewer, security-reviewer).',
       },
     ],
     keyDecisions: [
-      'Built design system before scaling feature development',
-      'Implemented weekly customer feedback sessions',
-      'Prioritized platform stability over rapid feature releases',
-      'Established clear product documentation standards',
+      'Chat-first design forces AI quality to be excellent',
+      'TDD workflow with 200+ tests',
+      'Autonomous development with Ralph Wiggum process',
     ],
     results: [
       {
-        metric: 'Features Shipped',
-        value: '12+',
-        description: 'Major features delivered on time',
+        metric: 'Content Chunks',
+        value: '25',
+        description: 'Embedded in vector DB',
       },
       {
-        metric: 'Handoff Time',
-        value: '40%',
-        description: 'Reduction in design-to-dev time',
+        metric: 'Test Coverage',
+        value: '201',
+        description: 'Tests passing',
       },
       {
-        metric: 'Design System',
-        value: '100%',
-        description: 'Platform coverage',
+        metric: 'Dev Speed',
+        value: '8 phases',
+        description: 'Completed in 1 day',
       },
     ],
     techStack: [
-      'React',
-      'Node.js',
+      'Next.js 14',
+      'TypeScript',
       'PostgreSQL',
-      'Figma',
-      'Notion',
-      'Amplitude',
+      'pgvector',
+      'Claude API',
+      'OpenAI',
+    ],
+    links: [
+      {
+        label: 'GitHub Repository',
+        url: 'https://github.com/itsamimario/Portfolio',
+        icon: 'github',
+      },
     ],
   },
 ];
+
+/**
+ * Get case study by ID
+ */
+export function getCaseStudyById(id: string): CaseStudy | undefined {
+  return caseStudies.find((cs) => cs.id === id);
+}

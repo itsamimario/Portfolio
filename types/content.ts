@@ -11,16 +11,17 @@ export interface CaseStudy {
   role: string;
   company: string;
   period: string;
-  thumbnail: string;
-  thumbnailAlt: string;
+  thumbnail?: string;
+  thumbnailAlt?: string;
   tagline: string;
-  challenge: string;
-  approach: CaseStudyStep[];
-  keyDecisions: string[];
-  results: CaseStudyResult[];
-  techStack: string[];
+  challenge?: string;
+  approach?: CaseStudyStep[];
+  keyDecisions?: string[];
+  results?: CaseStudyResult[];
+  techStack?: string[];
   links?: CaseStudyLink[];
   embedUrl?: string; // For Figma embeds, etc.
+  underConstruction?: boolean; // True if content is not yet complete
 }
 
 /**

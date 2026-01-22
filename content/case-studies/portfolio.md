@@ -1,192 +1,119 @@
 # Portfolio Website
 
 **Company:** Personal Project
-**Role:** Designer & Developer
+**Role:** Product Manager & Developer
 **Period:** January 2026
 
 ---
 
 ## Context
 
-Building a portfolio to land a Product Manager role presents an interesting challenge: how do you demonstrate PM skills through a personal project? Most PM portfolios are static documents listing past work. I wanted something different—a portfolio that itself demonstrates product thinking, technical capability, and the ability to ship.
-
-**The differentiator**: A RAG-powered AI chatbot that can answer questions about my experience, trained on my CV, case studies, and product playbook. This showcases AI implementation skills while providing an interactive way for recruiters and hiring managers to learn about me.
-
-**The constraint**: 11 days from concept to deployed product (January 4-15, 2026).
-
----
-
-## Discovery & Research
-
-### Target Audience Analysis
-
-- **Primary**: Hiring managers evaluating PM candidates
-- **Secondary**: Technical recruiters doing initial screening
-- **Tertiary**: Peers and potential collaborators
-
-**What they need**: Quick understanding of my experience, evidence of strategic thinking, proof of technical capability, easy way to dig deeper on specific topics.
-
-### Competitive Analysis
-
-Reviewed PM portfolios and identified patterns:
-- Most are static pages or PDFs
-- Few demonstrate technical skills beyond design
-- Almost none have interactive elements
-- Case studies often lack depth on PM-specific decisions
-
-**Opportunity**: A portfolio that works like a product—interactive, technically impressive, and demonstrating the skills it claims to showcase.
-
-### Design Research
-
-Drew inspiration from:
-- **Linear**: Minimal interface with subtle details
-- **Stripe**: Technical but accessible documentation
-- **CatchIT!**: My own pixel-art design system (subtle personality)
+Building a professional portfolio to demonstrate Product Manager capabilities with hands-on technical execution. The differentiator: a RAG-powered AI chatbot that can answer questions about my experience, skills, and case studies.
 
 ---
 
 ## Approach & Key Decisions
 
-### Decision 1: Tech Stack
+### Chat-First Interface
+The homepage IS the chat interface. Visitors land directly in a conversation with an AI that knows everything about me. This forces the AI implementation to be excellent—it's the first thing people see.
 
-**Options:**
-1. **No-code (Webflow, Framer)** - Fast but limited, doesn't showcase technical skills
-2. **Static site generator (Astro, Hugo)** - Fast, but harder to add dynamic features
-3. **Next.js + TypeScript** - Full control, demonstrates real engineering capability
-
-**Choice**: Next.js 14 with TypeScript. Hiring managers can review the public GitHub repo and see production-quality code.
-
-### Decision 2: RAG Infrastructure
-
-**Options:**
-1. **Pinecone** - Popular vector database, managed service
-2. **PostgreSQL + pgvector** - Open source, single database, no vendor lock-in
-3. **In-memory (no persistence)** - Simpler but doesn't scale
-
-**Choice**: PostgreSQL + pgvector. Demonstrates understanding of database architecture without adding external dependencies. Single database for content and vectors.
-
-### Decision 3: Design Philosophy
-
-**Options:**
-1. **Full pixel-art aesthetic** - Memorable but might feel unprofessional for PM roles
-2. **Corporate minimal** - Safe but forgettable
-3. **Professional minimal with pixel-art accents** - Best of both worlds
-
-**Choice**: Professional minimalist with subtle CatchIT! pixel-art elements. Serious enough for enterprise PM roles while showing personality.
-
-### Decision 4: Content Structure
-
-**Initial approach**: 3 company-level case studies (CatchIT!, RatedPower, Maxem)
-
-**Revised approach**: 10 feature-level case studies across 5 companies + this portfolio. Each case study focuses on a specific product feature I led, showing deeper PM thinking rather than broad company overviews.
-
-### Decision 5: Development Process
-
-**Options:**
-1. **Build everything then deploy** - Risk of scope creep
-2. **Iterative with manual testing** - Slow feedback loops
-3. **Phase-based with TDD and PR reviews** - Structured but thorough
-
-**Choice**: 13 phases with feature branches, pull requests, and test-driven development. Each phase delivers working functionality. Claude Code assists with implementation while I make product decisions.
+### Design
+Minimalist aesthetic with subtle pixel-art elements from CatchIT! project. Clean typography, professional colors, focused on content over decoration.
 
 ---
 
-## Execution
+## RAG System Architecture
 
-### Phase-Based Development
+### Vector Database Setup
+PostgreSQL with pgvector extension for storing and searching embeddings:
+- Created schema with `embedding vector(1536)` column for OpenAI embeddings
+- Implemented cosine similarity search using `<=>` operator
+- Connection pooling for efficient database access
 
-Structured into 13 phases:
-1. Case studies structure (components + types)
-2. CatchIT! case study with Figma embed
-3. RatedPower & Maxem case studies
-4. PostgreSQL + pgvector database setup
-5. Content embedding pipeline
-6. RAG retrieval implementation
-7. Chat API endpoint
-8. Chatbot UI component
-9. Product Playbook section
-10. Navigation component
-11. Contact section
-12. Responsive polish
-13. Deployment to Vercel
+### Content Embedding Pipeline
+Built a complete pipeline to vectorize portfolio content:
 
-**Current status**: Phase 4 complete, content restructuring in progress.
+1. **Content Loader** - Recursively loads markdown files from content directory
+2. **Chunker** - Splits content into semantic chunks (max 500 tokens) preserving context
+3. **Embedding Generator** - OpenAI text-embedding-3-small (1536 dimensions)
+4. **Storage** - Chunks stored with metadata (source, title, content type)
 
-### Test-Driven Development
+### Retrieval-Augmented Generation
+The chat API combines semantic search with Claude:
+1. User query → embed with OpenAI
+2. Vector similarity search → top 5 relevant chunks
+3. Inject retrieved context into Claude prompt
+4. Stream response back to user with source attribution
 
-- Tests written before implementation
-- 80%+ code coverage requirement
-- Component tests for UI, integration tests for API routes
-- All tests must pass before merging
+---
 
-### Content-First Approach
+## Development Process: Claude Code + Ralph Wiggum
 
-After completing Phase 4, I realized the case study content wasn't structured optimally. Paused code implementation to:
-- Define all content in markdown files first
-- Restructure from 3 company-level to 10 feature-level case studies
-- Add new pages (timeline, map of countries lived in)
+### Agent-Based Development
+Used Claude Code with specialized agents orchestrated through a structured workflow:
 
-This is product thinking applied to a portfolio project—validating content before building the container.
+| Agent | Purpose |
+|-------|---------|
+| **planner** | Creates implementation plans for each phase |
+| **architect** | Validates technical decisions and patterns |
+| **tdd-guide** | Writes tests FIRST before implementation |
+| **code-reviewer** | Reviews all code before commit |
+| **security-reviewer** | Audits API routes and data handling |
 
-### Claude Code as Development Partner
+### Ralph Wiggum Process
+Autonomous development loop that dramatically accelerated delivery:
+- Agent works through implementation plan autonomously
+- Runs tests, fixes issues, iterates without manual intervention
+- Human reviews at phase completion, not every step
+- Completed 8 phases in a single day
 
-Using Claude Code for:
-- Implementation assistance (code generation, debugging)
-- Architecture discussions
-- Test writing
-- Documentation
-
-I make all product decisions; Claude Code accelerates execution.
+### Workflow Rules
+Strict gates ensured quality:
+- No code written without tests first (TDD)
+- No commits without code review approval
+- Security review required for all API endpoints
+- Documentation updated at each phase completion
 
 ---
 
 ## Results & Impact
 
-| Metric | Target | Status |
-|--------|--------|--------|
-| Development phases | 13 | 4 complete |
-| Test coverage | 80%+ | On track |
-| Case studies | 10 | 2 complete (RatedPower, Maxem) |
-| RAG chatbot | Functional | In progress |
-| Deployment | Live by Jan 15 | On track |
+| Metric | Value |
+|--------|-------|
+| Content Chunks | 25 embedded in vector DB |
+| Test Coverage | 201 tests passing |
+| Development Speed | 8 phases in 1 day |
+| RAG Response Time | < 2 seconds |
 
-### Learnings (So Far)
+### What Made This Work
+- **Structured phases** - Clear boundaries and deliverables
+- **Agent specialization** - Right tool for each task
+- **Autonomous loops** - Ralph Wiggum reduced manual overhead
+- **Quality gates** - TDD + reviews caught issues early
 
-- **Content-first development**: Define what you're building before how. Saved significant rework by restructuring case studies early.
+---
 
-- **Phase-based delivery**: Small, complete increments are easier to validate and debug than big-bang releases.
+## Tech Stack
 
-- **TDD pays off**: Writing tests first caught edge cases early and made refactoring safer.
+- **Frontend:** Next.js 14, TypeScript, Tailwind CSS
+- **Database:** PostgreSQL + pgvector
+- **AI:** Claude API (generation), OpenAI (embeddings)
+- **Development:** Claude Code, specialized agents, Ralph Wiggum
 
-- **AI-assisted development**: Claude Code accelerates implementation but doesn't replace product thinking. Best results come from clear requirements and architectural decisions.
+---
 
-- **Portfolio as product**: Applying PM principles (user research, prioritization, iteration) to a personal project demonstrates those skills more effectively than just describing past work.
+## Skills Demonstrated
+
+- [x] RAG system design and implementation
+- [x] Vector database architecture (pgvector)
+- [x] AI/ML pipeline development
+- [x] Agent-based development workflows
+- [x] Autonomous development process design
+- [x] TDD with comprehensive test coverage
+- [x] Product thinking with technical execution
 
 ---
 
 ## Artifacts
 
 - [GitHub Repository](https://github.com/itsamimario/Portfolio)
-- [Live Site](https://mariobennekers.com) *(pending deployment)*
-
----
-
-## Tech Stack
-
-- **Frontend**: Next.js 14 (App Router), React 18, TypeScript, Tailwind CSS
-- **Database**: PostgreSQL + pgvector
-- **AI**: Claude API (Anthropic) for RAG
-- **Fonts**: Catchitfont (pixel-art), Inter, JetBrains Mono
-- **Deployment**: Vercel, Supabase (production database)
-- **Development**: Claude Code, Jest, React Testing Library
-
----
-
-## Skills Demonstrated
-
-- [x] Product thinking
-- [x] Design
-- [x] TypeScript/React
-- [ ] RAG implementation *(in progress)*
-- [ ] AI evaluation *(planned)*
-- [x] Hands-on execution

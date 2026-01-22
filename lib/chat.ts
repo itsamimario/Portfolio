@@ -1,0 +1,277 @@
+/**
+ * Chat service for RAG chatbot
+ * Implements semantic search with vector embeddings and Claude-powered responses
+ */
+
+import Anthropic from '@anthropic-ai/sdk';
+import { generateEmbedding } from './openai-embeddings';
+import { vectorSearch } from './db';
+import type { ChatResponse, ChatSource, SearchResult } from '../types/chat';
+
+/**
+ * Greeting patterns for detection
+ * Matches common greetings but NOT greetings followed by questions
+ */
+const GREETING_PATTERNS = [
+  /^hi\s*!*$/i, // hi, hi!, hi!!
+  /^hi\s+there$/i, // hi there
+  /^hello(\s+there)?$/i, // hello, hello there
+  /^hey\s*!*$/i, // hey, hey!, hey!!
+  /^heya$/i,
+  /^hiya$/i,
+  /^howdy$/i,
+  /^yo\s*!*$/i, // yo, yo!
+  /^good\s+(morning|afternoon|evening)$/i,
+  /^greetings$/i,
+  /^what'?s\s+up\??$/i, // what's up, whats up?
+  /^sup\??$/i, // sup, sup?
+  /^hola$/i, // Spanish greeting (Mario speaks Spanish)
+];
+
+// Max length for a greeting (longest: "good afternoon" = 14 chars, with margin)
+const MAX_GREETING_LENGTH = 30;
+
+/**
+ * Check if a message is a simple greeting (not a greeting + question)
+ */
+export function isGreeting(message: string): boolean {
+  const trimmed = message.trim().toLowerCase();
+
+  // If message contains a question mark, it's likely a question not just a greeting
+  if (trimmed.includes('?')) {
+    return false;
+  }
+
+  // If message is too long, it's probably not just a greeting
+  if (trimmed.length > MAX_GREETING_LENGTH) {
+    return false;
+  }
+
+  return GREETING_PATTERNS.some((pattern) => pattern.test(trimmed));
+}
+
+/**
+ * Get Anthropic client instance
+ */
+function getAnthropicClient(): Anthropic {
+  const apiKey = process.env.ANTHROPIC_API_KEY;
+  if (!apiKey) {
+    throw new Error('ANTHROPIC_API_KEY environment variable is not set');
+  }
+  return new Anthropic({ apiKey });
+}
+
+/**
+ * Search for relevant content based on query
+ * Embeds the query and performs vector similarity search
+ */
+export async function searchRelevantContent(
+  query: string,
+  limit: number = 5,
+  source?: string
+): Promise<SearchResult[]> {
+  // Generate embedding for the query
+  const queryEmbedding = await generateEmbedding(query);
+
+  // Search for similar content in the database
+  const results = await vectorSearch(queryEmbedding, limit, source);
+
+  return results;
+}
+
+/**
+ * Build system prompt for the RAG chatbot
+ * Establishes Mario's personality and communication style
+ */
+function buildSystemPrompt(): string {
+  return `You are Mario Bennekers' AI assistant on his portfolio website. You speak as Mario in first person ("I", "my", "me").
+
+## Who Mario Is
+- Product Manager & Technical Builder based in Madrid
+- 6+ years leading cross-functional teams across 3 continents
+- Currently Founder & CEO at CatchIT! (location-based gaming)
+- Languages: Spanish (native), English (fluent), Dutch (fluent)
+
+## Language Rules (CRITICAL)
+- **Match the user's language**: If they write in Spanish, respond in Spanish. If English, respond in English.
+- **Stay in their language**: Once they switch languages, continue in that language for all future responses.
+- Spanish example: "¡Claro! Trabajé en [RatedPower](/case-studies/ratedpower-topography) durante 3 años..."
+
+## Response Style
+- **Be concise**: 2-3 sentences max for simple questions, 4-5 for complex ones
+- **Conversational**: Like chatting with a colleague, not writing an essay
+- **First person**: "I built..." not "Mario built..."
+
+## Inline Links (ALWAYS USE)
+ALWAYS link to relevant pages when mentioning them. Never mention a project without linking it.
+
+Available links:
+- About: [my background](/about) or [sobre mí](/about)
+- CatchIT!: [CatchIT!](/case-studies/catchit-product-conceptualization) or [chatbot](/case-studies/catchit-ai-chatbot)
+- RatedPower: [topography tool](/case-studies/ratedpower-topography), [financial calculator](/case-studies/ratedpower-financial-calculator), [CRM integration](/case-studies/ratedpower-crm-integration)
+- Maxem: [smart energy algorithm](/case-studies/maxem-smart-energy-algorithm), [portable battery system](/case-studies/maxem-portable-battery-system)
+- This portfolio: [this portfolio](/case-studies/portfolio)
+
+Example good response:
+"I led the [topography tool](/case-studies/ratedpower-topography) at RatedPower - it calculates earthwork costs for solar plants. Check out [my background](/about) for the full story!"
+
+## Rules
+- Answer ONLY from provided context
+- NO bullet point lists - write flowing sentences
+- NO "sources" section - integrate references as links
+- ALWAYS include at least one relevant link in your response
+- If unsure, suggest what you CAN talk about
+- End with a light invite to ask more`;
+}
+
+/**
+ * Build greeting prompt - used when user sends a simple greeting
+ */
+function buildGreetingPrompt(greeting: string): string {
+  // Sanitize greeting to prevent prompt injection (defense in depth)
+  const sanitizedGreeting = greeting.slice(0, 50).replace(/["\n\r]/g, '');
+
+  return `The visitor just sent a greeting: "${sanitizedGreeting}"
+
+Respond warmly as Mario's AI assistant. Introduce yourself briefly and invite them to ask about:
+- My professional background and experience
+- Case studies and projects I've worked on
+- My skills in Product Management and technical building
+- My current work at CatchIT!
+
+Keep it friendly, concise (2-3 sentences), and welcoming.`;
+}
+
+/**
+ * Build user prompt with context from vector search
+ */
+function buildUserPrompt(question: string, context: SearchResult[]): string {
+  if (context.length === 0) {
+    return `Question: ${question}
+
+No relevant context was found in the portfolio. Please let the user know you don't have information to answer their question.`;
+  }
+
+  const contextText = context
+    .map((result, i) => {
+      const source = result.metadata?.title || result.source || 'Unknown';
+      return `[Source ${i + 1}: ${source}]\n${result.content}`;
+    })
+    .join('\n\n');
+
+  return `Context from Mario's portfolio:
+${contextText}
+
+Question: ${question}
+
+Please answer the question based on the context provided above.`;
+}
+
+/**
+ * Convert search results to chat sources
+ */
+function toSources(results: SearchResult[]): ChatSource[] {
+  return results.map((result) => ({
+    content: result.content,
+    source: result.source || 'unknown',
+    title: result.metadata?.title,
+    similarity: result.similarity,
+  }));
+}
+
+/**
+ * Generate a chat response using Claude with RAG context
+ */
+export async function generateChatResponse(
+  question: string
+): Promise<ChatResponse> {
+  // Search for relevant content
+  const searchResults = await searchRelevantContent(question);
+
+  // Build prompts
+  const systemPrompt = buildSystemPrompt();
+  const userPrompt = buildUserPrompt(question, searchResults);
+
+  // Call Claude API
+  const client = getAnthropicClient();
+  const response = await client.messages.create({
+    model: 'claude-sonnet-4-20250514',
+    max_tokens: 1024,
+    system: systemPrompt,
+    messages: [
+      {
+        role: 'user',
+        content: userPrompt,
+      },
+    ],
+  });
+
+  // Extract answer from response
+  const textBlock = response.content.find((block) => block.type === 'text');
+  const answer = textBlock?.type === 'text' ? textBlock.text : '';
+
+  return {
+    answer,
+    sources: toSources(searchResults),
+  };
+}
+
+/**
+ * Generate a greeting response without RAG search
+ */
+async function generateGreetingResponse(
+  greeting: string
+): Promise<ChatResponse> {
+  try {
+    const systemPrompt = buildSystemPrompt();
+    const userPrompt = buildGreetingPrompt(greeting);
+
+    const client = getAnthropicClient();
+    const response = await client.messages.create({
+      model: 'claude-sonnet-4-20250514',
+      max_tokens: 512,
+      system: systemPrompt,
+      messages: [
+        {
+          role: 'user',
+          content: userPrompt,
+        },
+      ],
+    });
+
+    const textBlock = response.content.find((block) => block.type === 'text');
+    const answer = textBlock?.type === 'text' ? textBlock.text : '';
+
+    return {
+      answer,
+      sources: [], // No sources for greetings
+    };
+  } catch (error) {
+    // Fallback to a static greeting if API fails
+    return {
+      answer:
+        "Hi there! I'm happy to help you learn about my experience, projects, and skills. What would you like to know?",
+      sources: [],
+    };
+  }
+}
+
+/**
+ * Main chat function - handles full flow from question to answer
+ */
+export async function chat(question: string): Promise<ChatResponse> {
+  // Validate question
+  if (!question || question.trim().length === 0) {
+    throw new Error('Question cannot be empty');
+  }
+
+  const trimmedQuestion = question.trim();
+
+  // Handle greetings without RAG search
+  if (isGreeting(trimmedQuestion)) {
+    return generateGreetingResponse(trimmedQuestion);
+  }
+
+  // Generate response with RAG
+  return generateChatResponse(trimmedQuestion);
+}

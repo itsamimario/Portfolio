@@ -1,13 +1,37 @@
 # Mario Bennekers Portfolio - Claude Project Context
 
-**Last Updated:** January 4, 2026
-**Deadline:** January 15, 2026 (11 days remaining)
+**Last Updated:** January 20, 2026
+**Deadline:** January 15, 2026 (PAST)
 
 ## 📋 Primary Reference
 **SPEC.md** - Complete technical specification with all features, phases, and architecture
 
 ## 🎯 Project Goal
 Build a professional minimalist portfolio to land a Product Manager role, featuring a RAG chatbot as the star differentiator.
+
+## 🏠 Homepage Design (Chat-First)
+The homepage IS the chat interface. Visitors land directly in a conversational experience.
+
+**Initial State:**
+```
+Hi! I'm Mario Bennekers, Product Manager
+
+This is my portfolio, feel free to navigate through it
+or ask directly any question about myself.
+
+Or you can navigate directly to:
+About    Case Studies    Product Playbook    ← Plain text links (no borders)
+
+┌─────────────────────────────────────────┐
+│ Ask me anything...                      │  ← Chat input
+└─────────────────────────────────────────┘
+```
+
+**After User Sends Message:**
+- Intro text fades out
+- Navigation links become sticky header at top
+- Messages appear in scrollable area above input
+- Input stays at bottom
 
 ## ✅ Completed (Days 1-3)
 
@@ -20,10 +44,9 @@ Build a professional minimalist portfolio to land a Product Manager role, featur
 - ✅ Environment variables template (.env.example)
 
 ### Content Sections Built
-- ✅ **Hero Section**: Name with pixel-art font, tagline, 2 CTAs (AI assistant, Case Studies)
-- ✅ **About Section**: Intro, Background (education, experience, current role, languages), What I do, Key strengths
-- ✅ **Skills Section**: Product Management skills, Technical skills (Frontend/Backend/AI/Design/Tools), Languages badges
-- ✅ **Footer**: Basic copyright and tech stack
+- ✅ **Homepage**: Chat-first interface with terminal-style intro
+- ✅ **About Page**: Full portfolio (Hero, About, Skills, Case Studies, Footer)
+- ✅ **Case Study Pages**: Dynamic routes for detailed case studies
 
 ## ✅ Recently Completed
 
@@ -57,24 +80,50 @@ Build a professional minimalist portfolio to land a Product Manager role, featur
 - ✅ Updated .env.example with DATABASE_URL
 - ✅ Documented PostgreSQL setup in README (macOS/Linux/Windows)
 
+### Phase 5: Content Embedding (PR #5 - MERGED ✅)
+- ✅ Created `lib/content-loader.ts` - Loads markdown content from files
+- ✅ Created `lib/chunker.ts` - Splits content into semantic chunks
+- ✅ Created `lib/openai-embeddings.ts` - OpenAI embedding generation
+- ✅ Created `types/embeddings.ts` - Type definitions
+- ✅ Created `scripts/embed-content.ts` - CLI script to embed all content
+- ✅ 25 content chunks embedded in PostgreSQL database
+- ✅ All tests passing
+
+### Phase 6: Chat API (PR #6 - MERGED ✅)
+- ✅ Created `types/chat.ts` - Chat request/response types
+- ✅ Created `lib/chat.ts` - RAG chat service (search + Claude integration)
+- ✅ Created `app/api/chat/route.ts` - Next.js API endpoint
+- ✅ 18 tests passing (9 service tests + 10 API route tests)
+- ✅ Code review approved
+- ✅ Security review approved
+
+### Phase 7: Chat UI (PR #7 - MERGED ✅)
+- ✅ Created `types/chat-ui.ts` - Chat UI type definitions
+- ✅ Created `lib/hooks/useChat.ts` - Custom hook for chat state management
+- ✅ Created `components/chat/ChatInput.tsx` - Input with send button
+- ✅ Created `components/chat/MessageBubble.tsx` - Message display
+- ✅ Created `components/chat/MessageList.tsx` - Scrollable message list
+- ✅ Created `components/chat/NavigationLinks.tsx` - Sticky nav links
+- ✅ Created `components/chat/ChatContainer.tsx` - Main chat orchestration
+- ✅ 112 component tests passing
+- ✅ Auto-scroll to new messages
+- ✅ Loading indicator with animated dots
+- ✅ Input length validation (max 2000 chars)
+- ✅ Code review approved
+- ✅ Security review approved
+
+### Phase 7b: Chat Flow Refactor (MERGED ✅)
+- ✅ Message-based architecture: all content rendered as chat messages
+- ✅ Sequential typing animation for intro messages (hi → name → title → description → nav)
+- ✅ Split intro into 5 separate messages for smooth animation without layout shifts
+- ✅ Navigation links with classic blue underline styling
+- ✅ Sticky header appears when nav links scroll out of view
+- ✅ Auto-scroll during typing animation
+- ✅ Input cursor positioned on left, only visible after intro completes
+- ✅ Placeholder text "type something here" when input not focused
+- ✅ 201 tests passing
+
 ## 🚧 Next Steps
-
-### Priority 1: Phase 5 - RAG Chatbot Implementation
-- [ ] Embed content (CV, case studies, playbook) into database
-- [ ] Create embedding generation utilities
-- [ ] Build Chat UI component
-- [ ] Implement Next.js API routes for chat
-- [ ] Integrate Claude API with RAG retrieval
-- [ ] Add example questions UI
-
-### Priority 2: RAG Chatbot ⭐ (Days 11-12)
-- [ ] PostgreSQL + pgvector local setup
-- [ ] Database schema for embeddings
-- [ ] Embed content (CV, case studies, playbook)
-- [ ] Chat UI component
-- [ ] Next.js API routes for chat
-- [ ] Claude API integration
-- [ ] Example questions UI
 
 ### Priority 3: Product Playbook (Days 13-14)
 - [ ] Vision & Alignment section
@@ -96,18 +145,39 @@ Build a professional minimalist portfolio to land a Product Manager role, featur
 ```
 /Users/mbennekers/Code/Portfolio/
 ├── app/
-│   ├── layout.tsx          # Root layout with fonts
-│   ├── page.tsx            # Home page (Hero, About, Skills)
-│   └── globals.css         # Global styles + Tailwind
-├── components/             # React components (to be built)
-├── lib/                    # Utilities (to be built)
-├── types/                  # TypeScript types (to be built)
-├── public/
-│   └── fonts/
-│       ├── Catchifont-regular.ttf
-│       └── Catchifont-bold.ttf
-├── SPEC.md                 # Complete technical specification
-└── README.md              # Project documentation
+│   ├── layout.tsx              # Root layout with fonts
+│   ├── page.tsx                # Homepage (chat-first interface)
+│   ├── about/page.tsx          # About page (full portfolio)
+│   ├── case-studies/[id]/      # Dynamic case study pages
+│   └── api/chat/route.ts       # RAG chatbot API endpoint ✅
+├── components/
+│   ├── TerminalText.tsx        # Animated intro text ✅
+│   ├── CaseStudies.tsx         # Case studies grid ✅
+│   ├── CaseStudy.tsx           # Individual case study ✅
+│   └── chat/                   # Chat UI components ✅
+│       ├── ChatContainer.tsx   # Main chat orchestration
+│       ├── ChatInput.tsx       # Message input + send
+│       ├── MessageBubble.tsx   # Individual message
+│       ├── MessageList.tsx     # Scrollable messages
+│       └── NavigationLinks.tsx # Sticky navigation
+├── lib/
+│   ├── db.ts                   # Database connection ✅
+│   ├── chat.ts                 # Chat service (RAG) ✅
+│   ├── openai-embeddings.ts    # Embedding generation ✅
+│   ├── content-loader.ts       # Content loading ✅
+│   ├── chunker.ts              # Text chunking ✅
+│   └── hooks/
+│       └── useChat.ts          # Chat state management hook ✅
+├── types/
+│   ├── chat.ts                 # Chat types ✅
+│   ├── chat-ui.ts              # Chat UI types ✅
+│   ├── content.ts              # Content types ✅
+│   └── embeddings.ts           # Embedding types ✅
+├── content/                    # Markdown content for RAG ✅
+├── scripts/embed-content.ts    # Embedding CLI ✅
+├── db/schema.sql               # Database schema ✅
+├── SPEC.md                     # Complete technical specification
+└── README.md                   # Project documentation
 ```
 
 ## 🛠️ Tech Stack
@@ -149,14 +219,16 @@ Build a professional minimalist portfolio to land a Product Manager role, featur
 ## 📊 Progress Tracking
 
 **Timeline:**
-- Days 1-2 (Jan 4-5): ✅ Setup complete (DONE EARLY on Jan 4)
-- Days 3-4 (Jan 6-7): ✅ Hero + About + Skills (DONE EARLY on Jan 4)
-- Days 5-7 (Jan 8-10): ✅ Case Studies (Phases 1-3 complete on Jan 4)
-- Days 8-9 (Jan 11-12): 🔄 RAG Chatbot (NEXT)
-- Days 10-11 (Jan 13-14): ⏳ Product Playbook + polish
-- Day 12 (Jan 15): ⏳ Deploy + GitHub + testing
+- Days 1-2 (Jan 4-5): ✅ Setup complete
+- Days 3-4 (Jan 6-7): ✅ Hero + About + Skills
+- Days 5-7 (Jan 8-10): ✅ Case Studies (Phases 1-3)
+- Days 8-9 (Jan 11-12): ✅ Database + Embeddings (Phases 4-5)
+- Days 10-11 (Jan 13-14): ✅ Chat API (Phase 6)
+- Day 12 (Jan 15): ✅ Chat UI (Phase 7)
+- Day 13 (Jan 20): ✅ Chat Flow Refactor (Phase 7b)
+- Day 14+: ⏳ Bot response tuning + Product Playbook + Deploy
 
-**Status:** 🟢 SIGNIFICANTLY AHEAD OF SCHEDULE (completed 7 days of work in 1 day)
+**Status:** 🟢 Phase 7b complete - 8/13 phases done
 
 ## 🔑 Key Features
 
@@ -181,6 +253,6 @@ Build a professional minimalist portfolio to land a Product Manager role, featur
 - All changes tracked via PRs: https://github.com/itsamimario/Portfolio/pulls
 
 **Current Focus:**
-- ✅ Phase 4 merged into main
-- 🔄 Ready to start Phase 5 - RAG Chatbot Implementation
-- Progress: 4/13 phases complete (SIGNIFICANTLY AHEAD OF SCHEDULE)
+- ✅ Phase 7 + 7b complete (Chat UI with sequential typing animation)
+- 🔄 Next: Tune bot responses and Product Playbook
+- Progress: 8/13 phases complete
