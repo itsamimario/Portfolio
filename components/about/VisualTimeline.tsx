@@ -1,8 +1,12 @@
 /**
  * VisualTimeline component
  * Displays work experience with a year ruler on the left side
+ * Features subtle scroll-based animations
  */
 
+'use client';
+
+import { useEffect, useState, useRef } from 'react';
 import Link from 'next/link';
 import type { TimelineEntry } from '@/types/timeline';
 
@@ -22,39 +26,53 @@ function parseYears(period: string): { start: number; end: number } {
   return { start, end };
 }
 
-// Get year range for the ruler
-function getYearRange(entries: TimelineEntry[]): number[] {
-  let minYear = 2026;
-  let maxYear = 2015;
-
-  entries.forEach((entry) => {
-    const { start, end } = parseYears(entry.period);
-    if (start < minYear) minYear = start;
-    if (end > maxYear) maxYear = end;
-  });
-
-  // Create array of years from max to min (reverse chronological)
-  const years: number[] = [];
-  for (let y = maxYear; y >= minYear; y--) {
-    years.push(y);
-  }
-  return years;
-}
-
 interface TimelineEntryRowProps {
   entry: TimelineEntry;
+  index: number;
 }
 
-function TimelineEntryRow({ entry }: TimelineEntryRowProps): JSX.Element {
+function TimelineEntryRow({ entry, index }: TimelineEntryRowProps): JSX.Element {
+  const [isVisible, setIsVisible] = useState(false);
+  const entryRef = useRef<HTMLDivElement>(null);
   const isCareerPivot = entry.id === 'sabbatical';
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // Add small stagger based on index
+            setTimeout(() => setIsVisible(true), index * 100);
+            observer.disconnect();
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+    );
+
+    if (entryRef.current) {
+      observer.observe(entryRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, [index]);
+
   return (
-    <div className="relative pl-8 md:pl-12 pb-8 border-l-2 border-gray-300 last:border-l-0">
+    <div
+      ref={entryRef}
+      className={`relative pl-8 md:pl-12 pb-8 border-l-2 border-gray-300 last:border-l-0 transition-all duration-500 ease-out ${
+        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+      }`}
+    >
       {/* Timeline dot */}
-      <div className="absolute left-[-5px] top-1 w-2 h-2 bg-black rounded-full" />
+      <div
+        className={`absolute left-[-5px] top-1 w-2 h-2 bg-black rounded-full transition-transform duration-500 ${
+          isVisible ? 'scale-100' : 'scale-0'
+        }`}
+      />
 
       {/* Year marker */}
-      <div className="absolute left-[-60px] md:left-[-80px] top-0 text-xs md:text-sm font-pixel text-gray-500 w-12 md:w-16 text-right">
+      <div className="absolute left-[-60px] md:left-[-80px] top-0 text-sm md:text-base font-pixel text-gray-500 w-12 md:w-16 text-right">
         {parseYears(entry.period).start}
       </div>
 
@@ -62,30 +80,41 @@ function TimelineEntryRow({ entry }: TimelineEntryRowProps): JSX.Element {
       <div className="space-y-2">
         {/* Header */}
         <div>
-          {isCareerPivot && (
-            <span className="inline-block text-xs font-pixel bg-gray-200 px-2 py-1 mb-2">
-              CAREER PIVOT
-            </span>
+          {isCareerPivot ? (
+            <h3 className="text-xl md:text-2xl font-pixel">
+              <span className="inline-block text-xs font-pixel bg-gray-200 px-2 py-1 mr-2 align-middle">
+                CAREER PIVOT
+              </span>
+              {entry.role}
+            </h3>
+          ) : (
+            <h3 className="text-xl md:text-2xl font-pixel">
+              {entry.company}
+            </h3>
           )}
-          <h3 className="text-xl md:text-2xl font-pixel">
-            {entry.company}
-          </h3>
-          <p className="font-pixel text-gray-700">
-            {entry.role}
-          </p>
-          <p className="text-sm text-gray-500">
+          {entry.companyDescription && (
+            <p className="text-base font-pixel text-gray-500 mb-1">
+              {entry.companyDescription}
+            </p>
+          )}
+          {!isCareerPivot && (
+            <p className="font-pixel text-gray-700">
+              {entry.role}
+            </p>
+          )}
+          <p className="text-base font-pixel text-gray-500">
             {entry.period} | {entry.location}
           </p>
         </div>
 
         {/* Description */}
-        <p className="text-gray-700 leading-relaxed">
+        <p className="font-pixel text-gray-700 leading-relaxed">
           {entry.description}
         </p>
 
         {/* Case Studies - Terminal style */}
         {entry.caseStudies.length > 0 && (
-          <div className="mt-4 font-mono text-sm bg-gray-50 border border-gray-200 p-4">
+          <div className="mt-4 font-pixel text-base bg-gray-50 border border-gray-200 p-4">
             <div className="text-gray-500 mb-2">case_studies/</div>
             {entry.caseStudies.map((cs) => (
               <Link
@@ -109,8 +138,8 @@ export function VisualTimeline({ entries }: VisualTimelineProps): JSX.Element {
       <h2 className="text-3xl md:text-4xl font-pixel mb-8">Experience</h2>
 
       <div className="relative ml-16 md:ml-20">
-        {entries.map((entry) => (
-          <TimelineEntryRow key={entry.id} entry={entry} />
+        {entries.map((entry, index) => (
+          <TimelineEntryRow key={entry.id} entry={entry} index={index} />
         ))}
       </div>
     </section>

@@ -36,13 +36,13 @@ export function HeroSection(): JSX.Element {
       <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-center md:items-start">
         {/* Profile Photo */}
         <div className="flex-shrink-0">
-          <div className="w-40 h-40 md:w-48 md:h-48 rounded-full overflow-hidden border-4 border-gray-200">
+          <div className="w-40 h-40 md:w-48 md:h-48 rounded-full overflow-hidden border-4 border-gray-600">
             <Image
               src="/images/mario-profile.jpg"
               alt="Mario Bennekers"
               width={192}
               height={192}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover object-[30%_-8px] md:object-[30%_-10px] scale-125"
               priority
             />
           </div>
@@ -56,7 +56,7 @@ export function HeroSection(): JSX.Element {
           <p className="text-lg md:text-xl text-gray-600 font-pixel mb-4">
             {tagline}
           </p>
-          <p className="text-gray-700 leading-relaxed mb-6 max-w-2xl">
+          <p className="font-pixel text-gray-700 leading-relaxed mb-6 max-w-2xl">
             {description}
           </p>
 
@@ -68,7 +68,7 @@ export function HeroSection(): JSX.Element {
               title="Email"
             >
               <EmailIcon />
-              <span className="text-sm font-pixel">Email</span>
+              <span className="text-base font-pixel">Email</span>
             </a>
             <a
               href={contact.linkedin}
@@ -78,7 +78,7 @@ export function HeroSection(): JSX.Element {
               title="LinkedIn"
             >
               <LinkedInIcon />
-              <span className="text-sm font-pixel">LinkedIn</span>
+              <span className="text-base font-pixel">LinkedIn</span>
             </a>
             <a
               href={contact.github}
@@ -88,7 +88,7 @@ export function HeroSection(): JSX.Element {
               title="GitHub"
             >
               <GitHubIcon />
-              <span className="text-sm font-pixel">GitHub</span>
+              <span className="text-base font-pixel">GitHub</span>
             </a>
           </div>
         </div>

@@ -18,6 +18,7 @@ export interface CaseStudyLink {
 export interface TimelineEntry {
   id: string;
   company: string;
+  companyDescription?: string;
   role: string;
   period: string;
   location: string;

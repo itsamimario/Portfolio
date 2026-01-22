@@ -1,6 +1,6 @@
 /**
  * SkillBar component
- * Animated progress bar for a single skill
+ * Animated progress bar with pixel-style square blocks
  */
 
 'use client';
@@ -12,17 +12,27 @@ interface SkillBarProps {
   proficiency: number;
 }
 
+const TOTAL_BLOCKS = 20;
+
 export function SkillBar({ name, proficiency }: SkillBarProps): JSX.Element {
-  const [width, setWidth] = useState(0);
+  const [filledBlocks, setFilledBlocks] = useState(0);
   const barRef = useRef<HTMLDivElement>(null);
+  const targetBlocks = Math.round(proficiency / 5);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            // Animate the bar when it comes into view
-            setTimeout(() => setWidth(proficiency), 100);
+            // Animate blocks filling one by one
+            let current = 0;
+            const interval = setInterval(() => {
+              current += 1;
+              setFilledBlocks(current);
+              if (current >= targetBlocks) {
+                clearInterval(interval);
+              }
+            }, 40);
           }
         });
       },
@@ -34,19 +44,25 @@ export function SkillBar({ name, proficiency }: SkillBarProps): JSX.Element {
     }
 
     return () => observer.disconnect();
-  }, [proficiency]);
+  }, [targetBlocks]);
 
   return (
     <div ref={barRef} className="mb-4">
-      <div className="flex justify-between items-center mb-1">
-        <span className="text-sm text-gray-700">{name}</span>
-        <span className="text-xs font-pixel text-gray-500">{proficiency}%</span>
+      <div className="mb-1">
+        <span className="text-base font-pixel text-gray-700">{name}</span>
       </div>
-      <div className="h-2 bg-gray-200 overflow-hidden">
-        <div
-          className="h-full bg-black transition-all duration-1000 ease-out"
-          style={{ width: `${width}%` }}
-        />
+      <div className="flex items-center gap-2">
+        <div className="flex gap-1">
+          {Array.from({ length: TOTAL_BLOCKS }).map((_, index) => (
+            <div
+              key={index}
+              className={`h-3 w-3 transition-colors duration-150 ${
+                index < filledBlocks ? 'bg-black' : 'bg-gray-200'
+              }`}
+            />
+          ))}
+        </div>
+        <span className="text-sm font-pixel text-gray-500">{proficiency}%</span>
       </div>
     </div>
   );

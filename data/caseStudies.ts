@@ -89,6 +89,26 @@ export const caseStudies: CaseStudy[] = [
     underConstruction: true,
   },
 
+  // Freelance Case Studies
+  {
+    id: 'ecometro-product-strategy',
+    title: 'Ecometro Product Strategy',
+    role: 'Interim Product Lead',
+    company: 'Ecometro',
+    period: '2024',
+    tagline: 'Building the product team and preparing a sustainability platform for market',
+    underConstruction: true,
+  },
+  {
+    id: 'imageryst-renewables-pivot',
+    title: 'Imageryst Renewables Pivot',
+    role: 'Product Consultant',
+    company: 'Imageryst',
+    period: '2024',
+    tagline: 'Adapting satellite imagery technology to the renewables market',
+    underConstruction: true,
+  },
+
   // RatedPower Case Studies
   {
     id: 'ratedpower-topography',

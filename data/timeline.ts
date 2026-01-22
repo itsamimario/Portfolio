@@ -9,6 +9,7 @@ export const timeline: TimelineEntry[] = [
   {
     id: 'catchit',
     company: 'CatchIT!',
+    companyDescription: 'Location-based mobile game startup',
     role: 'Founder & Product Lead',
     period: 'Sep 2024 - Present',
     location: 'Madrid, Spain',
@@ -30,16 +31,29 @@ export const timeline: TimelineEntry[] = [
   {
     id: 'freelance',
     company: 'Freelance',
+    companyDescription: 'Independent consulting for sustainability startups',
     role: 'Product Development Consultant',
     period: 'Dec 2023 - Present',
     location: 'Madrid, Spain',
     description:
       'Providing product strategy for sustainability-focused companies. Interim Product Lead at Ecometro, building the product team and preparing the product for market. Consulted for Imageryst, adapting their technology to renewables and delivering product and go-to-market strategy.',
-    caseStudies: [],
+    caseStudies: [
+      {
+        id: 'ecometro-product-strategy',
+        title: 'Ecometro Product Strategy',
+        status: 'under-construction',
+      },
+      {
+        id: 'imageryst-renewables-pivot',
+        title: 'Imageryst Renewables Pivot',
+        status: 'under-construction',
+      },
+    ],
   },
   {
     id: 'maxem',
     company: 'Maxem Energy Solutions',
+    companyDescription: 'B2B SaaS platform for energy storage optimization',
     role: 'Product Manager',
     period: 'May 2022 - Dec 2023',
     location: 'Amsterdam, Netherlands',
@@ -61,6 +75,7 @@ export const timeline: TimelineEntry[] = [
   {
     id: 'ratedpower',
     company: 'RatedPower',
+    companyDescription: 'B2B SaaS for solar plant design',
     role: 'Product Manager',
     period: 'Feb 2019 - May 2022',
     location: 'Madrid, Spain',
@@ -97,6 +112,7 @@ export const timeline: TimelineEntry[] = [
   {
     id: 'solarpack',
     company: 'Solarpack',
+    companyDescription: 'Utility-scale solar energy developer',
     role: 'Project Manager',
     period: 'Mar 2015 - Oct 2017',
     location: 'South America & India',

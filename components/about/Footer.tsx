@@ -35,7 +35,7 @@ export function Footer(): JSX.Element {
       {/* CTA Section */}
       <div className="text-center mb-12">
         <h2 className="text-3xl md:text-4xl font-pixel mb-4">Let&apos;s Work Together</h2>
-        <p className="text-gray-600 mb-6">
+        <p className="font-pixel text-gray-600 mb-6">
           Open to Product Manager opportunities
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -91,14 +91,14 @@ export function Footer(): JSX.Element {
           </div>
 
           {/* Location */}
-          <p className="text-sm text-gray-500">
+          <p className="text-base font-pixel text-gray-500">
             {contact.location} | {contact.timezone} Timezone
           </p>
 
           {/* Copyright */}
-          <div className="text-sm text-gray-500 text-center md:text-right">
+          <div className="text-base font-pixel text-gray-500 text-center md:text-right">
             <p>&copy; 2026 Mario Bennekers</p>
-            <p className="text-xs mt-1">Built with Next.js, TypeScript & Claude API</p>
+            <p className="text-sm mt-1">Built with Next.js, TypeScript & Claude API</p>
           </div>
         </div>
       </div>
