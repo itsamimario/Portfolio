@@ -14,7 +14,7 @@ export const timeline: TimelineEntry[] = [
     period: 'Sep 2024 - Present',
     location: 'Madrid, Spain',
     description:
-      'Founded a mobile game startup, owning the full product lifecycle. Led product strategy, user research, and rapid iteration cycles. Built and shipped cross-platform app (React Native) integrating AI tools. Achieved 50% D1, 35% D7, 12% D30 retention through data-driven optimization.',
+      'Founded a mobile game startup, owning the full product lifecycle. Led product strategy, user research, and rapid iteration cycles. Built and shipped cross-platform app integrating AI tools. Achieved 50% D1, 35% D7, 12% D30 retention through data-driven optimization.',
     caseStudies: [
       {
         id: 'catchit-product-conceptualization',
