@@ -34,7 +34,7 @@ export interface ChatRequest {
  */
 export interface ChatErrorResponse {
   error: string;
-  code: 'INVALID_REQUEST' | 'EMPTY_QUESTION' | 'SERVICE_ERROR';
+  code: 'INVALID_REQUEST' | 'EMPTY_QUESTION' | 'QUESTION_TOO_LONG' | 'RATE_LIMITED' | 'SERVICE_ERROR';
 }
 
 /**

@@ -143,11 +143,23 @@ Keep it friendly, concise (2-3 sentences), and welcoming.`;
 }
 
 /**
+ * Sanitize user input before embedding in prompts
+ * Strips control characters and null bytes
+ */
+function sanitizeInput(input: string): string {
+  return input
+    .replace(/\0/g, '') // null bytes
+    .replace(/[\x01-\x08\x0B\x0C\x0E-\x1F\x7F]/g, ''); // control chars (preserve \n \r \t)
+}
+
+/**
  * Build user prompt with context from vector search
  */
 function buildUserPrompt(question: string, context: SearchResult[]): string {
+  const sanitizedQuestion = sanitizeInput(question);
   if (context.length === 0) {
-    return `Question: ${question}
+    return `The visitor asked the following question:
+<user_question>${sanitizedQuestion}</user_question>
 
 No relevant context was found in the portfolio. Please let the user know you don't have information to answer their question.`;
   }
@@ -162,7 +174,8 @@ No relevant context was found in the portfolio. Please let the user know you don
   return `Context from Mario's portfolio:
 ${contextText}
 
-Question: ${question}
+The visitor asked the following question:
+<user_question>${sanitizedQuestion}</user_question>
 
 Please answer the question based on the context provided above.`;
 }

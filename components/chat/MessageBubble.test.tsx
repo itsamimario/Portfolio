@@ -47,11 +47,11 @@ describe('MessageBubble', () => {
       expect(screen.getByText('>')).toBeInTheDocument();
     });
 
-    it('applies black text color (terminal style)', () => {
+    it('applies gray text color for user messages', () => {
       const { container } = render(<MessageBubble message={baseUserMessage} />);
 
       const wrapper = container.firstChild as HTMLElement;
-      expect(wrapper.className).toMatch(/text-black/);
+      expect(wrapper.className).toMatch(/text-gray-500/);
     });
 
     it('uses pixel font for terminal aesthetic', () => {
@@ -159,11 +159,11 @@ describe('MessageBubble', () => {
   });
 
   describe('styling', () => {
-    it('uses full width for terminal style', () => {
+    it('uses max-width constraint for messages', () => {
       const { container } = render(<MessageBubble message={baseUserMessage} />);
 
       const wrapper = container.firstChild as HTMLElement;
-      expect(wrapper.className).toMatch(/w-full/);
+      expect(wrapper.className).toMatch(/max-w-/);
     });
 
     it('uses flex layout for prompt and content', () => {

@@ -13,6 +13,16 @@ import type { MessageBubbleProps } from '@/types/chat-ui';
  * Parse markdown links and render as Next.js Link components
  * Converts [text](url) to clickable links
  */
+/**
+ * Check if a URL is safe to render as a link
+ * Only allows internal paths, http://, and https:// URLs
+ */
+function isSafeUrl(url: string): boolean {
+  if (url.startsWith('/')) return true;
+  if (url.startsWith('https://') || url.startsWith('http://')) return true;
+  return false;
+}
+
 function renderWithLinks(text: string): React.ReactNode {
   // Regex to match markdown links: [text](url)
   const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
@@ -30,6 +40,13 @@ function renderWithLinks(text: string): React.ReactNode {
     const linkText = match[1];
     const url = match[2];
 
+    // Skip unsafe URLs (javascript:, data:, etc.)
+    if (!isSafeUrl(url)) {
+      parts.push(linkText);
+      lastIndex = match.index + match[0].length;
+      continue;
+    }
+
     // Check if it's an internal link (starts with /)
     if (url.startsWith('/')) {
       parts.push(
@@ -42,7 +59,7 @@ function renderWithLinks(text: string): React.ReactNode {
         </Link>
       );
     } else {
-      // External link
+      // External link (http/https only)
       parts.push(
         <a
           key={key++}

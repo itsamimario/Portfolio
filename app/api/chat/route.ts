@@ -5,6 +5,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { chat } from '../../../lib/chat';
+import { checkRateLimit } from '../../../lib/rate-limit';
 import type { ChatRequest, ChatErrorResponse } from '../../../types/chat';
 
 /**
@@ -12,6 +13,20 @@ import type { ChatRequest, ChatErrorResponse } from '../../../types/chat';
  */
 export async function POST(request: NextRequest): Promise<NextResponse> {
   try {
+    // Rate limiting (10 requests per minute per IP)
+    const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim()
+      || request.headers.get('x-real-ip')
+      || 'unknown';
+    const rateLimit = checkRateLimit(ip, 10, 60_000);
+
+    if (!rateLimit.allowed) {
+      const errorResponse: ChatErrorResponse = {
+        error: `Too many requests. Please try again in ${rateLimit.resetInSeconds} seconds.`,
+        code: 'RATE_LIMITED',
+      };
+      return NextResponse.json(errorResponse, { status: 429 });
+    }
+
     // Parse request body
     let body: ChatRequest;
     try {
@@ -33,12 +48,30 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       return NextResponse.json(errorResponse, { status: 400 });
     }
 
+    // Validate question is a string
+    if (typeof body.question !== 'string') {
+      const errorResponse: ChatErrorResponse = {
+        error: 'Question must be a string',
+        code: 'INVALID_REQUEST',
+      };
+      return NextResponse.json(errorResponse, { status: 400 });
+    }
+
     // Validate question is not empty
     const question = body.question.trim();
     if (question.length === 0) {
       const errorResponse: ChatErrorResponse = {
         error: 'Question cannot be empty',
         code: 'EMPTY_QUESTION',
+      };
+      return NextResponse.json(errorResponse, { status: 400 });
+    }
+
+    // Validate question length
+    if (question.length > 2000) {
+      const errorResponse: ChatErrorResponse = {
+        error: 'Question exceeds maximum length of 2000 characters',
+        code: 'QUESTION_TOO_LONG',
       };
       return NextResponse.json(errorResponse, { status: 400 });
     }
