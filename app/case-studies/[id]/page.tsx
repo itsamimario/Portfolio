@@ -3,6 +3,7 @@ import { caseStudies } from '@/data/caseStudies';
 import { UnderConstruction } from '@/components/UnderConstruction';
 import { CaseStudy } from '@/components/CaseStudy';
 import { StickyNav } from '@/components/about/StickyNav';
+import { Footer } from '@/components/about/Footer';
 
 interface CaseStudyPageProps {
   params: {
@@ -28,9 +29,10 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
     return (
       <>
         <StickyNav />
-        <main className="min-h-screen bg-white py-12 px-4">
+        <main className="bg-white py-12 px-4">
           <div className="max-w-4xl mx-auto">
             <UnderConstruction caseStudy={caseStudy} />
+            <Footer />
           </div>
         </main>
       </>
@@ -40,9 +42,10 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
   return (
     <>
       <StickyNav />
-      <main className="min-h-screen bg-white py-12 px-4">
+      <main className="bg-white py-12 px-4">
         <div className="max-w-4xl mx-auto">
           <CaseStudy caseStudy={caseStudy} variant="full" />
+          <Footer />
         </div>
       </main>
     </>
