@@ -37,11 +37,11 @@ describe('ChatInput', () => {
       expect(screen.getByText('>')).toBeInTheDocument();
     });
 
-    it('has no visible placeholder for clean terminal look', () => {
+    it('has placeholder text', () => {
       render(<ChatInput onSend={mockOnSend} />);
 
       const input = screen.getByRole('textbox');
-      expect(input).toHaveAttribute('placeholder', '');
+      expect(input).toHaveAttribute('placeholder', 'type something here');
     });
   });
 

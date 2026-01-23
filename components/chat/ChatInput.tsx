@@ -5,33 +5,42 @@
 
 'use client';
 
-import { useState, useRef, useEffect, FormEvent, KeyboardEvent } from 'react';
+import { useState, useRef, useEffect, useCallback, FormEvent, KeyboardEvent, ChangeEvent } from 'react';
 import type { ChatInputProps } from '@/types/chat-ui';
+
+const MAX_LINES = 6;
+const LINE_HEIGHT_PX = 28;
+const MAX_HEIGHT_PX = MAX_LINES * LINE_HEIGHT_PX;
 
 /**
  * Input component for chat messages with send button
- *
- * @param onSend - Callback when message is sent
- * @param disabled - Whether input is disabled (e.g., during loading)
- * @param placeholder - Custom placeholder text
- * @param showCursor - Whether to show the blinking cursor (default true)
+ * Auto-grows up to 6 lines, then scrolls internally.
  */
 export function ChatInput({
   onSend,
   disabled = false,
-  placeholder = 'Ask me a question...',
   showCursor: showCursorProp = true,
 }: ChatInputProps): JSX.Element {
   const [message, setMessage] = useState('');
-  const [isFocused, setIsFocused] = useState(false);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  // Focus input on mount (only when cursor should be shown)
+  // Focus textarea on mount (only when cursor should be shown)
   useEffect(() => {
     if (showCursorProp) {
-      inputRef.current?.focus();
+      textareaRef.current?.focus();
     }
   }, [showCursorProp]);
+
+  const resizeTextarea = useCallback(() => {
+    const textarea = textareaRef.current;
+    if (!textarea) return;
+    textarea.style.height = 'auto';
+    textarea.style.height = `${Math.min(textarea.scrollHeight, MAX_HEIGHT_PX)}px`;
+  }, []);
+
+  useEffect(() => {
+    resizeTextarea();
+  }, [message, resizeTextarea]);
 
   const handleSend = () => {
     const trimmedMessage = message.trim();
@@ -46,61 +55,41 @@ export function ChatInput({
     handleSend();
   };
 
-  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      // Always prevent default Enter behavior in the input
+  const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setMessage(e.target.value);
+  };
+
+  const handleKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
-      // Only send on plain Enter (without Shift)
-      if (!e.shiftKey) {
-        handleSend();
-      }
-      // Shift+Enter: prevent submission but allow for future multiline support
+      handleSend();
     }
   };
 
-  // Show cursor when: not disabled (bot not typing), cursor enabled, and input has focus
-  // Cursor stays visible while user types, only hidden during bot response
-  const displayCursor = !disabled && showCursorProp && isFocused;
-
   return (
-    <form onSubmit={handleSubmit} className="flex items-center gap-2 font-pixel text-black">
-      <span className="text-lg">&gt;</span>
-      <div className="flex-1 flex items-center relative">
-        {/* Invisible input captures keystrokes */}
-        <input
-          ref={inputRef}
-          type="text"
+    <form onSubmit={handleSubmit} className="flex items-center gap-2 font-pixel text-gray-500">
+      <span className="text-lg leading-7">&gt;</span>
+      <div className="flex-1 min-w-0">
+        <textarea
+          ref={textareaRef}
           value={message}
-          onChange={(e) => setMessage(e.target.value)}
+          onChange={handleChange}
           onKeyDown={handleKeyDown}
-          onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
-          placeholder=""
+          placeholder="type something here"
           disabled={disabled}
           maxLength={2000}
+          rows={1}
           aria-label="Chat message input"
-          className="absolute inset-0 w-full bg-transparent border-none outline-none text-lg text-transparent caret-transparent disabled:cursor-not-allowed"
+          className="w-full resize-none bg-transparent border-none outline-none text-lg leading-7 text-gray-500 overflow-y-auto placeholder:text-gray-400 disabled:cursor-not-allowed"
+          style={{ maxHeight: `${MAX_HEIGHT_PX}px` }}
         />
-        {/* Placeholder when not focused and empty */}
-        {!isFocused && message.length === 0 && showCursorProp && (
-          <span className="text-lg text-gray-400">type something here</span>
-        )}
-        {/* Visible text display + cursor that follows text */}
-        {(isFocused || message.length > 0) && (
-          <>
-            <span className="text-lg whitespace-pre">{message}</span>
-            {displayCursor && (
-              <span className="w-3 h-5 bg-black animate-pulse shrink-0" />
-            )}
-          </>
-        )}
       </div>
       <button
         type="submit"
         disabled={disabled}
         aria-label="Send message"
         aria-busy={disabled}
-        className="px-3 py-1 border-2 border-black text-black bg-transparent hover:bg-black hover:text-white focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-sm"
+        className="px-3 py-1 border-2 border-black text-black bg-transparent hover:bg-black hover:text-white focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-sm shrink-0"
       >
         SEND
       </button>

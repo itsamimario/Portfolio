@@ -231,11 +231,11 @@ export function MessageBubble({ message, onTypingComplete, onTypingUpdate }: Mes
     <div
       role="article"
       aria-label={`${message.role} message`}
-      className={`w-full font-pixel text-black ${isUser ? 'text-right' : ''}`}
+      className={`max-w-[90%] font-pixel ${isUser ? 'ml-auto w-fit text-gray-500' : 'mr-auto text-black'}`}
     >
-      <div className={`flex gap-2 ${isUser ? 'flex-row-reverse' : ''}`}>
+      <div className="flex gap-2">
         <span className="text-lg shrink-0">{isUser ? '>' : '$'}</span>
-        <div className={`flex-1 ${isUser ? 'text-right' : ''}`}>
+        <div className="flex-1">
           <p className="whitespace-pre-wrap text-lg inline">
             {renderedText}
           </p>
