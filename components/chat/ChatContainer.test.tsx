@@ -102,14 +102,6 @@ describe('ChatContainer', () => {
       expect(screen.getByRole('textbox')).toBeInTheDocument();
     });
 
-    it('shows inline navigation links', () => {
-      render(<ChatContainer />);
-
-      expect(screen.getByText('About')).toBeInTheDocument();
-      expect(screen.getByText('Case Studies')).toBeInTheDocument();
-      expect(screen.getByText('Product Playbook')).toBeInTheDocument();
-    });
-
     it('shows message list with initial messages', () => {
       render(<ChatContainer />);
 

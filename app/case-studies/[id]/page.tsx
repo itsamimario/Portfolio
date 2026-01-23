@@ -27,7 +27,7 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
   if (caseStudy.underConstruction) {
     return (
       <>
-        <StickyNav currentCaseStudyId={caseStudy.id} />
+        <StickyNav />
         <main className="min-h-screen bg-white py-12 px-4">
           <div className="max-w-4xl mx-auto">
             <UnderConstruction caseStudy={caseStudy} />
@@ -39,7 +39,7 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
 
   return (
     <>
-      <StickyNav currentCaseStudyId={caseStudy.id} />
+      <StickyNav />
       <main className="min-h-screen bg-white py-12 px-4">
         <div className="max-w-4xl mx-auto">
           <CaseStudy caseStudy={caseStudy} variant="full" />

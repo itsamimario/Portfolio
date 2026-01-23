@@ -109,7 +109,7 @@ export function ChatContainer({}: ChatContainerProps): JSX.Element {
 
 
   return (
-    <main className="flex flex-col max-w-3xl mx-auto min-h-screen">
+    <main className="flex flex-col max-w-3xl mx-auto min-h-[calc(100vh-3.5rem)]">
       <h1 className="sr-only">Mario Bennekers - Portfolio Chat</h1>
 
       {/* Messages Area */}

@@ -298,14 +298,14 @@ describe('useChat hook', () => {
       });
 
       // Should have more than initial messages
-      expect(result.current.messages.length).toBeGreaterThan(5);
+      expect(result.current.messages.length).toBeGreaterThan(4);
 
       act(() => {
         result.current.clearMessages();
       });
 
-      // Should reset to initial 5 messages
-      expect(result.current.messages.length).toBe(5);
+      // Should reset to initial 4 messages
+      expect(result.current.messages.length).toBe(4);
       expect(result.current.messages[0].id).toBe('intro-hi');
     });
 
