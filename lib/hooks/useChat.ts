@@ -45,14 +45,6 @@ const INITIAL_MESSAGES: ChatMessage[] = [
     variant: 'intro',
     isTyping: true,
   },
-  {
-    id: 'nav-links',
-    role: 'assistant',
-    content: "Or navigate directly to:",
-    timestamp: new Date(),
-    variant: 'nav-links',
-    isTyping: true,
-  },
 ];
 
 /**

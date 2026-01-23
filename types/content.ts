@@ -18,9 +18,14 @@ export interface CaseStudy {
   approach?: CaseStudyStep[];
   keyDecisions?: string[];
   results?: CaseStudyResult[];
+  resultsDescription?: string;
+  learnings?: string[]; // Key takeaways
   techStack?: string[];
   links?: CaseStudyLink[];
-  embedUrl?: string; // For Figma embeds, etc.
+  embedUrl?: string; // For embeds (Figma, Google Slides, etc.)
+  embedTitle?: string; // Title for the embed section
+  featuredImage?: string; // Secondary image shown after Key Decisions
+  featuredImageAlt?: string;
   underConstruction?: boolean; // True if content is not yet complete
 }
 

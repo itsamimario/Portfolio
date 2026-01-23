@@ -31,6 +31,7 @@ describe('CaseStudy Component', () => {
         description: 'Revenue growth',
       },
     ],
+    learnings: ['Learning 1', 'Learning 2'],
     techStack: ['React', 'TypeScript', 'Next.js'],
   };
 
@@ -61,7 +62,9 @@ describe('CaseStudy Component', () => {
     it('does not render full details in card variant', () => {
       render(<CaseStudy caseStudy={mockCaseStudy} variant="card" />);
 
-      expect(screen.queryByText('This is the challenge description')).not.toBeInTheDocument();
+      expect(
+        screen.queryByText('This is the challenge description')
+      ).not.toBeInTheDocument();
       expect(screen.queryByText('Step 1')).not.toBeInTheDocument();
     });
   });
@@ -76,11 +79,26 @@ describe('CaseStudy Component', () => {
       expect(screen.getByText('A test case study')).toBeInTheDocument();
     });
 
+    it('renders results section with metric cards', () => {
+      render(<CaseStudy caseStudy={mockCaseStudy} variant="full" />);
+
+      expect(
+        screen.getByRole('heading', { name: /Results/i })
+      ).toBeInTheDocument();
+      expect(screen.getByText('Revenue')).toBeInTheDocument();
+      expect(screen.getByText('$1M')).toBeInTheDocument();
+      expect(screen.getByText('Revenue growth')).toBeInTheDocument();
+    });
+
     it('renders challenge section', () => {
       render(<CaseStudy caseStudy={mockCaseStudy} variant="full" />);
 
-      expect(screen.getByRole('heading', { name: /The Challenge/i })).toBeInTheDocument();
-      expect(screen.getByText('This is the challenge description')).toBeInTheDocument();
+      expect(
+        screen.getByRole('heading', { name: /The Challenge/i })
+      ).toBeInTheDocument();
+      expect(
+        screen.getByText('This is the challenge description')
+      ).toBeInTheDocument();
     });
 
     it('renders approach steps', () => {
@@ -101,13 +119,12 @@ describe('CaseStudy Component', () => {
       expect(screen.getByText('Decision 2')).toBeInTheDocument();
     });
 
-    it('renders results with metrics', () => {
+    it('renders key learnings', () => {
       render(<CaseStudy caseStudy={mockCaseStudy} variant="full" />);
 
-      expect(screen.getByText(/Results/i)).toBeInTheDocument();
-      expect(screen.getByText('Revenue')).toBeInTheDocument();
-      expect(screen.getByText('$1M')).toBeInTheDocument();
-      expect(screen.getByText('Revenue growth')).toBeInTheDocument();
+      expect(screen.getByText(/Key Learnings/i)).toBeInTheDocument();
+      expect(screen.getByText('Learning 1')).toBeInTheDocument();
+      expect(screen.getByText('Learning 2')).toBeInTheDocument();
     });
 
     it('renders tech stack', () => {
@@ -123,7 +140,11 @@ describe('CaseStudy Component', () => {
       const caseStudyWithLinks: CaseStudyType = {
         ...mockCaseStudy,
         links: [
-          { label: 'View Figma', url: 'https://figma.com/test', icon: 'figma' },
+          {
+            label: 'View Figma',
+            url: 'https://figma.com/test',
+            icon: 'figma',
+          },
           { label: 'GitHub', url: 'https://github.com/test', icon: 'github' },
         ],
       };
@@ -137,7 +158,7 @@ describe('CaseStudy Component', () => {
       expect(githubLink).toHaveAttribute('href', 'https://github.com/test');
     });
 
-    it('renders embed iframe when embedUrl is provided', () => {
+    it('renders Figma embed when embedUrl is provided', () => {
       const caseStudyWithEmbed: CaseStudyType = {
         ...mockCaseStudy,
         embedUrl: 'https://www.figma.com/embed?embed_host=test',
@@ -147,7 +168,10 @@ describe('CaseStudy Component', () => {
 
       const iframe = screen.getByTitle(/embed/i);
       expect(iframe).toBeInTheDocument();
-      expect(iframe).toHaveAttribute('src', 'https://www.figma.com/embed?embed_host=test');
+      expect(iframe).toHaveAttribute(
+        'src',
+        'https://www.figma.com/embed?embed_host=test'
+      );
     });
   });
 
@@ -159,13 +183,17 @@ describe('CaseStudy Component', () => {
       expect(screen.getByText('Test Project')).toBeInTheDocument();
 
       // Should not show full details
-      expect(screen.queryByText('This is the challenge description')).not.toBeInTheDocument();
+      expect(
+        screen.queryByText('This is the challenge description')
+      ).not.toBeInTheDocument();
     });
   });
 
   describe('Accessibility', () => {
     it('has proper semantic HTML structure', () => {
-      const { container } = render(<CaseStudy caseStudy={mockCaseStudy} variant="full" />);
+      const { container } = render(
+        <CaseStudy caseStudy={mockCaseStudy} variant="full" />
+      );
 
       const article = container.querySelector('article');
       expect(article).toBeInTheDocument();

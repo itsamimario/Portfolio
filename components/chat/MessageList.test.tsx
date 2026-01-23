@@ -88,24 +88,4 @@ describe('MessageList', () => {
     });
   });
 
-  describe('nav-links variant', () => {
-    it('wraps nav-links message with ref when provided', () => {
-      const navLinksMessage: ChatMessage = {
-        id: 'nav-links',
-        role: 'assistant',
-        content: 'Or navigate directly to:',
-        timestamp: new Date(),
-        variant: 'nav-links',
-      };
-
-      const mockRef = { current: null };
-      const { container } = render(
-        <MessageList messages={[navLinksMessage]} navLinksRef={mockRef} />
-      );
-
-      // The nav-links message should be wrapped in a div
-      const wrapper = container.querySelector('[role="log"] > div');
-      expect(wrapper).toBeInTheDocument();
-    });
-  });
 });

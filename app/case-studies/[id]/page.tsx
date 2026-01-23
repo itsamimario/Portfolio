@@ -1,8 +1,8 @@
 import { notFound } from 'next/navigation';
 import { caseStudies } from '@/data/caseStudies';
-import { CaseStudy } from '@/components/CaseStudy';
 import { UnderConstruction } from '@/components/UnderConstruction';
-import Link from 'next/link';
+import { CaseStudy } from '@/components/CaseStudy';
+import { StickyNav } from '@/components/about/StickyNav';
 
 interface CaseStudyPageProps {
   params: {
@@ -16,7 +16,7 @@ export async function generateStaticParams() {
   }));
 }
 
-export default function CaseStudyPage({ params }: CaseStudyPageProps) {
+export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
   const caseStudy = caseStudies.find((cs) => cs.id === params.id);
 
   if (!caseStudy) {
@@ -26,26 +26,25 @@ export default function CaseStudyPage({ params }: CaseStudyPageProps) {
   // Show under construction page for incomplete case studies
   if (caseStudy.underConstruction) {
     return (
-      <main className="min-h-screen bg-white py-20 px-4">
-        <div className="max-w-4xl mx-auto">
-          <UnderConstruction caseStudy={caseStudy} />
-        </div>
-      </main>
+      <>
+        <StickyNav currentCaseStudyId={caseStudy.id} />
+        <main className="min-h-screen bg-white py-12 px-4">
+          <div className="max-w-4xl mx-auto">
+            <UnderConstruction caseStudy={caseStudy} />
+          </div>
+        </main>
+      </>
     );
   }
 
   return (
-    <main className="min-h-screen bg-white py-20 px-4">
-      <div className="max-w-4xl mx-auto">
-        <Link
-          href="/about"
-          className="inline-flex items-center text-blue-600 underline hover:text-blue-800 mb-8"
-        >
-          ← Back to About
-        </Link>
-
-        <CaseStudy caseStudy={caseStudy} variant="full" />
-      </div>
-    </main>
+    <>
+      <StickyNav currentCaseStudyId={caseStudy.id} />
+      <main className="min-h-screen bg-white py-12 px-4">
+        <div className="max-w-4xl mx-auto">
+          <CaseStudy caseStudy={caseStudy} variant="full" />
+        </div>
+      </main>
+    </>
   );
 }

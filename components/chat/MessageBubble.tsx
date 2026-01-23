@@ -134,7 +134,7 @@ function useTypingAnimation(
  * - User messages align right with '>' prefix
  * - Assistant messages align left with '$' prefix
  * - Typing animation for assistant messages
- * - Special variants: 'intro' for big text, 'nav-links' for navigation
+ * - Special variant: 'intro' for big text
  */
 export function MessageBubble({ message, onTypingComplete, onTypingUpdate }: MessageBubbleProps): JSX.Element {
   const isUser = message.role === 'user';
@@ -216,37 +216,6 @@ export function MessageBubble({ message, onTypingComplete, onTypingUpdate }: Mes
         </p>
         {shouldAnimate && !isComplete && (
           <span className="inline-block w-3 h-5 bg-black ml-1 animate-pulse align-middle" />
-        )}
-      </div>
-    );
-  }
-
-  // Nav-links variant - navigation links with classic blue underlined style
-  // Text types first, then links appear after typing completes
-  if (variant === 'nav-links') {
-    const text = shouldAnimate ? displayedText : message.content;
-
-    return (
-      <div className="w-full font-pixel text-black">
-        <div className="text-lg md:text-xl mb-4 inline">
-          {text}
-        </div>
-        {shouldAnimate && !isComplete && (
-          <span className="inline-block w-3 h-5 bg-black ml-1 animate-pulse align-middle" />
-        )}
-        {/* Links appear only after typing is complete */}
-        {isComplete && (
-          <div className="flex gap-6 font-pixel text-lg mt-4">
-            <Link href="/about" className="text-blue-600 underline hover:text-blue-800">
-              About
-            </Link>
-            <Link href="/case-studies" className="text-blue-600 underline hover:text-blue-800">
-              Case Studies
-            </Link>
-            <Link href="/playbook" className="text-blue-600 underline hover:text-blue-800">
-              Product Playbook
-            </Link>
-          </div>
         )}
       </div>
     );

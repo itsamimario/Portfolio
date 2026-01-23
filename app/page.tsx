@@ -1,5 +1,11 @@
 import { ChatContainer } from "@/components/chat";
+import { StickyNav } from "@/components/about/StickyNav";
 
 export default function Home() {
-  return <ChatContainer />;
+  return (
+    <>
+      <StickyNav />
+      <ChatContainer />
+    </>
+  );
 }

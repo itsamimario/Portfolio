@@ -8,7 +8,7 @@ import type { ChatSource } from './chat';
 /**
  * Message variant types for special rendering
  */
-export type MessageVariant = 'regular' | 'intro' | 'nav-links';
+export type MessageVariant = 'regular' | 'intro';
 
 /**
  * Chat message from either user or assistant
@@ -60,18 +60,10 @@ export interface ChatInputProps {
 }
 
 /**
- * Props for NavigationLinks component
- */
-export interface NavigationLinksProps {
-  isSticky?: boolean;
-}
-
-/**
  * Props for MessageList component
  */
 export interface MessageListProps {
   messages: ChatMessage[];
-  navLinksRef?: React.RefObject<HTMLDivElement>;
   onTypingComplete?: (messageId: string) => void;
   onTypingUpdate?: () => void;
 }

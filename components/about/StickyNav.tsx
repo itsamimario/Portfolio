@@ -14,6 +14,10 @@ interface NavLink {
   href: string;
 }
 
+interface StickyNavProps {
+  currentCaseStudyId?: string;
+}
+
 const navLinks: NavLink[] = [
   { label: 'About', href: '#about' },
   { label: 'Experience', href: '#experience' },
@@ -51,7 +55,7 @@ function HamburgerIcon({ open }: { open: boolean }): JSX.Element {
   );
 }
 
-export function StickyNav(): JSX.Element {
+export function StickyNav({ currentCaseStudyId }: StickyNavProps = {}): JSX.Element {
   const [activeSection, setActiveSection] = useState<string>('');
   const [caseStudiesOpen, setCaseStudiesOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -150,7 +154,7 @@ export function StickyNav(): JSX.Element {
             <div className="hidden md:flex items-center gap-4">
               <Link
                 href="/"
-                className="text-blue-600 underline hover:text-blue-800 font-pixel text-sm"
+                className="text-gray-600 underline hover:text-gray-900 font-pixel text-sm"
               >
                 AI Assistant
               </Link>
@@ -201,7 +205,11 @@ export function StickyNav(): JSX.Element {
                         <Link
                           key={cs.id}
                           href={`/case-studies/${cs.id}`}
-                          className="block py-1 text-sm font-pixel text-gray-600 hover:text-gray-900 transition-colors"
+                          className={`block py-1 text-sm font-pixel transition-colors ${
+                            currentCaseStudyId === cs.id
+                              ? 'text-gray-900 font-bold'
+                              : 'text-gray-600 hover:text-gray-900'
+                          }`}
                           onClick={() => setCaseStudiesOpen(false)}
                         >
                           {cs.title}
@@ -244,7 +252,7 @@ export function StickyNav(): JSX.Element {
             {/* AI Assistant */}
             <Link
               href="/"
-              className="block text-base font-pixel text-blue-600 underline hover:text-blue-800"
+              className="block text-base font-pixel text-gray-600 underline hover:text-gray-900"
               onClick={() => setMobileMenuOpen(false)}
             >
               AI Assistant
@@ -292,7 +300,11 @@ export function StickyNav(): JSX.Element {
                         <Link
                           key={cs.id}
                           href={`/case-studies/${cs.id}`}
-                          className="block py-0.5 text-sm font-pixel text-gray-500 hover:text-gray-900 transition-colors"
+                          className={`block py-0.5 text-sm font-pixel transition-colors ${
+                            currentCaseStudyId === cs.id
+                              ? 'text-gray-900 font-bold'
+                              : 'text-gray-500 hover:text-gray-900'
+                          }`}
                           onClick={() => {
                             setMobileMenuOpen(false);
                             setMobileCaseStudiesOpen(false);

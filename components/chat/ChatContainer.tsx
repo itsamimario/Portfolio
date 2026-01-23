@@ -10,20 +10,18 @@ import type { ChatContainerProps, ChatMessage } from '@/types/chat-ui';
 import { useChat } from '@/lib/hooks/useChat';
 import { ChatInput } from './ChatInput';
 import { MessageList } from './MessageList';
-import { NavigationLinks } from './NavigationLinks';
 
 // IDs of intro messages that should animate sequentially
-const INTRO_MESSAGE_IDS = ['intro-hi', 'intro-name', 'intro-title', 'intro-description', 'nav-links'];
+const INTRO_MESSAGE_IDS = ['intro-hi', 'intro-name', 'intro-title', 'intro-description'];
 
 /**
  * Main chat container that orchestrates all chat components
  *
  * Features:
- * - All content rendered as messages (intro, nav, user messages, responses)
+ * - All content rendered as messages (intro, user messages, responses)
  * - Sequential typing animation for intro messages
  * - User messages align right
  * - Assistant messages have typing animation
- * - Sticky nav header appears when nav-links message scrolls out of view
  * - Auto-scroll to bottom on new messages
  */
 export function ChatContainer({}: ChatContainerProps): JSX.Element {
@@ -41,8 +39,6 @@ export function ChatContainer({}: ChatContainerProps): JSX.Element {
     setCompletedIntroIds(new Set());
   }, [clearMessages]);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const navLinksRef = useRef<HTMLDivElement>(null);
-  const [showStickyNav, setShowStickyNav] = useState(false);
   // Track how many intro messages have been revealed (start with 1 to show first)
   const [visibleIntroCount, setVisibleIntroCount] = useState(1);
   // Track which intro messages have completed typing
@@ -111,39 +107,15 @@ export function ChatContainer({}: ChatContainerProps): JSX.Element {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [visibleMessages]);
 
-  // Intersection observer to show/hide sticky nav
-  // Re-run when messages change (including when restored from localStorage)
-  useEffect(() => {
-    if (!navLinksRef.current) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        // Show sticky nav when inline nav is NOT visible
-        setShowStickyNav(!entry.isIntersecting);
-      },
-      { threshold: 0, rootMargin: '-60px 0px 0px 0px' }
-    );
-
-    observer.observe(navLinksRef.current);
-    return () => observer.disconnect();
-  }, [visibleMessages]); // Re-run when messages change (including localStorage restore)
 
   return (
     <main className="flex flex-col max-w-3xl mx-auto min-h-screen">
       <h1 className="sr-only">Mario Bennekers - Portfolio Chat</h1>
 
-      {/* Sticky Navigation - appears when inline nav scrolls out of view */}
-      {showStickyNav && (
-        <div className="sticky top-0 z-10 bg-white">
-          <NavigationLinks isSticky={true} />
-        </div>
-      )}
-
       {/* Messages Area */}
       <div className="flex-1 flex flex-col justify-end p-4">
         <MessageList
           messages={visibleMessages}
-          navLinksRef={navLinksRef}
           onTypingComplete={handleTypingComplete}
           onTypingUpdate={handleTypingUpdate}
         />

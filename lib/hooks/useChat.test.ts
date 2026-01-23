@@ -32,13 +32,12 @@ describe('useChat hook', () => {
     it('has initial intro messages', () => {
       const { result } = renderHook(() => useChat());
 
-      // Should have 5 initial messages (intro-hi, intro-name, intro-title, intro-description, nav-links)
-      expect(result.current.messages.length).toBe(5);
+      // Should have 4 initial messages (intro-hi, intro-name, intro-title, intro-description)
+      expect(result.current.messages.length).toBe(4);
       expect(result.current.messages[0].id).toBe('intro-hi');
       expect(result.current.messages[1].id).toBe('intro-name');
       expect(result.current.messages[2].id).toBe('intro-title');
       expect(result.current.messages[3].id).toBe('intro-description');
-      expect(result.current.messages[4].id).toBe('nav-links');
     });
 
     it('has isLoading false initially', () => {
