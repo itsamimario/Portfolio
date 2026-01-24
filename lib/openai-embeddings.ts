@@ -134,8 +134,8 @@ export async function storeEmbedding(result: EmbeddedChunk): Promise<number> {
   const { content, embedding, metadata } = result;
 
   const sql = `
-    INSERT INTO embeddings (content, embedding, metadata, content_hash)
-    VALUES ($1, $2::vector, $3, $4)
+    INSERT INTO embeddings (content, embedding, metadata, source, content_hash)
+    VALUES ($1, $2::vector, $3, $4, $5)
     RETURNING id
   `;
 
@@ -143,6 +143,7 @@ export async function storeEmbedding(result: EmbeddedChunk): Promise<number> {
     content,
     `[${embedding.join(',')}]`,
     JSON.stringify(metadata),
+    metadata.source,
     metadata.contentHash,
   ]);
 
