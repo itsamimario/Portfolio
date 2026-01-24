@@ -14,9 +14,12 @@ export function getPool(): Pool {
   if (!pool) {
     pool = new Pool({
       connectionString: process.env.DATABASE_URL,
-      max: 20, // Maximum number of clients in the pool
+      max: 5,
       idleTimeoutMillis: 30000,
-      connectionTimeoutMillis: 2000,
+      connectionTimeoutMillis: 5000,
+      ssl: process.env.DATABASE_URL?.includes('supabase.com')
+        ? { rejectUnauthorized: false }
+        : undefined,
     });
 
     pool.on('error', (err) => {
