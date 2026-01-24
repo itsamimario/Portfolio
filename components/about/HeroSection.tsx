@@ -36,7 +36,7 @@ export function HeroSection(): JSX.Element {
       <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-center md:items-start">
         {/* Profile Photo */}
         <div className="flex-shrink-0">
-          <div className="w-40 h-40 md:w-48 md:h-48 rounded-full overflow-hidden border-4 border-gray-600">
+          <div className="w-40 h-40 md:w-48 md:h-48 overflow-hidden border-4 border-black">
             <Image
               src="/images/mario-profile.jpg"
               alt="Mario Bennekers"

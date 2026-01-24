@@ -10,6 +10,7 @@ import type { ChatContainerProps, ChatMessage } from '@/types/chat-ui';
 import { useChat } from '@/lib/hooks/useChat';
 import { ChatInput } from './ChatInput';
 import { MessageList } from './MessageList';
+import { SuggestionChips } from './SuggestionChips';
 
 // IDs of intro messages that should animate sequentially
 const INTRO_MESSAGE_IDS = ['intro-hi', 'intro-name', 'intro-title', 'intro-description'];
@@ -25,31 +26,40 @@ const INTRO_MESSAGE_IDS = ['intro-hi', 'intro-name', 'intro-title', 'intro-descr
  * - Auto-scroll to bottom on new messages
  */
 export function ChatContainer({}: ChatContainerProps): JSX.Element {
-  const { messages, isLoading, error, sendMessage, clearMessages } = useChat();
+  const { messages, isLoading, error, sendMessage, clearMessages, suggestions } = useChat();
 
   // Check if there's a conversation (messages beyond intro)
   const hasConversation = messages.some(
     (msg) => msg.role === 'user' || (!msg.variant && msg.role === 'assistant')
   );
 
+  // Wrap sendMessage to hide chips immediately on send
+  const handleSend = useCallback((message: string) => {
+    setChipsVisible(false);
+    sendMessage(message);
+  }, [sendMessage]);
+
   // Handle clear with animation reset
   const handleClear = useCallback(() => {
     clearMessages();
     setVisibleIntroCount(1);
     setCompletedIntroIds(new Set());
+    setChipsVisible(false);
   }, [clearMessages]);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   // Track how many intro messages have been revealed (start with 1 to show first)
   const [visibleIntroCount, setVisibleIntroCount] = useState(1);
   // Track which intro messages have completed typing
   const [completedIntroIds, setCompletedIntroIds] = useState<Set<string>>(new Set());
+  // Track whether suggestion chips should be visible (after typing animation completes)
+  const [chipsVisible, setChipsVisible] = useState(false);
 
   // Scroll to bottom during typing animation
   const handleTypingUpdate = useCallback(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, []);
 
-  // Handle typing completion for intro messages
+  // Handle typing completion for intro and regular messages
   const handleTypingComplete = useCallback((messageId: string) => {
     // Track completed message
     setCompletedIntroIds((prev) => new Set(prev).add(messageId));
@@ -61,6 +71,13 @@ export function ChatContainer({}: ChatContainerProps): JSX.Element {
       setTimeout(() => {
         setVisibleIntroCount((prev) => Math.max(prev, completedIndex + 2));
       }, 200);
+    }
+
+    // Show chips after last intro message or any regular assistant message (with delay)
+    const isLastIntro = messageId === INTRO_MESSAGE_IDS[INTRO_MESSAGE_IDS.length - 1];
+    const isRegularAssistant = !INTRO_MESSAGE_IDS.includes(messageId);
+    if (isLastIntro || isRegularAssistant) {
+      setTimeout(() => setChipsVisible(true), 400);
     }
   }, []);
 
@@ -107,6 +124,15 @@ export function ChatContainer({}: ChatContainerProps): JSX.Element {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [visibleMessages]);
 
+  // Scroll up when chips appear so content isn't hidden behind the sticky area
+  useEffect(() => {
+    if (chipsVisible) {
+      setTimeout(() => {
+        window.scrollBy({ top: 120, behavior: 'smooth' });
+      }, 50);
+    }
+  }, [chipsVisible]);
+
 
   return (
     <main className="flex flex-col max-w-3xl mx-auto min-h-[calc(100vh-3.5rem)]">
@@ -142,10 +168,16 @@ export function ChatContainer({}: ChatContainerProps): JSX.Element {
 
       {/* Input area - always visible at bottom */}
       <div className="sticky bottom-0 bg-white p-4">
+        {/* Suggestion chips - shown after typing animation completes */}
+        {chipsVisible && !isLoading && suggestions.length > 0 && (
+          <div className="mb-3">
+            <SuggestionChips suggestions={suggestions} onSelect={handleSend} />
+          </div>
+        )}
         <div className="flex items-center gap-4">
           <div className="flex-1">
             <ChatInput
-              onSend={sendMessage}
+              onSend={handleSend}
               disabled={isLoading}
               showCursor={isIntroComplete}
             />

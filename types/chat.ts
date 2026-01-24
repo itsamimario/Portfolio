@@ -20,6 +20,7 @@ export interface ChatSource {
 export interface ChatResponse {
   answer: string;
   sources: ChatSource[];
+  suggestions?: string[];
 }
 
 /**

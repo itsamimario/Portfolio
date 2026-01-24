@@ -121,7 +121,12 @@ Example good response:
 - NO "sources" section - integrate references as links
 - ALWAYS include at least one relevant link in your response
 - If unsure, suggest what you CAN talk about
-- End with a light invite to ask more`;
+- End with a light invite to ask more
+
+## Follow-up Suggestions
+After your answer, add EXACTLY this delimiter on its own line:
+---SUGGESTIONS---
+Then provide exactly 3 short follow-up questions (one per line) that the visitor might want to ask next, based on the conversation context. Keep each under 40 characters. Do NOT number them.`;
 }
 
 /**
@@ -181,6 +186,29 @@ Please answer the question based on the context provided above.`;
 }
 
 /**
+ * Parse suggestions from Claude's response using the delimiter
+ * Returns the answer text and an array of suggestion strings
+ */
+function parseSuggestions(rawResponse: string): { answer: string; suggestions: string[] } {
+  const delimiter = '---SUGGESTIONS---';
+  const delimiterIndex = rawResponse.indexOf(delimiter);
+
+  if (delimiterIndex === -1) {
+    return { answer: rawResponse.trim(), suggestions: [] };
+  }
+
+  const answer = rawResponse.slice(0, delimiterIndex).trim();
+  const suggestionsText = rawResponse.slice(delimiterIndex + delimiter.length).trim();
+  const suggestions = suggestionsText
+    .split('\n')
+    .map((line) => line.trim())
+    .filter((line) => line.length > 0 && line.length <= 60)
+    .slice(0, 3);
+
+  return { answer, suggestions };
+}
+
+/**
  * Convert search results to chat sources
  */
 function toSources(results: SearchResult[]): ChatSource[] {
@@ -219,13 +247,15 @@ export async function generateChatResponse(
     ],
   });
 
-  // Extract answer from response
+  // Extract answer from response and parse suggestions
   const textBlock = response.content.find((block) => block.type === 'text');
-  const answer = textBlock?.type === 'text' ? textBlock.text : '';
+  const rawText = textBlock?.type === 'text' ? textBlock.text : '';
+  const { answer, suggestions } = parseSuggestions(rawText);
 
   return {
     answer,
     sources: toSources(searchResults),
+    suggestions,
   };
 }
 
@@ -253,11 +283,13 @@ async function generateGreetingResponse(
     });
 
     const textBlock = response.content.find((block) => block.type === 'text');
-    const answer = textBlock?.type === 'text' ? textBlock.text : '';
+    const rawText = textBlock?.type === 'text' ? textBlock.text : '';
+    const { answer, suggestions } = parseSuggestions(rawText);
 
     return {
       answer,
       sources: [], // No sources for greetings
+      suggestions: suggestions.length > 0 ? suggestions : undefined,
     };
   } catch (error) {
     // Fallback to a static greeting if API fails
@@ -265,6 +297,7 @@ async function generateGreetingResponse(
       answer:
         "Hi there! I'm happy to help you learn about my experience, projects, and skills. What would you like to know?",
       sources: [],
+      suggestions: ['What have you shipped?', 'How do you work?', 'Tell me about your AI experience'],
     };
   }
 }

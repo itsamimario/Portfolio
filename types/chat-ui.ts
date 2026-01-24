@@ -38,6 +38,15 @@ export interface UseChatState {
 export interface UseChatReturn extends UseChatState {
   sendMessage: (message: string) => Promise<void>;
   clearMessages: () => void;
+  suggestions: string[];
+}
+
+/**
+ * Props for SuggestionChips component
+ */
+export interface SuggestionChipsProps {
+  suggestions: string[];
+  onSelect: (suggestion: string) => void;
 }
 
 /**

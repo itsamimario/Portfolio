@@ -69,18 +69,18 @@ export function ChatInput({
   return (
     <form onSubmit={handleSubmit} className="flex items-center gap-2 font-pixel text-gray-500">
       <span className="text-lg leading-7">&gt;</span>
-      <div className="flex-1 min-w-0">
+      <div className="flex-1 min-w-0 flex items-center">
         <textarea
           ref={textareaRef}
           value={message}
           onChange={handleChange}
           onKeyDown={handleKeyDown}
-          placeholder="type something here"
+          placeholder="Ask anything here"
           disabled={disabled}
           maxLength={2000}
           rows={1}
           aria-label="Chat message input"
-          className="w-full resize-none bg-transparent border-none outline-none text-lg leading-7 text-gray-500 overflow-y-auto placeholder:text-gray-400 disabled:cursor-not-allowed"
+          className="w-full resize-none bg-transparent border-none outline-none text-lg leading-7 text-gray-500 overflow-y-auto placeholder:text-gray-400 disabled:cursor-not-allowed p-0"
           style={{ maxHeight: `${MAX_HEIGHT_PX}px` }}
         />
       </div>

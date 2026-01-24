@@ -128,7 +128,7 @@ export function ImpactHighlights(): JSX.Element {
   }, []);
 
   return (
-    <section className="py-12 border-b border-gray-200">
+    <section className="pt-12 pb-6 border-b border-gray-200">
       <h2 className="text-3xl md:text-4xl font-pixel mb-8">Impact</h2>
 
       {/* Metrics Grid */}

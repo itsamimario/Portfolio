@@ -9,6 +9,15 @@ import type { ChatMessage, UseChatReturn } from '@/types/chat-ui';
 const STORAGE_KEY = 'portfolio-chat-messages';
 
 /**
+ * Default suggestion chips shown on first load
+ */
+const DEFAULT_SUGGESTIONS = [
+  'What have you shipped?',
+  'How do you work?',
+  'Tell me about your AI experience',
+];
+
+/**
  * Initial greeting messages that appear when chat loads
  * Each line is a separate message to avoid layout shifts during typing animation
  */
@@ -40,7 +49,7 @@ const INITIAL_MESSAGES: ChatMessage[] = [
   {
     id: 'intro-description',
     role: 'assistant',
-    content: "This is my portfolio, feel free to navigate through it or ask directly any question about myself.",
+    content: "This is my AI-powered [portfolio](/case-studies/portfolio-rag-chatbot). Ask anything about [me](/about) \u2014 my projects, how I work, what I\u2019ve shipped \u2014 and get answers grounded in my real experience.",
     timestamp: new Date(),
     variant: 'intro',
     isTyping: true,
@@ -100,6 +109,7 @@ export function useChat(): UseChatReturn {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isHydrated, setIsHydrated] = useState(false);
+  const [suggestions, setSuggestions] = useState<string[]>(DEFAULT_SUGGESTIONS);
 
   // Load messages from localStorage on mount (client-side only)
   useEffect(() => {
@@ -134,6 +144,7 @@ export function useChat(): UseChatReturn {
 
     setMessages((prev) => [...prev, userMessage]);
     setIsLoading(true);
+    setSuggestions([]);
 
     try {
       const response = await fetch('/api/chat', {
@@ -171,6 +182,13 @@ export function useChat(): UseChatReturn {
       };
 
       setMessages((prev) => [...prev, assistantMessage]);
+
+      // Update suggestions from API response
+      if (data.suggestions && data.suggestions.length > 0) {
+        setSuggestions(data.suggestions);
+      } else {
+        setSuggestions(DEFAULT_SUGGESTIONS);
+      }
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'An error occurred';
       setError(errorMessage);
@@ -182,6 +200,7 @@ export function useChat(): UseChatReturn {
   const clearMessages = useCallback((): void => {
     setMessages(INITIAL_MESSAGES);
     setError(null);
+    setSuggestions(DEFAULT_SUGGESTIONS);
     // Clear localStorage
     if (typeof window !== 'undefined') {
       localStorage.removeItem(STORAGE_KEY);
@@ -194,5 +213,6 @@ export function useChat(): UseChatReturn {
     error,
     sendMessage,
     clearMessages,
+    suggestions,
   };
 }

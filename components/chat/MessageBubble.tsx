@@ -5,14 +5,26 @@
 
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import Link from 'next/link';
 import type { MessageBubbleProps } from '@/types/chat-ui';
 
 /**
- * Parse markdown links and render as Next.js Link components
- * Converts [text](url) to clickable links
+ * Content segment types for typed rendering
  */
+interface TextSegment {
+  type: 'text';
+  content: string;
+}
+
+interface LinkSegment {
+  type: 'link';
+  text: string;
+  url: string;
+}
+
+type ContentSegment = TextSegment | LinkSegment;
+
 /**
  * Check if a URL is safe to render as a link
  * Only allows internal paths, http://, and https:// URLs
@@ -23,78 +35,105 @@ function isSafeUrl(url: string): boolean {
   return false;
 }
 
-function renderWithLinks(text: string): React.ReactNode {
-  // Regex to match markdown links: [text](url)
+/**
+ * Parse content string into segments of text and links
+ */
+function parseContentSegments(content: string): ContentSegment[] {
   const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
-  const parts: React.ReactNode[] = [];
+  const segments: ContentSegment[] = [];
   let lastIndex = 0;
   let match;
-  let key = 0;
 
-  while ((match = linkRegex.exec(text)) !== null) {
-    // Add text before the link
+  while ((match = linkRegex.exec(content)) !== null) {
     if (match.index > lastIndex) {
-      parts.push(text.slice(lastIndex, match.index));
+      segments.push({ type: 'text', content: content.slice(lastIndex, match.index) });
     }
-
-    const linkText = match[1];
-    const url = match[2];
-
-    // Skip unsafe URLs (javascript:, data:, etc.)
-    if (!isSafeUrl(url)) {
-      parts.push(linkText);
-      lastIndex = match.index + match[0].length;
-      continue;
-    }
-
-    // Check if it's an internal link (starts with /)
-    if (url.startsWith('/')) {
-      parts.push(
-        <Link
-          key={key++}
-          href={url}
-          className="text-blue-600 underline hover:text-blue-800"
-        >
-          {linkText}
-        </Link>
-      );
-    } else {
-      // External link (http/https only)
-      parts.push(
-        <a
-          key={key++}
-          href={url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-blue-600 underline hover:text-blue-800"
-        >
-          {linkText}
-        </a>
-      );
-    }
-
+    segments.push({ type: 'link', text: match[1], url: match[2] });
     lastIndex = match.index + match[0].length;
   }
 
-  // Add remaining text after the last link
-  if (lastIndex < text.length) {
-    parts.push(text.slice(lastIndex));
+  if (lastIndex < content.length) {
+    segments.push({ type: 'text', content: content.slice(lastIndex) });
   }
 
-  return parts.length > 0 ? parts : text;
+  return segments;
+}
+
+/**
+ * Get the visual length of content (link markdown replaced by link text)
+ */
+function getVisualLength(segments: ContentSegment[]): number {
+  return segments.reduce((len, seg) => {
+    return len + (seg.type === 'text' ? seg.content.length : seg.text.length);
+  }, 0);
+}
+
+/**
+ * Render segments up to a visual character count.
+ * Links show as plain text while being typed, become clickable when fully typed.
+ */
+function renderTypedSegments(segments: ContentSegment[], visibleChars: number): React.ReactNode {
+  const parts: React.ReactNode[] = [];
+  let remaining = visibleChars;
+  let key = 0;
+
+  for (const segment of segments) {
+    if (remaining <= 0) break;
+
+    if (segment.type === 'text') {
+      const chars = Math.min(remaining, segment.content.length);
+      parts.push(segment.content.slice(0, chars));
+      remaining -= chars;
+    } else {
+      const chars = Math.min(remaining, segment.text.length);
+      const isFullyTyped = chars >= segment.text.length;
+
+      if (isFullyTyped && isSafeUrl(segment.url)) {
+        if (segment.url.startsWith('/')) {
+          parts.push(
+            <Link key={key++} href={segment.url} className="text-blue-600 underline hover:text-blue-800">
+              {segment.text}
+            </Link>
+          );
+        } else {
+          parts.push(
+            <a key={key++} href={segment.url} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline hover:text-blue-800">
+              {segment.text}
+            </a>
+          );
+        }
+      } else {
+        parts.push(segment.text.slice(0, chars));
+      }
+      remaining -= chars;
+    }
+  }
+
+  return parts;
+}
+
+/**
+ * Render full content with links (no animation)
+ */
+function renderWithLinks(text: string): React.ReactNode {
+  const segments = parseContentSegments(text);
+  return renderTypedSegments(segments, getVisualLength(segments));
 }
 
 /**
  * Typing animation hook for assistant messages
+ * Types by visual characters (link markdown counts as link text length only)
  */
 function useTypingAnimation(
   content: string,
+  segments: ContentSegment[],
   enabled: boolean,
   speed: number = 20,
   onComplete?: () => void,
   onUpdate?: () => void
 ) {
-  const [displayedText, setDisplayedText] = useState(enabled ? '' : content);
+  const visualLength = getVisualLength(segments);
+  const [visibleChars, setVisibleChars] = useState(enabled ? 0 : visualLength);
   const [isComplete, setIsComplete] = useState(!enabled);
   // Use refs for callbacks to avoid re-triggering effect when they change
   const onCompleteRef = useRef(onComplete);
@@ -109,28 +148,25 @@ function useTypingAnimation(
     const currentAnimationId = ++animationIdRef.current;
 
     if (!enabled) {
-      setDisplayedText(content);
+      setVisibleChars(visualLength);
       setIsComplete(true);
-      // Don't call onComplete when disabled - only when animation actually runs
       return;
     }
 
-    setDisplayedText('');
+    setVisibleChars(0);
     setIsComplete(false);
     let index = 0;
 
     const timer = setInterval(() => {
-      if (index < content.length) {
-        setDisplayedText(content.slice(0, index + 1));
+      if (index < visualLength) {
         index++;
-        // Call onUpdate to trigger scroll during typing
+        setVisibleChars(index);
         if (onUpdateRef.current) {
           onUpdateRef.current();
         }
       } else {
         setIsComplete(true);
         clearInterval(timer);
-        // Only call if this is still the current animation
         if (currentAnimationId === animationIdRef.current && onCompleteRef.current) {
           onCompleteRef.current();
         }
@@ -138,9 +174,9 @@ function useTypingAnimation(
     }, speed);
 
     return () => clearInterval(timer);
-  }, [content, enabled, speed]); // Callbacks accessed via refs
+  }, [content, enabled, speed, visualLength]);
 
-  return { displayedText, isComplete };
+  return { visibleChars, isComplete };
 }
 
 /**
@@ -158,25 +194,49 @@ export function MessageBubble({ message, onTypingComplete, onTypingUpdate }: Mes
   const variant = message.variant || 'regular';
   const shouldAnimate = !isUser && message.isTyping;
 
-  const { displayedText, isComplete } = useTypingAnimation(
+  // Parse content into segments once
+  const segments = useMemo(() => parseContentSegments(message.content), [message.content]);
+
+  const { visibleChars, isComplete } = useTypingAnimation(
     message.content,
+    segments,
     shouldAnimate || false,
     variant === 'intro' ? 30 : 15,
     onTypingComplete,
     onTypingUpdate
   );
 
+  // Render content with proper link handling during typing
+  const renderedContent = useMemo(() => {
+    if (isUser) return message.content;
+    return renderTypedSegments(segments, visibleChars);
+  }, [isUser, segments, visibleChars, message.content]);
+
+  // For intro messages that don't have links, get plain text
+  const plainText = useMemo(() => {
+    if (!shouldAnimate) return message.content;
+    // Build plain text from segments up to visibleChars
+    let remaining = visibleChars;
+    let text = '';
+    for (const seg of segments) {
+      if (remaining <= 0) break;
+      const segText = seg.type === 'text' ? seg.content : seg.text;
+      const chars = Math.min(remaining, segText.length);
+      text += segText.slice(0, chars);
+      remaining -= chars;
+    }
+    return text;
+  }, [shouldAnimate, message.content, segments, visibleChars]);
+
   // Intro variant - each line is a separate message for smooth animation
   if (variant === 'intro') {
-    const text = shouldAnimate ? displayedText : message.content;
-
     // Determine styling based on message ID
     // intro-hi: "Hi!" - 2 levels smaller
     if (message.id === 'intro-hi') {
       return (
         <div className="w-full font-pixel text-black">
           <div className="text-2xl md:text-3xl inline">
-            {text}
+            {plainText}
           </div>
           {shouldAnimate && !isComplete && (
             <span className="inline-block w-2 h-5 bg-black ml-1 animate-pulse align-middle" />
@@ -187,21 +247,20 @@ export function MessageBubble({ message, onTypingComplete, onTypingUpdate }: Mes
 
     // intro-name: "I'm Mario Bennekers" - main size, bold name
     if (message.id === 'intro-name') {
-      // Handle typing animation - only bold when full name is visible
       const fullName = 'Mario Bennekers';
-      const hasFullName = text.includes(fullName);
+      const hasFullName = plainText.includes(fullName);
 
       return (
         <div className="w-full font-pixel text-black">
           <div className="text-4xl md:text-5xl inline">
             {hasFullName ? (
               <>
-                {text.split(fullName)[0]}
+                {plainText.split(fullName)[0]}
                 <span className="font-bold">{fullName}</span>
-                {text.split(fullName)[1] || ''}
+                {plainText.split(fullName)[1] || ''}
               </>
             ) : (
-              text
+              plainText
             )}
           </div>
           {shouldAnimate && !isComplete && (
@@ -216,7 +275,7 @@ export function MessageBubble({ message, onTypingComplete, onTypingUpdate }: Mes
       return (
         <div className="w-full font-pixel text-black">
           <div className="text-3xl md:text-4xl inline">
-            {text}
+            {plainText}
           </div>
           {shouldAnimate && !isComplete && (
             <span className="inline-block w-3 h-6 bg-black ml-1 animate-pulse align-middle" />
@@ -225,11 +284,11 @@ export function MessageBubble({ message, onTypingComplete, onTypingUpdate }: Mes
       );
     }
 
-    // intro-description: Description text - smaller body text
+    // intro-description: Description text with links
     return (
       <div className="w-full font-pixel text-black">
         <p className="text-lg md:text-xl inline">
-          {text}
+          {renderedContent}
         </p>
         {shouldAnimate && !isComplete && (
           <span className="inline-block w-3 h-5 bg-black ml-1 animate-pulse align-middle" />
@@ -239,11 +298,6 @@ export function MessageBubble({ message, onTypingComplete, onTypingUpdate }: Mes
   }
 
   // Regular messages
-  const text = shouldAnimate ? displayedText : message.content;
-
-  // Render text with markdown links converted to actual links
-  const renderedText = isUser ? text : renderWithLinks(text);
-
   return (
     <div
       role="article"
@@ -254,7 +308,7 @@ export function MessageBubble({ message, onTypingComplete, onTypingUpdate }: Mes
         <span className="text-lg shrink-0">{isUser ? '>' : '$'}</span>
         <div className="flex-1">
           <p className="whitespace-pre-wrap text-lg inline">
-            {renderedText}
+            {renderedContent}
           </p>
           {shouldAnimate && !isComplete && (
             <span className="inline-block w-3 h-5 bg-black ml-1 animate-pulse align-middle" />
