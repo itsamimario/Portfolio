@@ -134,10 +134,10 @@ function TimelineEntryRow({ entry, index }: TimelineEntryRowProps): JSX.Element 
 
 export function VisualTimeline({ entries }: VisualTimelineProps): JSX.Element {
   return (
-    <section id="experience" className="pt-6 pb-12 border-b border-gray-200">
+    <section id="experience" className="py-12 border-b border-gray-200">
       <h2 className="text-3xl md:text-4xl font-pixel mb-8">Experience</h2>
 
-      <div className="relative ml-16 md:ml-20">
+      <div className="relative ml-10 md:ml-20">
         {entries.map((entry, index) => (
           <TimelineEntryRow key={entry.id} entry={entry} index={index} />
         ))}
