@@ -181,8 +181,9 @@ export const caseStudies: CaseStudy[] = [
       'Architecture encodes business decisions. The BC3 coupling wasn\'t a technical accident—it reflected a consulting model where each client got a custom file import. Decoupling the data model was as much a business model decision as a technical one.',
       'Validation partners beat pilot customers. The 3 firms investing in BIM integration gave us real files, fast feedback, and patience with rough edges—something paying pilot customers rarely offer. They were co-building, not evaluating.',
       'As a consultant, your job is to make yourself replaceable. Hiring the internal engineer, documenting architecture decisions, and building partner relationships meant Ecometro could continue executing after my engagement ended.',
+      'Some products arrive before their market is ready. When regulation and adoption haven\'t caught up yet, the strategy is finding pioneer clients willing to invest early—they sustain the product until the broader market materializes.',
     ],
-    techStack: ['Jira', 'Figma', 'BIM', 'BC3', 'PostgreSQL', 'React'],
+    techStack: ['Figma', 'BIM', 'BC3', 'Drupal', 'PHP', 'Symfony'],
     links: [
       {
         label: 'Ecometro Website',
