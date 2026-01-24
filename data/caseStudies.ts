@@ -183,7 +183,7 @@ export const caseStudies: CaseStudy[] = [
       'As a consultant, your job is to make yourself replaceable. Hiring the internal engineer, documenting architecture decisions, and building partner relationships meant Ecometro could continue executing after my engagement ended.',
       'Some products arrive before their market is ready. When regulation and adoption haven\'t caught up yet, the strategy is finding pioneer clients willing to invest early—they sustain the product until the broader market materializes.',
     ],
-    techStack: ['Figma', 'BIM', 'BC3', 'Drupal', 'PHP', 'Twig'],
+    techStack: ['Figma', 'BIM', 'BC3', 'Drupal', 'PHP', 'Symfony'],
     links: [
       {
         label: 'Ecometro Website',
