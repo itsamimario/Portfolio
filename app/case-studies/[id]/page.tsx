@@ -32,7 +32,7 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
         <main className="bg-white py-12 px-4">
           <div className="max-w-4xl mx-auto">
             <UnderConstruction caseStudy={caseStudy} />
-            <Footer />
+            <Footer showCta={false} />
           </div>
         </main>
       </>
@@ -45,7 +45,7 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
       <main className="bg-white py-12 px-4">
         <div className="max-w-4xl mx-auto">
           <CaseStudy caseStudy={caseStudy} variant="full" />
-          <Footer />
+          <Footer showCta={false} />
         </div>
       </main>
     </>
