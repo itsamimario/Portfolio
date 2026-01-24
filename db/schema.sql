@@ -16,10 +16,11 @@ CREATE TABLE IF NOT EXISTS embeddings (
 );
 
 -- Index for vector similarity search using cosine distance
+-- Using lists = 5 (appropriate for datasets under 100 rows)
 CREATE INDEX IF NOT EXISTS embeddings_vector_idx
   ON embeddings
   USING ivfflat (embedding vector_cosine_ops)
-  WITH (lists = 100);
+  WITH (lists = 5);
 
 -- Index for filtering by source
 CREATE INDEX IF NOT EXISTS embeddings_source_idx

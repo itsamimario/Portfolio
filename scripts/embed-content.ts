@@ -11,6 +11,7 @@
 
 import path from 'path';
 import { loadAllContent } from '../lib/content-loader';
+import { loadDataContent } from '../lib/data-content-loader';
 import { chunkContentFile } from '../lib/chunker';
 import {
   embedChunks,
@@ -40,8 +41,8 @@ async function embedContent(): Promise<void> {
 
   console.log('🚀 Starting content embedding...\n');
 
-  // Check for required environment variable
-  if (!process.env.OPENAI_API_KEY) {
+  // Check for required environment variable (not needed for dry-run)
+  if (!dryRun && !process.env.OPENAI_API_KEY) {
     console.error('❌ Error: OPENAI_API_KEY environment variable is not set');
     process.exit(1);
   }
@@ -53,11 +54,20 @@ async function embedContent(): Promise<void> {
     console.log(`   Deleted ${deleted} existing embeddings\n`);
   }
 
-  // Load all content files
+  // Load markdown content files
   const contentDir = path.join(process.cwd(), 'content');
-  console.log(`📂 Loading content from ${contentDir}...`);
-  const files = await loadAllContent(contentDir);
-  console.log(`   Found ${files.length} content files\n`);
+  console.log(`📂 Loading markdown content from ${contentDir}...`);
+  const markdownFiles = await loadAllContent(contentDir);
+  console.log(`   Found ${markdownFiles.length} markdown files`);
+
+  // Load structured data content (case studies, timeline, bio, skills)
+  console.log(`📂 Loading structured data content...`);
+  const dataFiles = loadDataContent();
+  console.log(`   Found ${dataFiles.length} data content files`);
+
+  // Combine all content
+  const files = [...markdownFiles, ...dataFiles];
+  console.log(`   Total: ${files.length} content files\n`);
 
   if (files.length === 0) {
     console.log('⚠️  No content files found. Nothing to embed.');
@@ -90,11 +100,11 @@ async function embedContent(): Promise<void> {
   });
   console.log('');
 
-  // Filter out already embedded chunks (unless --clear was used)
+  // Filter out already embedded chunks (unless --clear or --dry-run was used)
   let chunksToEmbed = allChunks;
   let skipped = 0;
 
-  if (!clear) {
+  if (!clear && !dryRun) {
     console.log('🔍 Checking for existing embeddings...');
     const newChunks: ContentChunk[] = [];
 
