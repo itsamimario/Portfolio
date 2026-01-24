@@ -29,34 +29,40 @@ function GitHubIcon(): JSX.Element {
   );
 }
 
-export function Footer(): JSX.Element {
+interface FooterProps {
+  showCta?: boolean;
+}
+
+export function Footer({ showCta = true }: FooterProps): JSX.Element {
   return (
-    <footer id="contact" className="py-16">
+    <footer id="contact" className={showCta ? 'py-16' : ''}>
       {/* CTA Section */}
-      <div className="text-center mb-12">
-        <h2 className="text-3xl md:text-4xl font-pixel mb-4">Let&apos;s Work Together</h2>
-        <p className="font-pixel text-gray-600 mb-6">
-          Open to Product Manager opportunities
-        </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <a
-            href={`mailto:${contact.email}`}
-            className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-black text-white font-pixel hover:bg-gray-800 transition-colors"
-          >
-            <EmailIcon />
-            Get in Touch
-          </a>
-          <a
-            href={contact.linkedin}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 px-6 py-3 border border-black text-black font-pixel hover:bg-gray-100 transition-colors"
-          >
-            <LinkedInIcon />
-            Connect on LinkedIn
-          </a>
+      {showCta && (
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-pixel mb-4">Let&apos;s Work Together</h2>
+          <p className="font-pixel text-gray-600 mb-6">
+            Open to Product Manager opportunities
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <a
+              href={`mailto:${contact.email}`}
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-black text-white font-pixel hover:bg-gray-800 transition-colors"
+            >
+              <EmailIcon />
+              Get in Touch
+            </a>
+            <a
+              href={contact.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 border border-black text-black font-pixel hover:bg-gray-100 transition-colors"
+            >
+              <LinkedInIcon />
+              Connect on LinkedIn
+            </a>
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Contact Info */}
       <div className="border-t border-gray-200 pt-8">

@@ -109,16 +109,87 @@ export const caseStudies: CaseStudy[] = [
     ],
   },
 
-  // Ecometro (Under Construction)
+  // Ecometro Case Study
   {
     id: 'ecometro-product-strategy',
-    title: 'Ecometro - BOQ Refactoring',
-    role: 'Interim Product Lead',
+    title: 'Ecometro - Product Strategy & Architecture',
+    role: 'Product Consultant',
     company: 'Ecometro',
     period: '2024',
+    thumbnail: '/images/case-studies/ecometro-thumbnail.png',
+    thumbnailAlt: 'Ecometro - helping reduce the carbon footprint of your building',
+    featuredImage: '/images/case-studies/ecometro-product.png',
+    featuredImageAlt: 'Ecometro LCA platform showing environmental impact percentages by lifecycle phase',
     tagline:
-      'Refactoring the core BOQ module and establishing product strategy for a sustainability platform.',
-    underConstruction: true,
+      'Defining product strategy and decoupling a legacy architecture to unlock BIM integration for Spain\'s leading LCA platform.',
+    resultsDescription:
+      'In 4 months of execution (9 months total engagement), established Ecometro\'s first internal product team and defined a scalable architecture strategy that directly contributed to closing the 2024 funding round and doubling the user base from 500 to 1,000.',
+    results: [
+      {
+        metric: 'User Growth',
+        value: '500→1K',
+        description: 'Active users in 4 months',
+      },
+      {
+        metric: 'Partnerships',
+        value: '3',
+        description: 'Strategic partnerships signed',
+      },
+      {
+        metric: 'Funding Round',
+        value: 'Closed',
+        description: 'Strategy enabled 2024 round',
+      },
+    ],
+    challenge:
+      'Ecometro\'s LCA software was built by an external consultancy that stopped providing services in 2023, leaving no internal technical ownership. The platform only accepted BC3 files (a Spanish construction measurement format), blocking integration with BIM—the format used by the largest architecture firms and increasingly mandated by EU regulations. The board wanted to focus on small clients to democratize LCA, but the P&L couldn\'t sustain that strategy without enterprise revenue. I had to convince them that targeting larger firms—who could pay the bills—was the precondition for eventually serving everyone.',
+    approach: [
+      {
+        title: 'Team Building & Knowledge Transfer',
+        description:
+          'Hired the first internal fullstack engineer to take ownership of the codebase, eliminating dependency on external consultancies and building institutional knowledge of the platform\'s architecture.',
+      },
+      {
+        title: 'Enterprise Discovery',
+        description:
+          'Conducted research with 10+ architecture firms and construction companies (AEDAS Home, Metrovacesa, ARUP, Morph Studio) to understand workflows, pain points, and format requirements. Discovered that the BC3-only limitation was the primary barrier to enterprise adoption.',
+      },
+      {
+        title: 'Architecture Strategy',
+        description:
+          'Defined the approach to decouple the database from BC3 format entirely—abstracting the data model to represent building impacts independently of their source. This enabled format-specific importers (BC3, BIM, APIs) and direct UI manipulation of impacts without file imports.',
+      },
+      {
+        title: 'BIM Partnership & Parallel Execution',
+        description:
+          'Identified and onboarded a specialized BIM development partner to handle integration while the internal engineer focused on the core database refactor. This parallel approach let a small team move on both fronts simultaneously.',
+      },
+      {
+        title: 'Validation with Partners',
+        description:
+          'Validated the architecture continuously with the 3 partners who were investing in the solution. They provided real BIM files and production data, letting us test format parsing and impact calculations against actual projects before scaling.',
+      },
+    ],
+    keyDecisions: [
+      'Convinced the board to prioritize enterprise clients over small firms. The mission was to democratize LCA, but the P&L needed enterprise revenue first. Targeting firms that could pay enabled the sustainability of the platform for everyone else.',
+      'Decoupled the database from BC3 rather than adding BIM as a parallel path. Abstracting the data model prevented duplication and made future format integrations trivial.',
+      'Chose BIM as the primary new integration path. Largest firms already worked in BIM, EU regulations were pushing adoption, and it created a defensible moat against OneClick LCA\'s international scale.',
+      'Built an internal team rather than finding another consultancy. Internalizing knowledge was essential for long-term product ownership and iteration speed.',
+    ],
+    learnings: [
+      'Mission and business model can conflict—and that\'s okay. The board\'s instinct to serve small firms was aligned with Ecometro\'s mission, but the P&L couldn\'t support it yet. Framing enterprise revenue as the enabler of democratization—not its opposite—resolved the tension.',
+      'Architecture encodes business decisions. The BC3 coupling wasn\'t a technical accident—it reflected a consulting model where each client got a custom file import. Decoupling the data model was as much a business model decision as a technical one.',
+      'Validation partners beat pilot customers. The 3 firms investing in BIM integration gave us real files, fast feedback, and patience with rough edges—something paying pilot customers rarely offer. They were co-building, not evaluating.',
+      'As a consultant, your job is to make yourself replaceable. Hiring the internal engineer, documenting architecture decisions, and building partner relationships meant Ecometro could continue executing after my engagement ended.',
+    ],
+    techStack: ['Jira', 'Figma', 'BIM', 'BC3', 'PostgreSQL', 'React'],
+    links: [
+      {
+        label: 'Ecometro Website',
+        url: 'https://ecometro.org',
+        icon: 'website',
+      },
+    ],
   },
 
   // RatedPower Case Study
