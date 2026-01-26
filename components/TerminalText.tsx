@@ -52,13 +52,13 @@ export default function TerminalText() {
   const currentSection = isTyping ? sections[currentSectionIndex] : null;
 
   return (
-    <div className="text-black leading-relaxed whitespace-pre-wrap">
+    <div className="text-black dark:text-white leading-relaxed whitespace-pre-wrap">
       {displayedSections.map((section, idx) => (
         <span key={idx}>{renderSection(section)}</span>
       ))}
       {currentSection && renderSection(currentSection, true, currentSection.text.slice(0, currentCharIndex))}
       {isTyping && (
-        <span className="inline-block w-1 h-8 bg-black ml-1 animate-pulse align-middle"></span>
+        <span className="inline-block w-1 h-8 bg-black dark:bg-white ml-1 animate-pulse align-middle"></span>
       )}
     </div>
   );

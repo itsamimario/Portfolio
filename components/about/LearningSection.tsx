@@ -7,14 +7,14 @@ import Link from 'next/link';
 
 export function LearningSection(): JSX.Element {
   return (
-    <section className="py-12 border-b border-gray-200">
+    <section className="py-12 border-b border-gray-200 dark:border-gray-700">
       <h2 className="text-3xl md:text-4xl font-pixel mb-6">Continuous Learning</h2>
 
       <div className="space-y-6">
         {/* Philosophy */}
-        <div className="bg-gray-50 border border-gray-200 p-6">
+        <div className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-6">
           <p className="text-lg font-pixel mb-2">I believe in learning by doing.</p>
-          <p className="font-pixel text-gray-700 leading-relaxed">
+          <p className="font-pixel text-gray-700 dark:text-gray-300 leading-relaxed">
             Rather than collecting certifications, I invest my time in building real products.
             Every project is an opportunity to deepen my skills and explore new technologies.
           </p>
@@ -24,29 +24,29 @@ export function LearningSection(): JSX.Element {
         <div>
           <h3 className="text-xl font-pixel mb-4">Proof of Work</h3>
           <div className="grid md:grid-cols-2 gap-4">
-            <div className="border border-gray-200 p-4">
+            <div className="border border-gray-200 dark:border-gray-700 p-4">
               <p className="font-pixel mb-2">This Portfolio</p>
-              <p className="text-base font-pixel text-gray-600 mb-2">
+              <p className="text-base font-pixel text-gray-600 dark:text-gray-400 mb-2">
                 Built from scratch with Next.js 14, TypeScript, and Tailwind CSS.
                 Features a RAG-powered AI chatbot using Claude API, PostgreSQL with
                 pgvector for semantic search.
               </p>
               <Link
                 href="/case-studies/portfolio"
-                className="font-pixel text-blue-600 underline hover:text-blue-800 text-base"
+                className="font-pixel text-blue-600 dark:text-blue-400 underline hover:text-blue-800 dark:hover:text-blue-300 text-base"
               >
                 View case study
               </Link>
             </div>
-            <div className="border border-gray-200 p-4">
+            <div className="border border-gray-200 dark:border-gray-700 p-4">
               <p className="font-pixel mb-2">CatchIT! Mobile Game</p>
-              <p className="text-base font-pixel text-gray-600 mb-2">
+              <p className="text-base font-pixel text-gray-600 dark:text-gray-400 mb-2">
                 Full-stack mobile app built with React Native, integrating AI
                 for dynamic gameplay. From concept to App Store in 3 months.
               </p>
               <Link
                 href="/case-studies/catchit-product-conceptualization"
-                className="font-pixel text-blue-600 underline hover:text-blue-800 text-base"
+                className="font-pixel text-blue-600 dark:text-blue-400 underline hover:text-blue-800 dark:hover:text-blue-300 text-base"
               >
                 View case study
               </Link>
@@ -57,7 +57,7 @@ export function LearningSection(): JSX.Element {
         {/* Education */}
         <div>
           <h3 className="text-xl font-pixel mb-4">Education</h3>
-          <div className="space-y-2 font-pixel text-gray-700">
+          <div className="space-y-2 font-pixel text-gray-700 dark:text-gray-300">
             <p>Civil Engineering</p>
             <ul className="text-base space-y-1 ml-4">
               <li>University of Granada (2007-2014) - Granada, Spain</li>

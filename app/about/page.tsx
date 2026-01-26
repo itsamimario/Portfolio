@@ -10,7 +10,7 @@ import { timeline } from '@/data/timeline';
 
 export default function About() {
   return (
-    <main className="min-h-screen bg-white font-pixel">
+    <main className="min-h-screen bg-white dark:bg-gray-900 font-pixel">
       {/* Sticky Navigation */}
       <StickyNav />
 

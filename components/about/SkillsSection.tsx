@@ -8,7 +8,7 @@ import { SkillBar } from './SkillBar';
 
 export function SkillsSection(): JSX.Element {
   return (
-    <section id="skills" className="py-12 border-b border-gray-200">
+    <section id="skills" className="py-12 border-b border-gray-200 dark:border-gray-700">
       <h2 className="text-3xl md:text-4xl font-pixel mb-8">Skills</h2>
 
       <div className="grid md:grid-cols-2 gap-8 md:gap-12">

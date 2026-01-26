@@ -29,7 +29,7 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
     return (
       <>
         <StickyNav />
-        <main className="bg-white py-12 px-4">
+        <main className="bg-white dark:bg-gray-900 py-12 px-4">
           <div className="max-w-4xl mx-auto">
             <UnderConstruction caseStudy={caseStudy} />
             <Footer showCta={false} />
@@ -42,7 +42,7 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
   return (
     <>
       <StickyNav />
-      <main className="bg-white py-12 px-4">
+      <main className="bg-white dark:bg-gray-900 py-12 px-4">
         <div className="max-w-4xl mx-auto">
           <CaseStudy caseStudy={caseStudy} variant="full" />
           <Footer showCta={false} />

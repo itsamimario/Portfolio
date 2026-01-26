@@ -36,7 +36,7 @@ export function SuggestionChips({ suggestions, onSelect }: SuggestionChipsProps)
           key={suggestion}
           type="button"
           onClick={() => handleClick(suggestion)}
-          className="px-3 py-1 border border-gray-300 text-gray-600 font-pixel text-sm hover:border-black hover:text-black transition-colors opacity-0 animate-fade-in"
+          className="px-3 py-1 border border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-400 font-pixel text-sm hover:border-black hover:text-black dark:hover:border-white dark:hover:text-white transition-colors opacity-0 animate-fade-in"
           style={{ animationDelay: `${index * 250}ms`, animationFillMode: 'forwards' }}
         >
           {suggestion}

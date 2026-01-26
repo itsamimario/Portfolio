@@ -12,9 +12,9 @@ export function CaseStudy({ caseStudy, variant = 'card' }: CaseStudyProps) {
   if (variant === 'card') {
     return (
       <Link href={`/case-studies/${caseStudy.id}`}>
-        <article className="group bg-white border-2 border-black overflow-hidden hover:bg-gray-50 transition-colors cursor-pointer">
+        <article className="group bg-white dark:bg-gray-900 border-2 border-black dark:border-white overflow-hidden hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors cursor-pointer">
           {caseStudy.thumbnail && (
-            <div className="relative h-48 w-full overflow-hidden border-b-2 border-black">
+            <div className="relative h-48 w-full overflow-hidden border-b-2 border-black dark:border-white">
               <Image
                 src={caseStudy.thumbnail}
                 alt={caseStudy.thumbnailAlt || caseStudy.title}
@@ -25,10 +25,10 @@ export function CaseStudy({ caseStudy, variant = 'card' }: CaseStudyProps) {
           )}
           <div className="p-6">
             <h3 className="font-pixel text-2xl mb-2">{caseStudy.title}</h3>
-            <p className="font-pixel text-sm text-gray-500 mb-3">
+            <p className="font-pixel text-sm text-gray-500 dark:text-gray-400 mb-3">
               {caseStudy.role} | {caseStudy.period}
             </p>
-            <p className="font-pixel text-gray-700 leading-relaxed">
+            <p className="font-pixel text-gray-700 dark:text-gray-300 leading-relaxed">
               {formatText(caseStudy.tagline)}
             </p>
           </div>
@@ -42,17 +42,17 @@ export function CaseStudy({ caseStudy, variant = 'card' }: CaseStudyProps) {
       {/* Header */}
       <header className="mb-8">
         <h1 className="font-pixel text-3xl md:text-4xl mb-3">{caseStudy.title}</h1>
-        <p className="font-pixel text-lg text-gray-500 mb-4">
+        <p className="font-pixel text-lg text-gray-500 dark:text-gray-400 mb-4">
           {caseStudy.role} at {caseStudy.company} · {caseStudy.period}
         </p>
-        <p className="font-pixel text-xl text-gray-700 leading-relaxed">
+        <p className="font-pixel text-xl text-gray-700 dark:text-gray-300 leading-relaxed">
           {formatText(caseStudy.tagline)}
         </p>
       </header>
 
       {/* Hero Image */}
       {caseStudy.thumbnail && (
-        <div className="relative w-full mb-10 border-2 border-black">
+        <div className="relative w-full mb-10 border-2 border-black dark:border-white">
           <Image
             src={caseStudy.thumbnail}
             alt={caseStudy.thumbnailAlt || caseStudy.title}
@@ -68,7 +68,7 @@ export function CaseStudy({ caseStudy, variant = 'card' }: CaseStudyProps) {
       {caseStudy.challenge && (
         <section className="mb-12">
           <h2 className="font-pixel text-2xl md:text-3xl mb-4">The Challenge</h2>
-          <p className="font-pixel text-lg text-gray-700 leading-relaxed">
+          <p className="font-pixel text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
             {formatText(caseStudy.challenge)}
           </p>
         </section>
@@ -81,12 +81,12 @@ export function CaseStudy({ caseStudy, variant = 'card' }: CaseStudyProps) {
           <div className="space-y-6">
             {caseStudy.approach.map((step, index) => (
               <div key={`approach-${step.title}`} className="flex gap-4">
-                <div className="flex-shrink-0 w-10 h-10 border-2 border-black flex items-center justify-center font-pixel text-lg bg-white text-black">
+                <div className="flex-shrink-0 w-10 h-10 border-2 border-black dark:border-white flex items-center justify-center font-pixel text-lg bg-white dark:bg-gray-900 text-black dark:text-white">
                   {index + 1}
                 </div>
                 <div className="flex-1">
                   <h3 className="font-pixel text-xl mb-2">{step.title}</h3>
-                  <p className="font-pixel text-gray-700 leading-relaxed">
+                  <p className="font-pixel text-gray-700 dark:text-gray-300 leading-relaxed">
                     {formatText(step.description)}
                   </p>
                 </div>
@@ -104,9 +104,9 @@ export function CaseStudy({ caseStudy, variant = 'card' }: CaseStudyProps) {
             {caseStudy.keyDecisions.map((decision, index) => (
               <li
                 key={`decision-${index}`}
-                className="font-pixel flex gap-3 text-gray-700"
+                className="font-pixel flex gap-3 text-gray-700 dark:text-gray-300"
               >
-                <span className="flex-shrink-0 text-gray-900 font-bold">→</span>
+                <span className="flex-shrink-0 text-gray-900 dark:text-gray-100 font-bold">→</span>
                 <span className="leading-relaxed">{formatText(decision)}</span>
               </li>
             ))}
@@ -116,7 +116,7 @@ export function CaseStudy({ caseStudy, variant = 'card' }: CaseStudyProps) {
 
       {/* Featured Image */}
       {caseStudy.featuredImage && (
-        <div className="relative w-full mb-12 border-2 border-black">
+        <div className="relative w-full mb-12 border-2 border-black dark:border-white">
           <Image
             src={caseStudy.featuredImage}
             alt={caseStudy.featuredImageAlt || `${caseStudy.title} overview`}
@@ -133,7 +133,7 @@ export function CaseStudy({ caseStudy, variant = 'card' }: CaseStudyProps) {
         <section className="mb-12">
           <h2 className="font-pixel text-2xl md:text-3xl mb-4">Results</h2>
           {caseStudy.resultsDescription && (
-            <p className="font-pixel text-gray-700 leading-relaxed mb-6">
+            <p className="font-pixel text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
               {formatText(caseStudy.resultsDescription)}
             </p>
           )}
@@ -141,16 +141,16 @@ export function CaseStudy({ caseStudy, variant = 'card' }: CaseStudyProps) {
             {caseStudy.results.map((result) => (
               <div
                 key={`result-${result.metric}`}
-                className="border-2 border-black p-6 bg-white"
+                className="border-2 border-black dark:border-white p-6 bg-white dark:bg-gray-900"
               >
-                <p className="font-pixel text-sm text-gray-500 mb-1">
+                <p className="font-pixel text-sm text-gray-500 dark:text-gray-400 mb-1">
                   {result.metric}
                 </p>
-                <p className="font-pixel text-3xl md:text-4xl text-gray-900 mb-2">
+                <p className="font-pixel text-3xl md:text-4xl text-gray-900 dark:text-gray-100 mb-2">
                   {result.value}
                 </p>
                 {result.description && (
-                  <p className="font-pixel text-sm text-gray-600">
+                  <p className="font-pixel text-sm text-gray-600 dark:text-gray-400">
                     {result.description}
                   </p>
                 )}
@@ -168,9 +168,9 @@ export function CaseStudy({ caseStudy, variant = 'card' }: CaseStudyProps) {
             {caseStudy.learnings.map((learning, index) => (
               <li
                 key={`learning-${index}`}
-                className="font-pixel flex gap-3 text-gray-700"
+                className="font-pixel flex gap-3 text-gray-700 dark:text-gray-300"
               >
-                <span className="flex-shrink-0 text-gray-900 font-bold">✓</span>
+                <span className="flex-shrink-0 text-gray-900 dark:text-gray-100 font-bold">✓</span>
                 <span className="leading-relaxed">{formatText(learning)}</span>
               </li>
             ))}
@@ -186,7 +186,7 @@ export function CaseStudy({ caseStudy, variant = 'card' }: CaseStudyProps) {
             {caseStudy.techStack.map((tech) => (
               <span
                 key={`tech-${tech}`}
-                className="font-pixel px-4 py-2 border-2 border-black text-sm bg-white"
+                className="font-pixel px-4 py-2 border-2 border-black dark:border-white text-sm bg-white dark:bg-gray-900"
               >
                 {tech}
               </span>
@@ -206,7 +206,7 @@ export function CaseStudy({ caseStudy, variant = 'card' }: CaseStudyProps) {
                 href={link.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-pixel inline-flex items-center gap-2 px-4 py-2 border-2 border-black bg-black text-white hover:bg-gray-800 transition-colors"
+                className="font-pixel inline-flex items-center gap-2 px-4 py-2 border-2 border-black dark:border-white bg-black dark:bg-white text-white dark:text-black hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors"
               >
                 {link.icon === 'figma' && (
                   <svg
@@ -327,7 +327,7 @@ export function CaseStudy({ caseStudy, variant = 'card' }: CaseStudyProps) {
           <h2 className="font-pixel text-2xl md:text-3xl mb-6">
             {caseStudy.embedTitle || 'Preview'}
           </h2>
-          <div className="border-2 border-black overflow-hidden">
+          <div className="border-2 border-black dark:border-white overflow-hidden">
             <iframe
               title={`${caseStudy.title} embed`}
               src={caseStudy.embedUrl}

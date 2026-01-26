@@ -91,13 +91,13 @@ function renderTypedSegments(segments: ContentSegment[], visibleChars: number): 
       if (isFullyTyped && isSafeUrl(segment.url)) {
         if (segment.url.startsWith('/')) {
           parts.push(
-            <Link key={key++} href={segment.url} className="text-blue-600 underline hover:text-blue-800">
+            <Link key={key++} href={segment.url} className="text-blue-600 dark:text-blue-400 underline hover:text-blue-800 dark:hover:text-blue-300">
               {segment.text}
             </Link>
           );
         } else {
           parts.push(
-            <a key={key++} href={segment.url} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline hover:text-blue-800">
+            <a key={key++} href={segment.url} target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400 underline hover:text-blue-800 dark:hover:text-blue-300">
               {segment.text}
             </a>
           );
@@ -234,12 +234,12 @@ export function MessageBubble({ message, onTypingComplete, onTypingUpdate }: Mes
     // intro-hi: "Hi!" - 2 levels smaller
     if (message.id === 'intro-hi') {
       return (
-        <div className="w-full font-pixel text-black">
+        <div className="w-full font-pixel text-black dark:text-white">
           <div className="text-2xl md:text-3xl inline">
             {plainText}
           </div>
           {shouldAnimate && !isComplete && (
-            <span className="inline-block w-2 h-5 bg-black ml-1 animate-pulse align-middle" />
+            <span className="inline-block w-2 h-5 bg-black dark:bg-white ml-1 animate-pulse align-middle" />
           )}
         </div>
       );
@@ -251,7 +251,7 @@ export function MessageBubble({ message, onTypingComplete, onTypingUpdate }: Mes
       const hasFullName = plainText.includes(fullName);
 
       return (
-        <div className="w-full font-pixel text-black">
+        <div className="w-full font-pixel text-black dark:text-white">
           <div className="text-4xl md:text-5xl inline">
             {hasFullName ? (
               <>
@@ -264,7 +264,7 @@ export function MessageBubble({ message, onTypingComplete, onTypingUpdate }: Mes
             )}
           </div>
           {shouldAnimate && !isComplete && (
-            <span className="inline-block w-3 h-8 bg-black ml-1 animate-pulse align-middle" />
+            <span className="inline-block w-3 h-8 bg-black dark:bg-white ml-1 animate-pulse align-middle" />
           )}
         </div>
       );
@@ -273,12 +273,12 @@ export function MessageBubble({ message, onTypingComplete, onTypingUpdate }: Mes
     // intro-title: "Product Manager" - 1 level smaller
     if (message.id === 'intro-title') {
       return (
-        <div className="w-full font-pixel text-black">
+        <div className="w-full font-pixel text-black dark:text-white">
           <div className="text-3xl md:text-4xl inline">
             {plainText}
           </div>
           {shouldAnimate && !isComplete && (
-            <span className="inline-block w-3 h-6 bg-black ml-1 animate-pulse align-middle" />
+            <span className="inline-block w-3 h-6 bg-black dark:bg-white ml-1 animate-pulse align-middle" />
           )}
         </div>
       );
@@ -286,12 +286,12 @@ export function MessageBubble({ message, onTypingComplete, onTypingUpdate }: Mes
 
     // intro-description: Description text with links
     return (
-      <div className="w-full font-pixel text-black">
+      <div className="w-full font-pixel text-black dark:text-white">
         <p className="text-lg md:text-xl inline">
           {renderedContent}
         </p>
         {shouldAnimate && !isComplete && (
-          <span className="inline-block w-3 h-5 bg-black ml-1 animate-pulse align-middle" />
+          <span className="inline-block w-3 h-5 bg-black dark:bg-white ml-1 animate-pulse align-middle" />
         )}
       </div>
     );
@@ -302,7 +302,7 @@ export function MessageBubble({ message, onTypingComplete, onTypingUpdate }: Mes
     <div
       role="article"
       aria-label={`${message.role} message`}
-      className={`max-w-[90%] font-pixel ${isUser ? 'ml-auto w-fit text-gray-500' : 'mr-auto text-black'}`}
+      className={`max-w-[90%] font-pixel ${isUser ? 'ml-auto w-fit text-gray-500 dark:text-gray-400' : 'mr-auto text-black dark:text-white'}`}
     >
       <div className="flex gap-2">
         <span className="text-lg shrink-0">{isUser ? '>' : '$'}</span>
@@ -311,7 +311,7 @@ export function MessageBubble({ message, onTypingComplete, onTypingUpdate }: Mes
             {renderedContent}
           </p>
           {shouldAnimate && !isComplete && (
-            <span className="inline-block w-3 h-5 bg-black ml-1 animate-pulse align-middle" />
+            <span className="inline-block w-3 h-5 bg-black dark:bg-white ml-1 animate-pulse align-middle" />
           )}
         </div>
       </div>

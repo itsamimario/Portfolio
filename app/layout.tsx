@@ -40,7 +40,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} ${catchitFont.variable}`}>{children}</body>
+      <body className={`${inter.className} ${catchitFont.variable} bg-white dark:bg-gray-900`}>{children}</body>
     </html>
   );
 }

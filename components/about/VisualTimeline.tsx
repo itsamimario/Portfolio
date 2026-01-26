@@ -61,19 +61,19 @@ function TimelineEntryRow({ entry, index }: TimelineEntryRowProps): JSX.Element 
   return (
     <div
       ref={entryRef}
-      className={`relative pl-8 md:pl-12 pb-8 border-l-2 border-gray-300 last:border-l-0 transition-all duration-500 ease-out ${
+      className={`relative pl-8 md:pl-12 pb-8 border-l-2 border-gray-300 dark:border-gray-600 last:border-l-0 transition-all duration-500 ease-out ${
         isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
       }`}
     >
       {/* Timeline dot */}
       <div
-        className={`absolute left-[-5px] top-1 w-2 h-2 bg-black rounded-full transition-transform duration-500 ${
+        className={`absolute left-[-5px] top-1 w-2 h-2 bg-black dark:bg-white rounded-full transition-transform duration-500 ${
           isVisible ? 'scale-100' : 'scale-0'
         }`}
       />
 
       {/* Year marker */}
-      <div className="absolute left-[-60px] md:left-[-80px] top-0 text-sm md:text-base font-pixel text-gray-500 w-12 md:w-16 text-right">
+      <div className="absolute left-[-60px] md:left-[-80px] top-0 text-sm md:text-base font-pixel text-gray-500 dark:text-gray-400 w-12 md:w-16 text-right">
         {parseYears(entry.period).start}
       </div>
 
@@ -83,7 +83,7 @@ function TimelineEntryRow({ entry, index }: TimelineEntryRowProps): JSX.Element 
         <div>
           {isCareerPivot ? (
             <h3 className="text-xl md:text-2xl font-pixel">
-              <span className="inline-block text-xs font-pixel bg-gray-200 px-2 py-1 mr-2 align-middle">
+              <span className="inline-block text-xs font-pixel bg-gray-200 dark:bg-gray-700 px-2 py-1 mr-2 align-middle">
                 CAREER PIVOT
               </span>
               {entry.role}
@@ -94,34 +94,34 @@ function TimelineEntryRow({ entry, index }: TimelineEntryRowProps): JSX.Element 
             </h3>
           )}
           {entry.companyDescription && (
-            <p className="text-base font-pixel text-gray-500 mb-1">
+            <p className="text-base font-pixel text-gray-500 dark:text-gray-400 mb-1">
               {entry.companyDescription}
             </p>
           )}
           {!isCareerPivot && (
-            <p className="font-pixel text-gray-700">
+            <p className="font-pixel text-gray-700 dark:text-gray-300">
               {entry.role}
             </p>
           )}
-          <p className="text-base font-pixel text-gray-500">
+          <p className="text-base font-pixel text-gray-500 dark:text-gray-400">
             {entry.period} | {entry.location}
           </p>
         </div>
 
         {/* Description */}
-        <p className="font-pixel text-gray-700 leading-relaxed">
+        <p className="font-pixel text-gray-700 dark:text-gray-300 leading-relaxed">
           {formatText(entry.description)}
         </p>
 
         {/* Case Studies - Terminal style */}
         {entry.caseStudies.length > 0 && (
-          <div className="mt-4 font-pixel text-base bg-gray-50 border border-gray-200 p-4">
-            <div className="text-gray-500 mb-2">case_studies/</div>
+          <div className="mt-4 font-pixel text-base bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-4">
+            <div className="text-gray-500 dark:text-gray-400 mb-2">case_studies/</div>
             {entry.caseStudies.map((cs) => (
               <Link
                 key={cs.id}
                 href={`/case-studies/${cs.id}`}
-                className="block text-blue-600 hover:text-blue-800 hover:underline"
+                className="block text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 hover:underline"
               >
                 {'>'} {cs.title}
               </Link>
@@ -135,7 +135,7 @@ function TimelineEntryRow({ entry, index }: TimelineEntryRowProps): JSX.Element 
 
 export function VisualTimeline({ entries }: VisualTimelineProps): JSX.Element {
   return (
-    <section id="experience" className="py-12 border-b border-gray-200">
+    <section id="experience" className="py-12 border-b border-gray-200 dark:border-gray-700">
       <h2 className="text-3xl md:text-4xl font-pixel mb-8">Experience</h2>
 
       <div className="relative ml-10 md:ml-20">

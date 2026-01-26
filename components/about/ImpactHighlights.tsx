@@ -87,17 +87,17 @@ function MetricCard({ highlight, index }: MetricCardProps): JSX.Element {
   return (
     <div
       ref={cardRef}
-      className={`border border-gray-200 p-4 md:p-6 text-center transition-all duration-500 ease-out ${
+      className={`border border-gray-200 dark:border-gray-700 p-4 md:p-6 text-center transition-all duration-500 ease-out ${
         isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
       }`}
     >
-      <div className="text-3xl md:text-4xl font-pixel text-black mb-1">
+      <div className="text-3xl md:text-4xl font-pixel text-black dark:text-white mb-1">
         {prefix}{isVisible ? formattedNumber : '0'}{suffix}
       </div>
-      <div className="text-base md:text-lg font-pixel text-gray-700 mb-1">
+      <div className="text-base md:text-lg font-pixel text-gray-700 dark:text-gray-300 mb-1">
         {highlight.label}
       </div>
-      <div className="text-sm font-pixel text-gray-500">
+      <div className="text-sm font-pixel text-gray-500 dark:text-gray-400">
         {highlight.context}
       </div>
     </div>
@@ -129,7 +129,7 @@ export function ImpactHighlights(): JSX.Element {
   }, []);
 
   return (
-    <section className="py-12 border-b border-gray-200">
+    <section className="py-12 border-b border-gray-200 dark:border-gray-700">
       <h2 className="text-3xl md:text-4xl font-pixel mb-8">Impact</h2>
 
       {/* Metrics Grid */}
@@ -142,11 +142,11 @@ export function ImpactHighlights(): JSX.Element {
       {/* Value Proposition */}
       <div
         ref={valueRef}
-        className={`bg-gray-50 border border-gray-200 p-6 transition-all duration-500 ease-out ${
+        className={`bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-6 transition-all duration-500 ease-out ${
           valueVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
         }`}
       >
-        <p className="font-pixel text-gray-700 leading-relaxed">
+        <p className="font-pixel text-gray-700 dark:text-gray-300 leading-relaxed">
           {formatText(valueProposition)}
         </p>
       </div>

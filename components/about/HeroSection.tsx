@@ -33,11 +33,11 @@ function GitHubIcon(): JSX.Element {
 
 export function HeroSection(): JSX.Element {
   return (
-    <section id="about" className="py-16 border-b border-gray-200">
+    <section id="about" className="py-16 border-b border-gray-200 dark:border-gray-700">
       <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-center md:items-start">
         {/* Profile Photo */}
         <div className="flex-shrink-0">
-          <div className="w-40 h-40 md:w-48 md:h-48 overflow-hidden border-4 border-black">
+          <div className="w-40 h-40 md:w-48 md:h-48 overflow-hidden border-4 border-black dark:border-white">
             <Image
               src="/images/mario-profile.jpg"
               alt="Mario Bennekers"
@@ -54,10 +54,10 @@ export function HeroSection(): JSX.Element {
           <h1 className="text-4xl md:text-5xl font-pixel mb-2">
             Mario Bennekers
           </h1>
-          <p className="text-lg md:text-xl text-gray-600 font-pixel mb-4">
+          <p className="text-lg md:text-xl text-gray-600 dark:text-gray-400 font-pixel mb-4">
             {tagline}
           </p>
-          <p className="font-pixel text-gray-700 leading-relaxed mb-6 max-w-2xl">
+          <p className="font-pixel text-gray-700 dark:text-gray-300 leading-relaxed mb-6 max-w-2xl">
             {formatText(description)}
           </p>
 
@@ -65,7 +65,7 @@ export function HeroSection(): JSX.Element {
           <div className="flex flex-wrap gap-4 justify-center md:justify-start">
             <a
               href={`mailto:${contact.email}`}
-              className="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition-colors"
+              className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
               title="Email"
             >
               <EmailIcon />
@@ -75,7 +75,7 @@ export function HeroSection(): JSX.Element {
               href={contact.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition-colors"
+              className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
               title="LinkedIn"
             >
               <LinkedInIcon />
@@ -85,7 +85,7 @@ export function HeroSection(): JSX.Element {
               href={contact.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition-colors"
+              className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
               title="GitHub"
             >
               <GitHubIcon />

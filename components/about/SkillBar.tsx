@@ -49,7 +49,7 @@ export function SkillBar({ name, proficiency }: SkillBarProps): JSX.Element {
   return (
     <div ref={barRef} className="mb-4">
       <div className="mb-1">
-        <span className="text-base font-pixel text-gray-700">{name}</span>
+        <span className="text-base font-pixel text-gray-700 dark:text-gray-300">{name}</span>
       </div>
       <div className="flex items-center gap-2">
         <div className="flex gap-1">
@@ -57,12 +57,12 @@ export function SkillBar({ name, proficiency }: SkillBarProps): JSX.Element {
             <div
               key={index}
               className={`h-3 w-3 transition-colors duration-150 ${
-                index < filledBlocks ? 'bg-black' : 'bg-gray-200'
+                index < filledBlocks ? 'bg-black dark:bg-white' : 'bg-gray-200 dark:bg-gray-700'
               }`}
             />
           ))}
         </div>
-        <span className="text-sm font-pixel text-gray-500">{proficiency}%</span>
+        <span className="text-sm font-pixel text-gray-500 dark:text-gray-400">{proficiency}%</span>
       </div>
     </div>
   );

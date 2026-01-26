@@ -40,13 +40,13 @@ export function Footer({ showCta = true }: FooterProps): JSX.Element {
       {showCta && (
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-pixel mb-4">Let&apos;s Work Together</h2>
-          <p className="font-pixel text-gray-600 mb-6">
+          <p className="font-pixel text-gray-600 dark:text-gray-400 mb-6">
             Open to Product Manager opportunities
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
               href={`mailto:${contact.email}`}
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-black text-white font-pixel hover:bg-gray-800 transition-colors"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-black dark:bg-white text-white dark:text-black font-pixel hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors"
             >
               <EmailIcon />
               Get in Touch
@@ -55,7 +55,7 @@ export function Footer({ showCta = true }: FooterProps): JSX.Element {
               href={contact.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 border border-black text-black font-pixel hover:bg-gray-100 transition-colors"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 border border-black dark:border-white text-black dark:text-white font-pixel hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
             >
               <LinkedInIcon />
               Connect on LinkedIn
@@ -65,13 +65,13 @@ export function Footer({ showCta = true }: FooterProps): JSX.Element {
       )}
 
       {/* Contact Info */}
-      <div className="border-t border-gray-200 pt-8">
+      <div className="border-t border-gray-200 dark:border-gray-700 pt-8">
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
           {/* Social Links */}
           <div className="flex items-center gap-6">
             <a
               href={`mailto:${contact.email}`}
-              className="text-gray-600 hover:text-black transition-colors"
+              className="text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors"
               title="Email"
             >
               <EmailIcon />
@@ -80,7 +80,7 @@ export function Footer({ showCta = true }: FooterProps): JSX.Element {
               href={contact.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-600 hover:text-black transition-colors"
+              className="text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors"
               title="LinkedIn"
             >
               <LinkedInIcon />
@@ -89,7 +89,7 @@ export function Footer({ showCta = true }: FooterProps): JSX.Element {
               href={contact.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-600 hover:text-black transition-colors"
+              className="text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors"
               title="GitHub"
             >
               <GitHubIcon />
@@ -97,12 +97,12 @@ export function Footer({ showCta = true }: FooterProps): JSX.Element {
           </div>
 
           {/* Location */}
-          <p className="text-base font-pixel text-gray-500">
+          <p className="text-base font-pixel text-gray-500 dark:text-gray-400">
             {contact.location} | {contact.timezone} Timezone
           </p>
 
           {/* Copyright */}
-          <div className="text-base font-pixel text-gray-500 text-center md:text-right">
+          <div className="text-base font-pixel text-gray-500 dark:text-gray-400 text-center md:text-right">
             <p>&copy; 2026 Mario Bennekers</p>
             <p className="text-sm mt-1">Built with Next.js, TypeScript & Claude API</p>
           </div>

@@ -87,7 +87,7 @@ function CaseStudiesDropdown({
       <button
         onClick={onToggle}
         className={`text-sm font-pixel transition-colors flex items-center gap-1 ${
-          bold ? 'text-gray-900 font-bold' : 'text-gray-600 hover:text-gray-900'
+          bold ? 'text-gray-900 dark:text-gray-100 font-bold' : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
         }`}
       >
         Case Studies
@@ -95,18 +95,18 @@ function CaseStudiesDropdown({
       </button>
 
       {open && (
-        <div className="absolute top-full left-[-16px] mt-[19px] bg-white border border-gray-200 border-t-0 py-3 px-4 min-w-[220px]">
+        <div className="absolute top-full left-[-16px] mt-[19px] bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 border-t-0 py-3 px-4 min-w-[220px]">
           {Object.entries(caseStudiesByCompany).map(([company, studies]) => (
             <div key={company} className="mb-3 last:mb-0">
-              <div className="text-xs font-pixel text-gray-400 mb-1">{company}</div>
+              <div className="text-xs font-pixel text-gray-400 dark:text-gray-500 mb-1">{company}</div>
               {studies.map((cs) => (
                 <Link
                   key={cs.id}
                   href={`/case-studies/${cs.id}`}
                   className={`block py-1 text-sm font-pixel transition-colors ${
                     currentCaseStudyId === cs.id
-                      ? 'text-gray-900 font-bold'
-                      : 'text-gray-600 hover:text-gray-900'
+                      ? 'text-gray-900 dark:text-gray-100 font-bold'
+                      : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
                   }`}
                   onClick={onSelect}
                 >
@@ -228,10 +228,10 @@ export function StickyNav(): JSX.Element {
       case 'home':
         return (
           <>
-            <Link href="/about" className="text-gray-600 hover:text-gray-900 font-pixel text-sm">
+            <Link href="/about" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white font-pixel text-sm">
               About
             </Link>
-            <span className="text-gray-300">|</span>
+            <span className="text-gray-300 dark:text-gray-600">|</span>
             <CaseStudiesDropdown
               open={caseStudiesOpen}
               onToggle={() => setCaseStudiesOpen(!caseStudiesOpen)}
@@ -244,10 +244,10 @@ export function StickyNav(): JSX.Element {
       case 'about':
         return (
           <>
-            <Link href="/" className="text-gray-600 hover:text-gray-900 font-pixel text-sm">
+            <Link href="/" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white font-pixel text-sm">
               AI Assistant
             </Link>
-            <span className="text-gray-300">|</span>
+            <span className="text-gray-300 dark:text-gray-600">|</span>
             <CaseStudiesDropdown
               open={caseStudiesOpen}
               onToggle={() => setCaseStudiesOpen(!caseStudiesOpen)}
@@ -260,11 +260,11 @@ export function StickyNav(): JSX.Element {
       case 'case-studies':
         return (
           <>
-            <Link href="/" className="text-gray-600 hover:text-gray-900 font-pixel text-sm">
+            <Link href="/" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white font-pixel text-sm">
               AI Assistant
             </Link>
-            <span className="text-gray-300">|</span>
-            <Link href="/about" className="text-gray-600 hover:text-gray-900 font-pixel text-sm">
+            <span className="text-gray-300 dark:text-gray-600">|</span>
+            <Link href="/about" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white font-pixel text-sm">
               About
             </Link>
           </>
@@ -276,7 +276,7 @@ export function StickyNav(): JSX.Element {
   const renderCenter = () => {
     switch (section) {
       case 'home':
-        return <span className="font-pixel text-sm font-bold text-gray-900">AI Assistant</span>;
+        return <span className="font-pixel text-sm font-bold text-gray-900 dark:text-gray-100">AI Assistant</span>;
       case 'about':
         return (
           <>
@@ -285,7 +285,7 @@ export function StickyNav(): JSX.Element {
                 key={link.href}
                 href={link.href}
                 onClick={(e) => handleAboutNavClick(e, link.href)}
-                className={`text-sm font-pixel transition-colors text-gray-600 hover:text-gray-900 ${
+                className={`text-sm font-pixel transition-colors text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white ${
                   activeSection === link.href ? 'font-bold' : ''
                 }`}
               >
@@ -309,7 +309,7 @@ export function StickyNav(): JSX.Element {
   };
 
   return (
-    <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200">
+    <nav className="sticky top-0 z-50 bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm border-b border-gray-200 dark:border-gray-700">
       <div className="container mx-auto px-4 max-w-4xl">
         <div className="flex items-center justify-between h-14">
           {/* Left: Mobile Menu Toggle + Section links */}
@@ -320,7 +320,7 @@ export function StickyNav(): JSX.Element {
                 setMobileMenuOpen(!mobileMenuOpen);
                 if (mobileMenuOpen) setMobileCaseStudiesOpen(false);
               }}
-              className="md:hidden p-2 -ml-2 text-gray-600 hover:text-gray-900 transition-colors"
+              className="md:hidden p-2 -ml-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
               aria-label="Toggle menu"
             >
               <HamburgerIcon open={mobileMenuOpen} />
@@ -341,14 +341,14 @@ export function StickyNav(): JSX.Element {
             <a
               href="/files/CV - Mario Bennekers.pdf"
               download
-              className="hidden md:block font-pixel text-sm text-gray-600 hover:text-gray-900 transition-colors"
+              className="hidden md:block font-pixel text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
             >
               Download CV
             </a>
             <a
               href={contactHref}
               onClick={handleContactClick}
-              className="font-pixel text-sm px-4 py-2 bg-black text-white hover:bg-gray-800 transition-colors"
+              className="font-pixel text-sm px-4 py-2 bg-black dark:bg-white text-white dark:text-black hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors"
             >
               Contact Me
             </a>
@@ -358,13 +358,13 @@ export function StickyNav(): JSX.Element {
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div ref={mobileMenuRef} className="md:hidden absolute left-0 right-0 border-t border-gray-200 bg-white shadow-lg">
+        <div ref={mobileMenuRef} className="md:hidden absolute left-0 right-0 border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 shadow-lg">
           <div className="container mx-auto px-4 max-w-4xl py-4 space-y-4">
             {/* AI Assistant */}
             <Link
               href="/"
               className={`block text-base font-pixel transition-colors ${
-                section === 'home' ? 'text-gray-900 font-bold' : 'text-gray-600 hover:text-gray-900'
+                section === 'home' ? 'text-gray-900 dark:text-gray-100 font-bold' : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
               }`}
               onClick={() => setMobileMenuOpen(false)}
             >
@@ -375,7 +375,7 @@ export function StickyNav(): JSX.Element {
             <Link
               href="/about"
               className={`block text-base font-pixel transition-colors ${
-                section === 'about' ? 'text-gray-900 font-bold' : 'text-gray-600 hover:text-gray-900'
+                section === 'about' ? 'text-gray-900 dark:text-gray-100 font-bold' : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
               }`}
               onClick={() => setMobileMenuOpen(false)}
             >
@@ -387,7 +387,7 @@ export function StickyNav(): JSX.Element {
               <button
                 onClick={() => setMobileCaseStudiesOpen(!mobileCaseStudiesOpen)}
                 className={`flex items-center justify-between w-full text-base font-pixel transition-colors ${
-                  section === 'case-studies' ? 'text-gray-900 font-bold' : 'text-gray-600 hover:text-gray-900'
+                  section === 'case-studies' ? 'text-gray-900 dark:text-gray-100 font-bold' : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
                 }`}
               >
                 Case Studies
@@ -397,15 +397,15 @@ export function StickyNav(): JSX.Element {
                 <div className="mt-2 ml-4 space-y-3">
                   {Object.entries(caseStudiesByCompany).map(([company, studies]) => (
                     <div key={company}>
-                      <div className="text-xs font-pixel text-gray-400 mb-1">{company}</div>
+                      <div className="text-xs font-pixel text-gray-400 dark:text-gray-500 mb-1">{company}</div>
                       {studies.map((cs) => (
                         <Link
                           key={cs.id}
                           href={`/case-studies/${cs.id}`}
                           className={`block py-0.5 text-sm font-pixel transition-colors ${
                             currentCaseStudyId === cs.id
-                              ? 'text-gray-900 font-bold'
-                              : 'text-gray-500 hover:text-gray-900'
+                              ? 'text-gray-900 dark:text-gray-100 font-bold'
+                              : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
                           }`}
                           onClick={() => {
                             setMobileMenuOpen(false);
@@ -422,13 +422,13 @@ export function StickyNav(): JSX.Element {
             </div>
 
             {/* Divider */}
-            <div className="border-t border-gray-200" />
+            <div className="border-t border-gray-200 dark:border-gray-700" />
 
             {/* Download CV */}
             <a
               href="/files/CV - Mario Bennekers.pdf"
               download
-              className="block text-base font-pixel text-gray-600 hover:text-gray-900 transition-colors"
+              className="block text-base font-pixel text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
             >
               Download CV
             </a>
@@ -437,7 +437,7 @@ export function StickyNav(): JSX.Element {
             <a
               href={contactHref}
               onClick={handleContactClick}
-              className="block text-base font-pixel text-gray-600 hover:text-gray-900 transition-colors"
+              className="block text-base font-pixel text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
             >
               Contact Me
             </a>
