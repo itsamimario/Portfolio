@@ -14,7 +14,7 @@ export const timeline: TimelineEntry[] = [
     period: 'Sep 2024 - Present',
     location: 'Madrid, Spain',
     description:
-      'Founded a mobile game startup, owning the full product lifecycle. Led product strategy, user research, and rapid iteration cycles. Built and shipped cross-platform app integrating AI tools. Achieved 50% D1, 35% D7, 12% D30 retention through data-driven optimization.',
+      '**Founded a mobile game startup**, owning the full product lifecycle. Led product strategy, user research, and rapid iteration cycles. **Built and shipped cross-platform app** integrating AI tools. Achieved 50% D1, 35% D7, 12% D30 retention through data-driven optimization.',
     caseStudies: [
       {
         id: 'catchit-product-conceptualization',
@@ -36,7 +36,7 @@ export const timeline: TimelineEntry[] = [
     period: 'Dec 2023 - Present',
     location: 'Madrid, Spain',
     description:
-      'Providing product strategy for sustainability-focused companies. Interim Product Lead at Ecometro, building the product team and preparing the product for market. Consulted for Imageryst, adapting their technology to renewables and delivering product and go-to-market strategy.',
+      'Providing product strategy for sustainability-focused companies. **Interim Product Lead** at Ecometro, building the product team and preparing the product for market. Consulted for Imageryst, adapting their technology to renewables and delivering **product and go-to-market strategy**.',
     caseStudies: [
       {
         id: 'ecometro-product-strategy',
@@ -58,7 +58,7 @@ export const timeline: TimelineEntry[] = [
     period: 'May 2022 - Dec 2023',
     location: 'Amsterdam, Netherlands',
     description:
-      'Led product strategy, requirements and UX for a B2B energy SaaS platform. Delivered onboarding, dashboards, workflows and a complete UX revamp, enabling adoption by new enterprise clients. Contributed to 2x YoY revenue growth.',
+      'Led **product strategy, requirements and UX** for a B2B energy SaaS platform. Delivered onboarding, dashboards, workflows and a complete UX revamp, enabling adoption by new enterprise clients. Contributed to **2x YoY revenue growth**.',
     caseStudies: [
       {
         id: 'maxem-smart-energy-algorithm',
@@ -80,7 +80,7 @@ export const timeline: TimelineEntry[] = [
     period: 'Feb 2019 - May 2022',
     location: 'Madrid, Spain',
     description:
-      'Led the product team for B2B software that grew revenue 10x in 3 years. Expanded team from 2 to 30+ developers, establishing product processes. Collaborated closely with engineering, design, sales, marketing, clients and founders.',
+      '**Led the product team** for B2B software that **grew revenue 10x in 3 years**. Expanded team from 2 to 30+ developers, establishing product processes. Collaborated closely with engineering, design, sales, marketing, clients and founders.',
     caseStudies: [
       {
         id: 'ratedpower-topography',
@@ -106,7 +106,7 @@ export const timeline: TimelineEntry[] = [
     period: 'Nov 2018 - Dec 2019',
     location: 'South America',
     description:
-      'After realizing traditional project management wasn\'t my path, I took a deliberate pause to explore what I truly wanted. Traveled through South America while studying programming and software development. This transition led me to Madrid\'s startup ecosystem and redirected my career toward product management.',
+      'After realizing traditional project management wasn\'t my path, I took a **deliberate pause** to explore what I truly wanted. Traveled through South America while studying programming and software development. This transition led me to Madrid\'s startup ecosystem and **redirected my career toward product management**.',
     caseStudies: [],
   },
   {
@@ -117,7 +117,7 @@ export const timeline: TimelineEntry[] = [
     period: 'Mar 2015 - Oct 2017',
     location: 'South America & India',
     description:
-      'Managed construction of solar plants totaling 100 MWp across Chile, Uruguay, and Telangana, India. Coordinated cross-functional teams, managed stakeholders, and delivered complex projects on time. This experience built the foundation for my transition into product management.',
+      'Managed construction of solar plants totaling **100 MWp** across Chile, Uruguay, and Telangana, India. Coordinated cross-functional teams, managed stakeholders, and **delivered complex projects on time**. This experience built the foundation for my transition into product management.',
     caseStudies: [],
   },
 ];

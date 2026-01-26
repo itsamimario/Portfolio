@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { CaseStudyProps } from '@/types/content';
+import { formatText } from '@/lib/format-text';
 
 /**
  * CaseStudy Component
@@ -28,7 +29,7 @@ export function CaseStudy({ caseStudy, variant = 'card' }: CaseStudyProps) {
               {caseStudy.role} | {caseStudy.period}
             </p>
             <p className="font-pixel text-gray-700 leading-relaxed">
-              {caseStudy.tagline}
+              {formatText(caseStudy.tagline)}
             </p>
           </div>
         </article>
@@ -45,7 +46,7 @@ export function CaseStudy({ caseStudy, variant = 'card' }: CaseStudyProps) {
           {caseStudy.role} at {caseStudy.company} · {caseStudy.period}
         </p>
         <p className="font-pixel text-xl text-gray-700 leading-relaxed">
-          {caseStudy.tagline}
+          {formatText(caseStudy.tagline)}
         </p>
       </header>
 
@@ -68,7 +69,7 @@ export function CaseStudy({ caseStudy, variant = 'card' }: CaseStudyProps) {
         <section className="mb-12">
           <h2 className="font-pixel text-2xl md:text-3xl mb-4">The Challenge</h2>
           <p className="font-pixel text-lg text-gray-700 leading-relaxed">
-            {caseStudy.challenge}
+            {formatText(caseStudy.challenge)}
           </p>
         </section>
       )}
@@ -86,7 +87,7 @@ export function CaseStudy({ caseStudy, variant = 'card' }: CaseStudyProps) {
                 <div className="flex-1">
                   <h3 className="font-pixel text-xl mb-2">{step.title}</h3>
                   <p className="font-pixel text-gray-700 leading-relaxed">
-                    {step.description}
+                    {formatText(step.description)}
                   </p>
                 </div>
               </div>
@@ -106,7 +107,7 @@ export function CaseStudy({ caseStudy, variant = 'card' }: CaseStudyProps) {
                 className="font-pixel flex gap-3 text-gray-700"
               >
                 <span className="flex-shrink-0 text-gray-900 font-bold">→</span>
-                <span className="leading-relaxed">{decision}</span>
+                <span className="leading-relaxed">{formatText(decision)}</span>
               </li>
             ))}
           </ul>
@@ -133,7 +134,7 @@ export function CaseStudy({ caseStudy, variant = 'card' }: CaseStudyProps) {
           <h2 className="font-pixel text-2xl md:text-3xl mb-4">Results</h2>
           {caseStudy.resultsDescription && (
             <p className="font-pixel text-gray-700 leading-relaxed mb-6">
-              {caseStudy.resultsDescription}
+              {formatText(caseStudy.resultsDescription)}
             </p>
           )}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -170,7 +171,7 @@ export function CaseStudy({ caseStudy, variant = 'card' }: CaseStudyProps) {
                 className="font-pixel flex gap-3 text-gray-700"
               >
                 <span className="flex-shrink-0 text-gray-900 font-bold">✓</span>
-                <span className="leading-relaxed">{learning}</span>
+                <span className="leading-relaxed">{formatText(learning)}</span>
               </li>
             ))}
           </ul>

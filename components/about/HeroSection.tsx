@@ -5,6 +5,7 @@
 
 import Image from 'next/image';
 import { contact, tagline, description } from '@/data/contact';
+import { formatText } from '@/lib/format-text';
 
 function EmailIcon(): JSX.Element {
   return (
@@ -57,7 +58,7 @@ export function HeroSection(): JSX.Element {
             {tagline}
           </p>
           <p className="font-pixel text-gray-700 leading-relaxed mb-6 max-w-2xl">
-            {description}
+            {formatText(description)}
           </p>
 
           {/* Social Links */}

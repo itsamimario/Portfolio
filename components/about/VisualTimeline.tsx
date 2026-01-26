@@ -9,6 +9,7 @@
 import { useEffect, useState, useRef } from 'react';
 import Link from 'next/link';
 import type { TimelineEntry } from '@/types/timeline';
+import { formatText } from '@/lib/format-text';
 
 interface VisualTimelineProps {
   entries: TimelineEntry[];
@@ -109,7 +110,7 @@ function TimelineEntryRow({ entry, index }: TimelineEntryRowProps): JSX.Element 
 
         {/* Description */}
         <p className="font-pixel text-gray-700 leading-relaxed">
-          {entry.description}
+          {formatText(entry.description)}
         </p>
 
         {/* Case Studies - Terminal style */}

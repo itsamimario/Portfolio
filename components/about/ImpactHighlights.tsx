@@ -9,6 +9,7 @@
 import { useEffect, useState, useRef } from 'react';
 import { highlights, type Highlight } from '@/data/highlights';
 import { valueProposition } from '@/data/contact';
+import { formatText } from '@/lib/format-text';
 
 // Parse metric string to extract number and suffix
 function parseMetric(metric: string): { number: number; suffix: string; prefix: string } {
@@ -146,7 +147,7 @@ export function ImpactHighlights(): JSX.Element {
         }`}
       >
         <p className="font-pixel text-gray-700 leading-relaxed">
-          {valueProposition}
+          {formatText(valueProposition)}
         </p>
       </div>
     </section>
