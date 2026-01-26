@@ -10,7 +10,8 @@ CREATE TABLE IF NOT EXISTS embeddings (
   content TEXT NOT NULL,
   embedding vector(1536), -- OpenAI/Claude embedding dimension
   metadata JSONB DEFAULT '{}',
-  source VARCHAR(255), -- 'cv', 'case-study', 'playbook', etc.
+  source VARCHAR(255), -- 'about', 'case-study', 'timeline', 'playbook'
+  content_hash VARCHAR(12), -- MD5 hash prefix for deduplication
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
