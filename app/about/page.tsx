@@ -3,7 +3,7 @@ import { HeroSection } from '@/components/about/HeroSection';
 import { ImpactHighlights } from '@/components/about/ImpactHighlights';
 import { VisualTimeline } from '@/components/about/VisualTimeline';
 import { SkillsSection } from '@/components/about/SkillsSection';
-import { LearningSection } from '@/components/about/LearningSection';
+import { SelectedWorks } from '@/components/about/SelectedWorks';
 import { TestimonialsSection } from '@/components/about/TestimonialsSection';
 import { Footer } from '@/components/about/Footer';
 import { timeline } from '@/data/timeline';
@@ -27,8 +27,8 @@ export default function About() {
         {/* Skills with Progress Bars */}
         <SkillsSection />
 
-        {/* Learning Philosophy */}
-        <LearningSection />
+        {/* Selected Works */}
+        <SelectedWorks />
 
         {/* Testimonials */}
         <TestimonialsSection />

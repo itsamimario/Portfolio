@@ -7,7 +7,6 @@
 'use client';
 
 import { useEffect, useState, useRef } from 'react';
-import Link from 'next/link';
 import type { TimelineEntry } from '@/types/timeline';
 import { formatText } from '@/lib/format-text';
 
@@ -112,22 +111,6 @@ function TimelineEntryRow({ entry, index }: TimelineEntryRowProps): JSX.Element 
         <p className="font-pixel text-gray-700 dark:text-gray-300 leading-relaxed">
           {formatText(entry.description)}
         </p>
-
-        {/* Case Studies - Terminal style */}
-        {entry.caseStudies.length > 0 && (
-          <div className="mt-4 font-pixel text-base bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-4">
-            <div className="text-gray-500 dark:text-gray-400 mb-2">case_studies/</div>
-            {entry.caseStudies.map((cs) => (
-              <Link
-                key={cs.id}
-                href={`/case-studies/${cs.id}`}
-                className="block text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 hover:underline"
-              >
-                {'>'} {cs.title}
-              </Link>
-            ))}
-          </div>
-        )}
       </div>
     </div>
   );

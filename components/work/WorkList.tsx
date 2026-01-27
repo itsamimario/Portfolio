@@ -13,8 +13,8 @@ interface WorkListProps {
 export function WorkList({ caseStudies }: WorkListProps): JSX.Element {
   return (
     <div className="divide-y-0">
-      {caseStudies.map((caseStudy) => (
-        <WorkItem key={caseStudy.id} caseStudy={caseStudy} />
+      {caseStudies.map((caseStudy, index) => (
+        <WorkItem key={caseStudy.id} caseStudy={caseStudy} index={index} />
       ))}
     </div>
   );

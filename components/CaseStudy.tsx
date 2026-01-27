@@ -337,6 +337,21 @@ export function CaseStudy({ caseStudy, variant = 'card' }: CaseStudyProps) {
           </div>
         </section>
       )}
+
+      {/* AI Assistant CTA */}
+      <section className="mt-16 mb-8 pt-8 border-t border-gray-200 dark:border-gray-700">
+        <div className="text-center">
+          <p className="font-pixel text-gray-600 dark:text-gray-400 mb-4">
+            Have questions about this project or want to know more?
+          </p>
+          <Link
+            href="/"
+            className="font-pixel inline-flex items-center gap-2 px-6 py-3 border-2 border-black dark:border-white bg-black dark:bg-white text-white dark:text-black hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors"
+          >
+            Ask the AI Assistant
+          </Link>
+        </div>
+      </section>
     </article>
   );
 }

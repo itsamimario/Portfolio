@@ -22,20 +22,6 @@ const testimonials: Testimonial[] = [
     role: 'Co-founder at RatedPower',
     company: 'VP at Enverus',
   },
-  {
-    quote: 'Testimonial coming soon...',
-    name: 'Name',
-    role: 'Role',
-    company: 'Company',
-    isPlaceholder: true,
-  },
-  {
-    quote: 'Testimonial coming soon...',
-    name: 'Name',
-    role: 'Role',
-    company: 'Company',
-    isPlaceholder: true,
-  },
 ];
 
 function TestimonialCard({ testimonial, index }: { testimonial: Testimonial; index: number }): JSX.Element {
@@ -101,9 +87,9 @@ function TestimonialCard({ testimonial, index }: { testimonial: Testimonial; ind
 export function TestimonialsSection(): JSX.Element {
   return (
     <section className="py-12 border-b border-gray-200 dark:border-gray-700">
-      <h2 className="text-3xl md:text-4xl font-pixel mb-8">What People Say</h2>
+      <h2 className="text-3xl md:text-4xl font-pixel mb-8">Testimonials</h2>
 
-      <div className="grid md:grid-cols-3 gap-6">
+      <div className="grid md:grid-cols-1 gap-6 max-w-2xl mx-auto">
         {testimonials.map((testimonial, index) => (
           <TestimonialCard key={index} testimonial={testimonial} index={index} />
         ))}

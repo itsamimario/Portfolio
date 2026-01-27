@@ -8,7 +8,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState, useRef } from 'react';
-type Section = 'home' | 'about' | 'work' | 'case-studies';
+type Section = 'home' | 'about' | 'case-studies';
 
 interface NavLink {
   label: string;
@@ -19,6 +19,7 @@ const aboutNavLinks: NavLink[] = [
   { label: 'About', href: '#about' },
   { label: 'Experience', href: '#experience' },
   { label: 'Skills', href: '#skills' },
+  { label: 'Work', href: '#work' },
 ];
 
 function HamburgerIcon({ open }: { open: boolean }): JSX.Element {
@@ -45,7 +46,6 @@ function HamburgerIcon({ open }: { open: boolean }): JSX.Element {
 
 function getSection(pathname: string): Section {
   if (pathname.startsWith('/case-studies')) return 'case-studies';
-  if (pathname.startsWith('/work')) return 'work';
   if (pathname.startsWith('/about')) return 'about';
   return 'home';
 }
@@ -140,34 +140,16 @@ export function StickyNav(): JSX.Element {
               About
             </Link>
             <span className="text-gray-300 dark:text-gray-600">|</span>
-            <Link href="/work" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white font-pixel text-sm">
+            <Link href="/about#work" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white font-pixel text-sm">
               Work
             </Link>
           </>
         );
       case 'about':
         return (
-          <>
-            <Link href="/" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white font-pixel text-sm">
-              AI Assistant
-            </Link>
-            <span className="text-gray-300 dark:text-gray-600">|</span>
-            <Link href="/work" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white font-pixel text-sm">
-              Work
-            </Link>
-          </>
-        );
-      case 'work':
-        return (
-          <>
-            <Link href="/" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white font-pixel text-sm">
-              AI Assistant
-            </Link>
-            <span className="text-gray-300 dark:text-gray-600">|</span>
-            <Link href="/about" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white font-pixel text-sm">
-              About
-            </Link>
-          </>
+          <Link href="/" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white font-pixel text-sm">
+            AI Assistant
+          </Link>
         );
       case 'case-studies':
         return (
@@ -180,7 +162,7 @@ export function StickyNav(): JSX.Element {
               About
             </Link>
             <span className="text-gray-300 dark:text-gray-600">|</span>
-            <Link href="/work" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white font-pixel text-sm">
+            <Link href="/about#work" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white font-pixel text-sm">
               Work
             </Link>
           </>
@@ -210,8 +192,6 @@ export function StickyNav(): JSX.Element {
             ))}
           </>
         );
-      case 'work':
-        return <span className="font-pixel text-sm font-bold text-gray-900 dark:text-gray-100">Work</span>;
       case 'case-studies':
         return null;
     }
@@ -290,10 +270,8 @@ export function StickyNav(): JSX.Element {
 
             {/* Work */}
             <Link
-              href="/work"
-              className={`block text-base font-pixel transition-colors ${
-                section === 'work' ? 'text-gray-900 dark:text-gray-100 font-bold' : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
-              }`}
+              href="/about#work"
+              className="block text-base font-pixel transition-colors text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
               onClick={() => setMobileMenuOpen(false)}
             >
               Work
