@@ -1,5 +1,7 @@
 #!/usr/bin/env npx ts-node
 
+import 'dotenv/config';
+
 /**
  * CLI script to embed portfolio content into the database
  *
