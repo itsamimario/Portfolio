@@ -7,6 +7,32 @@ import { useState, useCallback, useEffect } from 'react';
 import type { ChatMessage, UseChatReturn } from '@/types/chat-ui';
 
 const STORAGE_KEY = 'portfolio-chat-messages';
+const SESSION_KEY = 'portfolio-chat-session';
+
+/**
+ * Generate a random session ID
+ */
+function generateSessionId(): string {
+  return crypto.randomUUID();
+}
+
+/**
+ * Get or create session ID from localStorage
+ */
+function getSessionId(): string {
+  if (typeof window === 'undefined') return '';
+
+  try {
+    let sessionId = localStorage.getItem(SESSION_KEY);
+    if (!sessionId) {
+      sessionId = generateSessionId();
+      localStorage.setItem(SESSION_KEY, sessionId);
+    }
+    return sessionId;
+  } catch {
+    return generateSessionId();
+  }
+}
 
 /**
  * Default suggestion chips shown on first load
@@ -110,13 +136,15 @@ export function useChat(): UseChatReturn {
   const [error, setError] = useState<string | null>(null);
   const [isHydrated, setIsHydrated] = useState(false);
   const [suggestions, setSuggestions] = useState<string[]>(DEFAULT_SUGGESTIONS);
+  const [sessionId, setSessionId] = useState<string>('');
 
-  // Load messages from localStorage on mount (client-side only)
+  // Load messages and session from localStorage on mount (client-side only)
   useEffect(() => {
     const stored = loadMessagesFromStorage();
     if (stored && stored.length > 0) {
       setMessages(stored);
     }
+    setSessionId(getSessionId());
     setIsHydrated(true);
   }, []);
 
@@ -152,7 +180,7 @@ export function useChat(): UseChatReturn {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ question: content }),
+        body: JSON.stringify({ question: content, sessionId }),
       });
 
       if (!response.ok) {
@@ -195,15 +223,18 @@ export function useChat(): UseChatReturn {
     } finally {
       setIsLoading(false);
     }
-  }, []);
+  }, [sessionId]);
 
   const clearMessages = useCallback((): void => {
     setMessages(INITIAL_MESSAGES);
     setError(null);
     setSuggestions(DEFAULT_SUGGESTIONS);
-    // Clear localStorage
+    // Clear localStorage and generate new session
     if (typeof window !== 'undefined') {
       localStorage.removeItem(STORAGE_KEY);
+      const newSessionId = generateSessionId();
+      localStorage.setItem(SESSION_KEY, newSessionId);
+      setSessionId(newSessionId);
     }
   }, []);
 

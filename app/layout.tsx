@@ -26,6 +26,9 @@ export const metadata: Metadata = {
   description: "Product Manager combining strategic thinking with hands-on technical execution. 6+ years leading cross-functional teams and shipping impactful digital products.",
   keywords: ["Product Manager", "Product Management", "Technical PM", "React", "TypeScript", "AI"],
   authors: [{ name: "Mario Bennekers" }],
+  icons: {
+    icon: "/images/portfolio-favicon.png",
+  },
   openGraph: {
     title: "Mario Bennekers - Product Manager & Technical Builder",
     description: "Product Manager combining strategic thinking with hands-on technical execution.",

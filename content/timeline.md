@@ -6,7 +6,7 @@ A CV-style timeline of my professional journey. Each role links to related case 
 
 ## 2024 - Present
 
-### Founder & CEO @ CatchIT!
+### Founder & Product Lead @ CatchIT!
 **Location:** Madrid, Spain
 
 Building a location-based gaming platform that turns cities into playgrounds.

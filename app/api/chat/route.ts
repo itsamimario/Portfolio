@@ -6,6 +6,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { chat } from '../../../lib/chat';
 import { checkRateLimit } from '../../../lib/rate-limit';
+import { logChat } from '../../../lib/chat-logs';
 import type { ChatRequest, ChatErrorResponse } from '../../../types/chat';
 
 /**
@@ -78,6 +79,15 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 
     // Process the chat request
     const response = await chat(question);
+
+    // Log the chat asynchronously (don't wait for it)
+    logChat({
+      sessionId: body.sessionId,
+      question,
+      response: response.answer,
+      sources: response.sources,
+      suggestions: response.suggestions || [],
+    }).catch((err) => console.error('Chat logging failed:', err));
 
     return NextResponse.json(response, { status: 200 });
   } catch (error) {

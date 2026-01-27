@@ -14,6 +14,10 @@ I was always especially good at mathematics, physics, and technical drawing. I e
 
 I studied Civil Engineering in Granada. Given my natural aptitude for technical subjects, it was a logical path to take. Honestly, if I had the chance to choose again today, I would definitely study Computer Science instead. But I still loved my degree and I believe it gave me strong foundations in mathematics, physics, project organization, and problem-solving in general.
 
+## Learning Philosophy
+
+I learn by doing, not by getting certificates. When I need to understand something—whether it's a new technology, a domain, or a skill—I build something with it. That's how I learned programming (by building projects during my South America trip), how I learned product management (by doing it at RatedPower), and how I'm learning AI (by building this portfolio's RAG chatbot and CatchIT!'s AI features). Courses and certifications have their place, but real understanding comes from wrestling with real problems.
+
 ## International Experience & Career in Solar Energy
 
 During university, I completed two exchange programs: I lived for a full year in Istanbul, Turkey, and half a year in Valparaíso, Chile. In Chile, I finished my civil engineering degree and decided to stay for an internship to complete my training in Santiago de Chile, working for Solarpack.

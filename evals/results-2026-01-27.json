@@ -1,0 +1,512 @@
+[
+  {
+    "id": 1,
+    "question": "Who are you?",
+    "category": "about",
+    "language": "en",
+    "response": "I'm Mario Bennekers, a Product Manager and Technical Builder based in Madrid. I combine strategic product thinking with hands-on technical execution to build products that scale and teams that thrive. With 6+ years of experience leading cross-functional teams across 3 continents, I've worked in sustainability, energy tech, and gaming sectors.\n\nCurrently, I'm the Founder of [CatchIT!](/case-studies/catchit-product-conceptualization), a location-based gaming platform, and I also work as an Interim Product Lead consultant. My background spans civil engineering to product management, and I'm passionate about creating solutions that have a positive impact.\n\nI'm driven by curiosity and ethics, always seeking to understand complex problems and find innovative solutions. My approach is deeply collaborative, focusing on user-centric design and leveraging technologies like AI to accelerate product development.",
+    "suggestions": [
+      "What projects have you worked on?",
+      "Tell me about your technical skills",
+      "How did you get into product management?"
+    ],
+    "sources": 5,
+    "timestamp": "2026-01-27T19:45:48.625Z",
+    "pass": null,
+    "failure_mode": null,
+    "critique": null
+  },
+  {
+    "id": 2,
+    "question": "What's your experience?",
+    "category": "experience",
+    "language": "en",
+    "response": "I've had a diverse career journey in product management, primarily focused on sustainability and technology. I started in construction project management at [Solarpack](/about), where I managed solar plant construction across South America and India, totaling 100 MWp. This experience laid the groundwork for my transition into product management.\n\nMy pivotal career shift happened around 2018 when I deliberately paused to study programming and explore new paths, which ultimately led me to Madrid's startup ecosystem. At [RatedPower](/case-studies/ratedpower-topography), I led the product team for a B2B solar design platform, growing revenue 10x in three years and expanding the team from 2 to 30+ developers.\n\nAfter working in the Netherlands at [Maxem Energy Solutions](/case-studies/maxem-smart-energy-algorithm), I returned to Madrid and started freelancing, providing product strategy for sustainability startups. Currently, I'm founding [CatchIT!](/case-studies/catchit-product-conceptualization), a location-based mobile game where I'm owning the entire product lifecycle and integrating AI tools.",
+    "suggestions": [
+      "What technologies do you use?",
+      "Tell me about your product philosophy",
+      "How did you start in tech?"
+    ],
+    "sources": 5,
+    "timestamp": "2026-01-27T19:45:58.069Z",
+    "pass": null,
+    "failure_mode": null,
+    "critique": null
+  },
+  {
+    "id": 3,
+    "question": "Tell me about RatedPower",
+    "category": "case-study",
+    "language": "en",
+    "response": "[RatedPower](/case-studies/ratedpower-topography) is a cloud-based software platform that revolutionizes utility-scale solar PV plant design. As a product manager there from 2019 to 2022, I helped transform the platform from a basic design tool to a sophisticated engineering solution that enables developers to design solar plants 160 times faster than manual methods.\n\nOur key innovation was the [topography tool](/case-studies/ratedpower-topography), which automated terrain analysis and earthwork calculations. This feature solved a critical market need by helping solar plant developers quickly validate potential construction sites, dramatically reducing manual work and increasing design confidence. The tool was so impactful that it helped us win back customers from competitors and quadrupled our annual recurring revenue in just one year.\n\nThe platform automates the entire solar plant design process - from site analysis and layout generation to energy yield modeling and financial analysis - making complex engineering workflows accessible and efficient.",
+    "suggestions": [
+      "What technologies did RatedPower use?",
+      "How did you approach product management there?",
+      "Tell me about solar plant design challenges"
+    ],
+    "sources": 5,
+    "timestamp": "2026-01-27T19:46:05.662Z",
+    "pass": null,
+    "failure_mode": null,
+    "critique": null
+  },
+  {
+    "id": 4,
+    "question": "What did you build at RatedPower?",
+    "category": "case-study",
+    "language": "en",
+    "response": "At RatedPower, I led the development of the [topography tool](/case-studies/ratedpower-topography), a game-changing feature that transformed how solar plant developers analyze terrain. Before our tool, users were stuck with manual, imprecise terrain analysis that forced them to exclude potentially usable land out of risk aversion.\n\nI worked closely with the Sales and Customer Success teams to understand our competitive gaps, particularly against tools like PVCase. By leveraging my civil engineering background, I developed an automated solution that not only validated structure placement on complex terrain but also calculated earthwork costs. This feature was critical - we won back customers who had previously left for competitors and expanded our market perception from a basic design tool to a sophisticated platform.\n\nThe results were impressive: we quadrupled our Annual Recurring Revenue (ARR) in the year of launch, won back 5+ key clients, and reduced processing time by 10x through automation. It's now one of RatedPower's flagship capabilities that sets us apart in the solar design software market.",
+    "suggestions": [
+      "How do solar developers use design tools?",
+      "What challenges do renewable energy teams face?",
+      "Tell me about your other projects at RatedPower"
+    ],
+    "sources": 5,
+    "timestamp": "2026-01-27T19:46:14.547Z",
+    "pass": null,
+    "failure_mode": null,
+    "critique": null
+  },
+  {
+    "id": 5,
+    "question": "What is CatchIT?",
+    "category": "case-study",
+    "language": "en",
+    "response": "[CatchIT!](/case-studies/catchit-product-conceptualization) is a location-based gaming platform that turns cities into playgrounds for discovering digital art. I'm building a mobile app that allows users to find, collect, and trade unique digital illustrations hidden in real-world locations using geolocation technology.\n\nThe core concept is to create an engaging experience where art becomes a treasure hunt. Players explore their cities using their smartphones, discovering limited-edition digital artworks created by independent artists. Think of it like Pokémon GO, but instead of catching creatures, you're collecting unique digital art pieces.\n\nWe've already run a closed beta with about 200 users, and our retention metrics have been incredibly promising - exceeding industry benchmarks by 2-5x across different retention periods. The game combines elements of urban exploration, digital art collection, and gaming, with a unique pixel-art aesthetic that gives the platform a distinctive personality.",
+    "suggestions": [
+      "How does the art collection work?",
+      "What inspired this project?",
+      "Tell me about the game's design"
+    ],
+    "sources": 5,
+    "timestamp": "2026-01-27T19:46:23.225Z",
+    "pass": null,
+    "failure_mode": null,
+    "critique": null
+  },
+  {
+    "id": 6,
+    "question": "What's your tech stack?",
+    "category": "skills",
+    "language": "en",
+    "response": "My tech stack varies across different projects, but I'll break it down by key areas. For frontend development, I primarily work with [React](https://react.dev), TypeScript, Next.js, and Tailwind CSS. On the backend, I use Node.js, Python, and PostgreSQL. When it comes to AI and machine learning, I have experience with RAG systems, Claude and OpenAI APIs, and vector database technologies like pgvector.\n\nIn my recent [portfolio website](/case-studies/portfolio) project, for example, I used a stack including Next.js 14, TypeScript, Tailwind CSS, PostgreSQL with pgvector extension, and AI tools like Claude and OpenAI for embeddings and generation.\n\nFor project management and collaboration, I'm proficient with tools like Jira, Figma, Notion, Linear, and analytics platforms such as Google Analytics and Amplitude.",
+    "suggestions": [
+      "How do you apply AI in your projects?",
+      "What's your approach to product management?",
+      "Tell me about your current startup, CatchIT!"
+    ],
+    "sources": 5,
+    "timestamp": "2026-01-27T19:46:33.929Z",
+    "pass": null,
+    "failure_mode": null,
+    "critique": null
+  },
+  {
+    "id": 7,
+    "question": "Do you know Python?",
+    "category": "skills",
+    "language": "en",
+    "response": "Yes, I know Python and have used it in several professional projects. My skill level is around 65%, which I've applied in domains like solar engineering and product development. At [RatedPower](/case-studies/ratedpower-topography), I specifically used Python for developing their topography tool, working with interpolation algorithms and earthwork calculations. More recently, I've been expanding my Python skills while building personal projects and consulting, particularly as AI technologies have become more prominent.\n\nI learn by doing, so I've developed Python skills through practical applications rather than just theoretical courses. My approach is always to build something real that solves an actual problem, which helps me truly understand the technology.",
+    "suggestions": [
+      "How do I apply Python in my projects?",
+      "What other programming languages do I know?",
+      "Tell me about my AI projects"
+    ],
+    "sources": 5,
+    "timestamp": "2026-01-27T19:46:40.655Z",
+    "pass": null,
+    "failure_mode": null,
+    "critique": null
+  },
+  {
+    "id": 8,
+    "question": "Where are you based?",
+    "category": "about",
+    "language": "en",
+    "response": "I'm currently based in Madrid, Spain. After living in the Netherlands for two years, my partner and I decided to return to Spain to be closer to our families. Madrid has been my home base since then, and it's where I'm currently building [CatchIT!](/case-studies/catchit-product-conceptualization), my location-based gaming startup.",
+    "suggestions": [
+      "What do you want to know about my work?",
+      "How did I transition to product management?",
+      "Tell me about my professional background"
+    ],
+    "sources": 5,
+    "timestamp": "2026-01-27T19:46:45.277Z",
+    "pass": null,
+    "failure_mode": null,
+    "critique": null
+  },
+  {
+    "id": 9,
+    "question": "What languages do you speak?",
+    "category": "about",
+    "language": "en",
+    "response": "I speak three languages: Spanish, which is my native language, English, where I have professional proficiency (C1 certified), and Dutch, which I speak at a very good level. I've worked in professional environments using English extensively, such as during my time at RatedPower and Maxem Energy Solutions in India. With Dutch, I have an interesting story - I learned the language through conversations with my Dutch family, without formally studying it.",
+    "suggestions": [
+      "How did you learn languages?",
+      "What work environments did you use them in?",
+      "Tell me about your international experience"
+    ],
+    "sources": 5,
+    "timestamp": "2026-01-27T19:46:50.246Z",
+    "pass": null,
+    "failure_mode": null,
+    "critique": null
+  },
+  {
+    "id": 10,
+    "question": "Hola, cuéntame sobre ti",
+    "category": "about",
+    "language": "es",
+    "response": "¡Hola! Soy Mario Bennekers, un Product Manager y constructor técnico basado en Madrid. Nací en Granada, con una madre española y un padre holandés, y actualmente soy fundador de [CatchIT!](/case-studies/catchit-product-conceptualization), un proyecto de juego de geolocalización móvil que me ha permitido gestionar todo el proceso desde la conceptualización hasta el lanzamiento.\n\nTengo más de 6 años de experiencia liderando equipos multifuncionales en 3 continentes, con un trasfondo en ingeniería civil que me ha ayudado a desarrollar habilidades sólidas de resolución de problemas. Mi carrera me ha llevado por empresas relacionadas con la sostenibilidad, trabajando en sectores como energía solar en [RatedPower](/case-studies/ratedpower-topography) y movilidad eléctrica en Maxem.\n\nMe considero una persona curiosa y ética, apasionada por crear productos con impacto positivo. Hablo español (nativo), inglés (fluido) y holandés (fluido), y disfruto combinando pensamiento estratégico con ejecución técnica para construir productos que escalen.",
+    "suggestions": [
+      "Háblame de mis proyectos en CatchIT!",
+      "Cuéntame sobre mi experiencia en RatedPower",
+      "Explícame mi metodología de trabajo"
+    ],
+    "sources": 5,
+    "timestamp": "2026-01-27T19:46:58.654Z",
+    "pass": null,
+    "failure_mode": null,
+    "critique": null
+  },
+  {
+    "id": 11,
+    "question": "¿Qué hiciste en RatedPower?",
+    "category": "case-study",
+    "language": "es",
+    "response": "En [RatedPower](/case-studies/ratedpower-topography), trabajé como Product Manager durante tres años (2019-2022), liderando el desarrollo de herramientas clave para el diseño de plantas solares. Mi proyecto más significativo fue el [desarrollo de la herramienta de topografía](/case-studies/ratedpower-topography), que revolucionó completamente cómo los desarrolladores analizaban terrenos para plantas solares.\n\nAntes de esta herramienta, los usuarios solo tenían mapas de pendientes con precisión limitada y tenían que adivinar manualmente qué áreas eran construibles. Yo lideré la creación de una solución que permitía a los ingenieros subir archivos de topografía personalizados, validar restricciones de estructuras y calcular costos de movimiento de tierra de forma automática. \n\nEl resultado fue impresionante: multiplicamos nuestro ARR por 4, ganamos de vuelta 5+ clientes que nos habían dejado por competidores, y transformamos la percepción de RatedPower de ser una herramienta básica de diseño a una plataforma sofisticada para desarrolladores solares.",
+    "suggestions": [
+      "Cómo elegí mi carrera en producto",
+      "Mi background en ingeniería civil",
+      "Otras herramientas que desarrollé en RatedPower"
+    ],
+    "sources": 5,
+    "timestamp": "2026-01-27T19:47:07.874Z",
+    "pass": null,
+    "failure_mode": null,
+    "critique": null
+  },
+  {
+    "id": 12,
+    "question": "¿Cuáles son tus habilidades?",
+    "category": "skills",
+    "language": "es",
+    "response": "Mis habilidades abarcan dos áreas principales: gestión de producto y habilidades técnicas. En gestión de producto, destaco en estrategia (95%), descubrimiento de producto (90%), investigación de usuarios (90%), liderazgo ágil (85%) y gestión de equipos multifuncionales (90%).\n\nEn el ámbito técnico, tengo conocimientos en [React](/skills), TypeScript, Next.js (75%), Python y Node.js (65%), herramientas de IA como Claude y sistemas RAG (85%), SQL y PostgreSQL (70%), y diseño con Figma (80%). Mi formación como ingeniero civil me ha dado una base técnica sólida que complemento con mi pasión por crear productos con impacto, especialmente en sectores relacionados con la sostenibilidad.\n\nAdemás, mis [habilidades lingüísticas](/about) me permiten trabajar en entornos internacionales: soy nativo en español, tengo nivel profesional en inglés (certificación C1) y un nivel muy bueno de holandés.",
+    "suggestions": [
+      "Cuéntame sobre un proyecto reciente",
+      "¿Qué te motivó a ser Product Manager?",
+      "Háblame de tus valores profesionales"
+    ],
+    "sources": 5,
+    "timestamp": "2026-01-27T19:47:14.898Z",
+    "pass": null,
+    "failure_mode": null,
+    "critique": null
+  },
+  {
+    "id": 13,
+    "question": "What's your product management philosophy?",
+    "category": "skills",
+    "language": "en",
+    "response": "My product management philosophy centers on bridging strategic thinking with hands-on technical execution. I believe in turning complex problems into elegant solutions by combining deep user understanding, data-informed decision-making, and iterative development.\n\nAt the core of my approach is a commitment to understanding user needs through rigorous research and continuous validation. For example, in my work at [RatedPower](/case-studies/ratedpower-topography), we prioritized \"good enough\" accuracy and phased releases to quickly validate our assumptions and build user confidence. I always aim to balance business goals with user experience, making strategic trade-offs that create meaningful impact.\n\nI also strongly believe in cross-functional collaboration. Product management isn't about working in isolation, but about creating alignment between design, engineering, customer success, and business stakeholders. My background leading teams across multiple continents has reinforced my belief that diverse perspectives drive innovative solutions.",
+    "suggestions": [
+      "What challenges have you solved in product management?",
+      "How do you approach user research?",
+      "Tell me about a product strategy success"
+    ],
+    "sources": 5,
+    "timestamp": "2026-01-27T19:47:21.947Z",
+    "pass": null,
+    "failure_mode": null,
+    "critique": null
+  },
+  {
+    "id": 14,
+    "question": "Tell me about the topography tool",
+    "category": "case-study",
+    "language": "en",
+    "response": "I developed the [topography tool](/case-studies/ratedpower-topography) at RatedPower to solve a critical problem for solar plant developers. Before this feature, users could only see a basic slope heat map with low-precision data, which forced them to manually guess which terrain areas were buildable. This was causing us to lose potential customers to competitors like PVCase.\n\nThe tool I created allows developers to upload custom topography files and automatically validates solar structure placement against terrain slope restrictions. What made our solution unique was that we didn't just validate restrictions - we also calculated earthwork volumes, showing exactly how much earth would need to be moved to make a location work. We deliberately chose a 90% accuracy approach that was computationally fast, perfect for the preliminary design phase where developers need quick, confident assessments.\n\nBy launching this feature, we won back several customers who had previously chosen our competitors and shifted RatedPower's market perception from a basic design tool to a more sophisticated platform. The project actually helped us quadruple our annual recurring revenue during the launch year.",
+    "suggestions": [
+      "How do solar developers use design tools?",
+      "What challenges do renewable energy teams face?",
+      "Tell me about your product management approach"
+    ],
+    "sources": 5,
+    "timestamp": "2026-01-27T19:47:30.990Z",
+    "pass": null,
+    "failure_mode": null,
+    "critique": null
+  },
+  {
+    "id": 15,
+    "question": "What results did you achieve?",
+    "category": "experience",
+    "language": "en",
+    "response": "At RatedPower, my team and I achieved remarkable results with the [topography tool](/case-studies/ratedpower-topography) that transformed our market positioning. We saw annual recurring revenue (ARR) grow 4x during the feature launch year, and we won back over 5 customers who had previously chosen our competitor, PVCase.\n\nThe tool shifted our market perception from a basic early design software to a sophisticated platform that developers could trust. We dramatically reduced processing time by a factor of 10, automating workflows that previously took weeks of manual work. By providing automated terrain analysis and precise earthwork calculations with 90% accuracy, we opened up a new market segment of technical users who had previously dismissed our software.\n\nPerhaps most importantly, we proved that strategic product development can directly address competitive gaps and win back customer trust through innovative solutions.",
+    "suggestions": [
+      "What challenges did you solve?",
+      "How do you approach product discovery?",
+      "Tell me about your engineering background"
+    ],
+    "sources": 5,
+    "timestamp": "2026-01-27T19:47:37.819Z",
+    "pass": null,
+    "failure_mode": null,
+    "critique": null
+  },
+  {
+    "id": 16,
+    "question": "How do you work with engineers?",
+    "category": "skills",
+    "language": "en",
+    "response": "In my experience working with engineers, I prioritize collaborative, data-driven partnerships that focus on solving real user problems. Take my work at [RatedPower](/case-studies/ratedpower-topography), where I developed the topography tool: I worked closely with the engineering team by bringing structured customer insights, domain expertise, and clear problem definitions that made their technical work more targeted and impactful.\n\nFor instance, when building the earthwork calculations feature, I didn't just hand off a generic requirements document. Instead, I did hands-on research, mapped out the entire workflow, and prepared a comprehensive spec that included competitive analysis, customer interview insights, and specific technical constraints. This approach meant the engineer could focus on solving the core technical challenges rather than deciphering vague requirements.\n\nI also believe in continuous validation. During the [RatedPower topography tool](/case-studies/ratedpower-topography) development, we shipped in three phases, which allowed engineers to validate their technical approach with real user feedback between releases. This de-risked complex features and kept the team aligned on delivering actual user value.",
+    "suggestions": [
+      "How do technical teams prioritize features?",
+      "What makes a great product specification?",
+      "Tell me about your engineering background"
+    ],
+    "sources": 5,
+    "timestamp": "2026-01-27T19:47:46.494Z",
+    "pass": null,
+    "failure_mode": null,
+    "critique": null
+  },
+  {
+    "id": 17,
+    "question": "What's your email?",
+    "category": "contact",
+    "language": "en",
+    "response": "My email is mario.bennekers@gmail.com. You can find this contact information on [my about page](/about), along with links to my LinkedIn and GitHub profiles.",
+    "suggestions": [
+      "How can I help you today?",
+      "Want to see my case studies?",
+      "Curious about my background?"
+    ],
+    "sources": 5,
+    "timestamp": "2026-01-27T19:47:50.261Z",
+    "pass": null,
+    "failure_mode": null,
+    "critique": null
+  },
+  {
+    "id": 18,
+    "question": "Can I see your CV?",
+    "category": "contact",
+    "language": "en",
+    "response": "I have my professional journey detailed across multiple sections of my portfolio. While I don't have a traditional PDF CV, you can explore my experience through two primary views:\n\n1. [Work Experience Timeline](/timeline): This provides a comprehensive, chronological view of my professional roles, from Solarpack to my current position as Founder at CatchIT!\n\n2. [Case Studies](/case-studies): Here you can dive deep into specific projects I've led, like the [RatedPower topography tool](/case-studies/ratedpower-topography) or [CatchIT!'s AI chatbot](/case-studies/catchit-ai-chatbot).\n\nThe timeline highlights key achievements like growing RatedPower's revenue from €230k to €2.5M and scaling teams from 2 to 30+ engineers. My [About](/about) page also provides a concise overview of my background and skills.",
+    "suggestions": [
+      "What projects interest you most?",
+      "Want to see my technical skills?",
+      "Curious about my product approach?"
+    ],
+    "sources": 5,
+    "timestamp": "2026-01-27T19:47:57.956Z",
+    "pass": null,
+    "failure_mode": null,
+    "critique": null
+  },
+  {
+    "id": 19,
+    "question": "What's the weather like?",
+    "category": "out-of-scope",
+    "language": "en",
+    "response": "I apologize, but I can't find any information about the weather in the context provided. The sources discuss my professional background, career journey, and some personal details about my work in renewable energy and product management, but there's no weather-related information.\n\nIf you're interested in learning about me, I'd be happy to share more about my professional experience or my work in sustainable technologies like solar energy and electric vehicle charging systems.",
+    "suggestions": [
+      "Tell me about your work in solar energy",
+      "What is product management to you",
+      "How did you get started in tech"
+    ],
+    "sources": 5,
+    "timestamp": "2026-01-27T19:48:02.836Z",
+    "pass": null,
+    "failure_mode": null,
+    "critique": null
+  },
+  {
+    "id": 20,
+    "question": "Who won the last World Cup?",
+    "category": "out-of-scope",
+    "language": "en",
+    "response": "I apologize, but there's no information in the provided context about the World Cup. The sources detail my professional background, personal history, and work in product management and solar energy. \n\nI can share details about my [work experience](/about) or [career journey](/about) if you're interested. Would you like to know more about my background in product management or technology?",
+    "suggestions": [
+      "What do you want to know about my career?",
+      "How did I transition from civil engineering?",
+      "Tell me about my startup CatchIT!"
+    ],
+    "sources": 5,
+    "timestamp": "2026-01-27T19:48:07.572Z",
+    "pass": null,
+    "failure_mode": null,
+    "critique": null
+  },
+  {
+    "id": 21,
+    "question": "Hi",
+    "category": "greeting",
+    "language": "en",
+    "response": "Hi there! I'm Mario's AI assistant, here to help you explore his professional journey. I can tell you about his [product management experience](/about), the exciting projects he's worked on like [CatchIT!](/case-studies/catchit-product-conceptualization), or his cross-functional leadership across three continents. What would you like to know about my work?",
+    "suggestions": [
+      "What projects have you led?",
+      "Tell me about your current startup",
+      "How did you start in product management?"
+    ],
+    "sources": 0,
+    "timestamp": "2026-01-27T19:48:11.085Z",
+    "pass": null,
+    "failure_mode": null,
+    "critique": null
+  },
+  {
+    "id": 22,
+    "question": "Hello there!",
+    "category": "greeting",
+    "language": "en",
+    "response": "Hi there! I'm Mario, a Product Manager and Technical Builder based in Madrid. I combine strategic thinking with hands-on technical skills to create impactful digital products. I'm currently the founder of [CatchIT!](/case-studies/catchit-product-conceptualization), a location-based gaming startup, and I also work as an interim Product Lead consultant.",
+    "suggestions": [
+      "What projects are you curious about?",
+      "Tell me about your background",
+      "How can I help you today?"
+    ],
+    "sources": 5,
+    "timestamp": "2026-01-27T19:48:15.417Z",
+    "pass": null,
+    "failure_mode": null,
+    "critique": null
+  },
+  {
+    "id": 23,
+    "question": "What makes you different from other PMs?",
+    "category": "about",
+    "language": "en",
+    "response": "What sets me apart is my unique blend of strategic thinking and hands-on technical execution. Unlike many product managers who stay purely at the strategic level, [I actively dive into technical implementation](/about), writing my own queries, building prototypes, and even creating AI agents to solve complex problems.\n\nMy background in civil engineering gives me a structured problem-solving approach, and I'm laser-focused on actual business impact. I don't just define strategies—I'm obsessed with what truly moves the needle. As I like to say, I combine strategic product thinking with hands-on technical skills to turn complex problems into elegant solutions.\n\nWhat really differentiates me is my approach to team leadership. Instead of adding more meetings, I give teams clarity and the right tools. I've proven this by scaling teams from 2 to 30+ people across multiple companies, always maintaining a user-centric and data-driven perspective.",
+    "suggestions": [
+      "How do I leverage AI in product development?",
+      "What's my most impactful product achievement?",
+      "Tell me about my experience in sustainability tech"
+    ],
+    "sources": 5,
+    "timestamp": "2026-01-27T19:48:23.054Z",
+    "pass": null,
+    "failure_mode": null,
+    "critique": null
+  },
+  {
+    "id": 24,
+    "question": "Tell me about Maxem",
+    "category": "case-study",
+    "language": "en",
+    "response": "At Maxem Energy, I played a pivotal role in transforming electric vehicle charging through innovative smart energy management solutions. When I joined in 2022, the company was looking to revolutionize EV charging by moving load balancing intelligence from hardware to the cloud - a complex challenge with high stakes for enterprise clients.\n\nI led the development of a groundbreaking [smart charging algorithm](/case-studies/maxem-smart-energy-algorithm) that became the company's key differentiator in enterprise sales. Working with flagship clients like Watthub and CTPark Amsterdam, we created a hybrid cloud-local architecture that could optimize charging based on solar production, battery storage, and energy prices. This approach enabled us to win significant enterprise deals with companies like DHL and Schiphol Airport.\n\nThe result was impressive: we achieved 2x revenue and charging point growth, and developed an algorithm that gave logistics companies the reliability guarantees they needed for mission-critical operations. By adopting a structured Technology Readiness Levels (TRL) framework, we could de-risk the product development and build trust with our enterprise customers.",
+    "suggestions": [
+      "What technologies did you use at Maxem?",
+      "How did you approach product management?",
+      "Tell me about your other projects"
+    ],
+    "sources": 5,
+    "timestamp": "2026-01-27T19:48:31.516Z",
+    "pass": null,
+    "failure_mode": null,
+    "critique": null
+  },
+  {
+    "id": 25,
+    "question": "What's the smart energy algorithm?",
+    "category": "case-study",
+    "language": "en",
+    "response": "I developed a smart EV charging algorithm at [Maxem Energy](/case-studies/maxem-smart-energy-algorithm) that revolutionized how electric vehicle charging is managed across enterprise locations. The core innovation was moving load balancing intelligence from hardware to a hybrid cloud-local system that could optimize charging based on solar production, battery storage, and energy market prices.\n\nThe algorithm was designed in six progressive phases, from basic socket balancing to an ambitious virtual power plant concept. By adopting a structured Technology Readiness Levels (TRL) framework, my team and I created a solution that could safely manage complex charging scenarios for logistics companies like DHL and Watthub. The key breakthrough was a hybrid architecture where the cloud handles complex optimization while a local device ensures immediate safety response.\n\nOur approach enabled significant business impact, including doubling charging points and revenue year-over-year, and landing major enterprise deals with clients who needed reliable, intelligent EV charging management.",
+    "suggestions": [
+      "How do hybrid cloud systems work?",
+      "What challenges do logistics fleets face?",
+      "Tell me about energy transition technologies"
+    ],
+    "sources": 5,
+    "timestamp": "2026-01-27T19:48:40.271Z",
+    "pass": null,
+    "failure_mode": null,
+    "critique": null
+  },
+  {
+    "id": 26,
+    "question": "Have you worked with AI before?",
+    "category": "skills",
+    "language": "en",
+    "response": "Yes, I have extensive experience working with AI across multiple projects! Most recently, I've been building an [AI chatbot for CatchIT!](/case-studies/catchit-ai-chatbot) where I'm implementing a sophisticated Retrieval-Augmented Generation (RAG) system. I've also created this portfolio website as a demonstration of my AI product capabilities, featuring an AI chatbot that can answer questions about my professional background.\n\nMy AI work goes beyond just conceptualization - I actually design and implement AI systems from end to end. For instance, in my portfolio project, I built a full-stack AI chatbot using Claude API, OpenAI embeddings, and PostgreSQL with pgvector, applying advanced techniques like semantic search, prompt engineering, and comprehensive evaluation frameworks.",
+    "suggestions": [
+      "What AI technologies interest you most?",
+      "How do you see AI transforming product management?",
+      "Would you like to hear about my RAG approach?"
+    ],
+    "sources": 5,
+    "timestamp": "2026-01-27T19:48:47.557Z",
+    "pass": null,
+    "failure_mode": null,
+    "critique": null
+  },
+  {
+    "id": 27,
+    "question": "Why did you build this portfolio?",
+    "category": "case-study",
+    "language": "en",
+    "response": "I built this portfolio to demonstrate that I'm not just a product manager who writes specs, but a technical builder who can execute end-to-end product development. The core innovation is the [RAG-powered AI chatbot](/case-studies/portfolio) that serves as the homepage, which allows visitors to interact directly with my professional story.\n\nMy goal was to create a portfolio that is itself a product, showcasing my ability to design complex technical systems from scratch. By making the chat interface the first thing people see, I'm forcing the AI implementation to be excellent. This approach proves I can go beyond traditional static portfolio pages and actually deliver a sophisticated, interactive experience that highlights my product management and technical skills.",
+    "suggestions": [
+      "How does the AI chatbot work?",
+      "What technologies did you use?",
+      "Tell me about your product management approach"
+    ],
+    "sources": 5,
+    "timestamp": "2026-01-27T19:48:54.624Z",
+    "pass": null,
+    "failure_mode": null,
+    "critique": null
+  },
+  {
+    "id": 28,
+    "question": "What's your biggest achievement?",
+    "category": "experience",
+    "language": "en",
+    "response": "From my professional journey, I'd say scaling [RatedPower](/case-studies/ratedpower-topography) from a 2-person team to a thriving B2B SaaS company is my most significant achievement. We grew from €230k to €2.5M ARR in just three years, expanding our team to over 30 engineers and establishing clear product processes that enabled sustainable growth across European and LATAM markets.\n\nThis achievement wasn't just about numbers—it was about systematically building a product that solved real solar energy design challenges. By focusing on enterprise features and implementing a data-driven prioritization framework, we transformed RatedPower from a small startup into a market leader in solar plant design software.",
+    "suggestions": [
+      "What inspired your tech career?",
+      "How do you approach product strategy?",
+      "Tell me about CatchIT!"
+    ],
+    "sources": 5,
+    "timestamp": "2026-01-27T19:49:00.885Z",
+    "pass": null,
+    "failure_mode": null,
+    "critique": null
+  },
+  {
+    "id": 29,
+    "question": "¿Por qué debería contratarte?",
+    "category": "about",
+    "language": "es",
+    "response": "Como Product Manager con más de 6 años de experiencia liderando equipos en 3 continentes, puedo ofrecerte un enfoque único que combina pensamiento estratégico con ejecución técnica. Mi pasión es transformar problemas complejos en soluciones elegantes y escalables.\n\nLo que me diferencia es mi capacidad para navegar proyectos de alto impacto en sectores sostenibles. En [RatedPower](/case-studies/ratedpower-topography), ayudé a escalar un producto SaaS de energía solar de €230k a €2.5M ARR, y actualmente estoy construyendo [CatchIT!](/case-studies/catchit-product-conceptualization), una plataforma de juegos de geolocalización que demuestra mi habilidad para llevar productos desde la conceptualización hasta el mercado.\n\nMi valor agregado radica en mi profundidad técnica - domino tecnologías como React, TypeScript y tengo experiencia implementando sistemas de IA - combinada con una metodología centrada en el usuario y un compromiso ético con crear productos que generen un impacto positivo.",
+    "suggestions": [
+      "Sobre mi experiencia en startups",
+      "Cómo trabajo con equipos técnicos",
+      "Mis proyectos de sostenibilidad"
+    ],
+    "sources": 5,
+    "timestamp": "2026-01-27T19:49:09.054Z",
+    "pass": null,
+    "failure_mode": null,
+    "critique": null
+  },
+  {
+    "id": 30,
+    "question": "What did you study?",
+    "category": "about",
+    "language": "en",
+    "response": "I studied Civil Engineering at the University of Granada from 2007 to 2014. During my studies, I also had the opportunity to do exchange programs in Istanbul, Turkey and Valparaíso, Chile. While I loved my degree and found it provided strong foundations in mathematics, physics, and problem-solving, I've often thought that if I could choose again, I would have studied Computer Science. \n\nMy academic journey was marked by a natural aptitude for technical subjects—I even participated in a national mathematics olympiad. [My background](/about) in civil engineering ultimately set the stage for my career in technology and product management, though my learning philosophy has always been about hands-on experience rather than just academic credentials.",
+    "suggestions": [
+      "What sparked your tech career?",
+      "How did you transition to product?",
+      "Tell me about your first job"
+    ],
+    "sources": 5,
+    "timestamp": "2026-01-27T19:49:16.098Z",
+    "pass": null,
+    "failure_mode": null,
+    "critique": null
+  }
+]

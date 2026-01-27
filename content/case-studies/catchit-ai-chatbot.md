@@ -1,7 +1,7 @@
 # AI Chatbot
 
 **Company:** CatchIT!
-**Role:** Founder & CEO
+**Role:** Founder & Product Lead
 **Period:** 2024 - Present
 
 ---
