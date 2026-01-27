@@ -8,9 +8,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState, useRef } from 'react';
-import { caseStudies } from '@/data/caseStudies';
-
-type Section = 'home' | 'about' | 'case-studies';
+type Section = 'home' | 'about' | 'work' | 'case-studies';
 
 interface NavLink {
   label: string;
@@ -22,15 +20,6 @@ const aboutNavLinks: NavLink[] = [
   { label: 'Experience', href: '#experience' },
   { label: 'Skills', href: '#skills' },
 ];
-
-// Group case studies by company
-const caseStudiesByCompany = caseStudies.reduce((acc, cs) => {
-  if (!acc[cs.company]) {
-    acc[cs.company] = [];
-  }
-  acc[cs.company].push({ id: cs.id, title: cs.title });
-  return acc;
-}, {} as Record<string, { id: string; title: string }[]>);
 
 function HamburgerIcon({ open }: { open: boolean }): JSX.Element {
   return (
@@ -54,94 +43,20 @@ function HamburgerIcon({ open }: { open: boolean }): JSX.Element {
   );
 }
 
-function ChevronIcon({ open, className = 'w-3 h-3' }: { open: boolean; className?: string }): JSX.Element {
-  return (
-    <svg
-      className={`${className} transition-transform ${open ? 'rotate-180' : ''}`}
-      fill="none"
-      stroke="currentColor"
-      viewBox="0 0 24 24"
-    >
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-    </svg>
-  );
-}
-
-function CaseStudiesDropdown({
-  open,
-  onToggle,
-  onSelect,
-  dropdownRef,
-  currentCaseStudyId,
-  bold = false,
-}: {
-  open: boolean;
-  onToggle: () => void;
-  onSelect: () => void;
-  dropdownRef: React.RefObject<HTMLDivElement>;
-  currentCaseStudyId?: string;
-  bold?: boolean;
-}): JSX.Element {
-  return (
-    <div className="relative" ref={dropdownRef}>
-      <button
-        onClick={onToggle}
-        className={`text-sm font-pixel transition-colors flex items-center gap-1 ${
-          bold ? 'text-gray-900 dark:text-gray-100 font-bold' : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
-        }`}
-      >
-        Case Studies
-        <ChevronIcon open={open} />
-      </button>
-
-      {open && (
-        <div className="absolute top-full left-[-16px] mt-[19px] bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 border-t-0 py-3 px-4 min-w-[220px]">
-          {Object.entries(caseStudiesByCompany).map(([company, studies]) => (
-            <div key={company} className="mb-3 last:mb-0">
-              <div className="text-xs font-pixel text-gray-400 dark:text-gray-500 mb-1">{company}</div>
-              {studies.map((cs) => (
-                <Link
-                  key={cs.id}
-                  href={`/case-studies/${cs.id}`}
-                  className={`block py-1 text-sm font-pixel transition-colors ${
-                    currentCaseStudyId === cs.id
-                      ? 'text-gray-900 dark:text-gray-100 font-bold'
-                      : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
-                  }`}
-                  onClick={onSelect}
-                >
-                  {cs.title}
-                </Link>
-              ))}
-            </div>
-          ))}
-        </div>
-      )}
-    </div>
-  );
-}
-
 function getSection(pathname: string): Section {
   if (pathname.startsWith('/case-studies')) return 'case-studies';
+  if (pathname.startsWith('/work')) return 'work';
   if (pathname.startsWith('/about')) return 'about';
   return 'home';
 }
 
-function getCaseStudyIdFromPath(pathname: string): string | undefined {
-  const match = pathname.match(/^\/case-studies\/(.+)$/);
-  return match ? match[1] : undefined;
-}
 
 export function StickyNav(): JSX.Element {
   const pathname = usePathname();
   const section = getSection(pathname);
-  const currentCaseStudyId = getCaseStudyIdFromPath(pathname);
 
   const [activeSection, setActiveSection] = useState<string>('');
-  const [caseStudiesOpen, setCaseStudiesOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [mobileCaseStudiesOpen, setMobileCaseStudiesOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null) as React.RefObject<HTMLDivElement>;
   const mobileMenuRef = useRef<HTMLDivElement>(null);
 
   // IntersectionObserver only active on about page
@@ -169,19 +84,15 @@ export function StickyNav(): JSX.Element {
     return () => observer.disconnect();
   }, [section]);
 
-  // Click outside handlers
+  // Click outside handler for mobile menu
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setCaseStudiesOpen(false);
-      }
       if (
         mobileMenuRef.current &&
         !mobileMenuRef.current.contains(event.target as Node) &&
         !(event.target as Element).closest('[data-mobile-toggle]')
       ) {
         setMobileMenuOpen(false);
-        setMobileCaseStudiesOpen(false);
       }
     }
     document.addEventListener('mousedown', handleClickOutside);
@@ -203,7 +114,6 @@ export function StickyNav(): JSX.Element {
   const handleAboutNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
     setMobileMenuOpen(false);
-    setMobileCaseStudiesOpen(false);
     setTimeout(() => scrollToElement(href), 50);
   };
 
@@ -211,12 +121,10 @@ export function StickyNav(): JSX.Element {
     if (section === 'about') {
       e.preventDefault();
       setMobileMenuOpen(false);
-      setMobileCaseStudiesOpen(false);
       setTimeout(() => scrollToElement('#contact'), 50);
     } else {
       // Let the link navigate to /about#contact
       setMobileMenuOpen(false);
-      setMobileCaseStudiesOpen(false);
     }
   };
 
@@ -232,13 +140,9 @@ export function StickyNav(): JSX.Element {
               About
             </Link>
             <span className="text-gray-300 dark:text-gray-600">|</span>
-            <CaseStudiesDropdown
-              open={caseStudiesOpen}
-              onToggle={() => setCaseStudiesOpen(!caseStudiesOpen)}
-              onSelect={() => setCaseStudiesOpen(false)}
-              dropdownRef={dropdownRef}
-              currentCaseStudyId={currentCaseStudyId}
-            />
+            <Link href="/work" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white font-pixel text-sm">
+              Work
+            </Link>
           </>
         );
       case 'about':
@@ -248,13 +152,21 @@ export function StickyNav(): JSX.Element {
               AI Assistant
             </Link>
             <span className="text-gray-300 dark:text-gray-600">|</span>
-            <CaseStudiesDropdown
-              open={caseStudiesOpen}
-              onToggle={() => setCaseStudiesOpen(!caseStudiesOpen)}
-              onSelect={() => setCaseStudiesOpen(false)}
-              dropdownRef={dropdownRef}
-              currentCaseStudyId={currentCaseStudyId}
-            />
+            <Link href="/work" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white font-pixel text-sm">
+              Work
+            </Link>
+          </>
+        );
+      case 'work':
+        return (
+          <>
+            <Link href="/" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white font-pixel text-sm">
+              AI Assistant
+            </Link>
+            <span className="text-gray-300 dark:text-gray-600">|</span>
+            <Link href="/about" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white font-pixel text-sm">
+              About
+            </Link>
           </>
         );
       case 'case-studies':
@@ -266,6 +178,10 @@ export function StickyNav(): JSX.Element {
             <span className="text-gray-300 dark:text-gray-600">|</span>
             <Link href="/about" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white font-pixel text-sm">
               About
+            </Link>
+            <span className="text-gray-300 dark:text-gray-600">|</span>
+            <Link href="/work" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white font-pixel text-sm">
+              Work
             </Link>
           </>
         );
@@ -294,17 +210,10 @@ export function StickyNav(): JSX.Element {
             ))}
           </>
         );
+      case 'work':
+        return <span className="font-pixel text-sm font-bold text-gray-900 dark:text-gray-100">Work</span>;
       case 'case-studies':
-        return (
-          <CaseStudiesDropdown
-            open={caseStudiesOpen}
-            onToggle={() => setCaseStudiesOpen(!caseStudiesOpen)}
-            onSelect={() => setCaseStudiesOpen(false)}
-            dropdownRef={dropdownRef}
-            currentCaseStudyId={currentCaseStudyId}
-            bold
-          />
-        );
+        return null;
     }
   };
 
@@ -316,10 +225,7 @@ export function StickyNav(): JSX.Element {
           <div className="flex items-center gap-3">
             <button
               data-mobile-toggle
-              onClick={() => {
-                setMobileMenuOpen(!mobileMenuOpen);
-                if (mobileMenuOpen) setMobileCaseStudiesOpen(false);
-              }}
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="md:hidden p-2 -ml-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
               aria-label="Toggle menu"
             >
@@ -382,44 +288,16 @@ export function StickyNav(): JSX.Element {
               About
             </Link>
 
-            {/* Case Studies Accordion */}
-            <div>
-              <button
-                onClick={() => setMobileCaseStudiesOpen(!mobileCaseStudiesOpen)}
-                className={`flex items-center justify-between w-full text-base font-pixel transition-colors ${
-                  section === 'case-studies' ? 'text-gray-900 dark:text-gray-100 font-bold' : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
-                }`}
-              >
-                Case Studies
-                <ChevronIcon open={mobileCaseStudiesOpen} className="w-4 h-4" />
-              </button>
-              {mobileCaseStudiesOpen && (
-                <div className="mt-2 ml-4 space-y-3">
-                  {Object.entries(caseStudiesByCompany).map(([company, studies]) => (
-                    <div key={company}>
-                      <div className="text-xs font-pixel text-gray-400 dark:text-gray-500 mb-1">{company}</div>
-                      {studies.map((cs) => (
-                        <Link
-                          key={cs.id}
-                          href={`/case-studies/${cs.id}`}
-                          className={`block py-0.5 text-sm font-pixel transition-colors ${
-                            currentCaseStudyId === cs.id
-                              ? 'text-gray-900 dark:text-gray-100 font-bold'
-                              : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
-                          }`}
-                          onClick={() => {
-                            setMobileMenuOpen(false);
-                            setMobileCaseStudiesOpen(false);
-                          }}
-                        >
-                          {cs.title}
-                        </Link>
-                      ))}
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
+            {/* Work */}
+            <Link
+              href="/work"
+              className={`block text-base font-pixel transition-colors ${
+                section === 'work' ? 'text-gray-900 dark:text-gray-100 font-bold' : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
+              }`}
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Work
+            </Link>
 
             {/* Divider */}
             <div className="border-t border-gray-200 dark:border-gray-700" />
