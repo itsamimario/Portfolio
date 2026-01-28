@@ -43,7 +43,7 @@ export function HeroSection(): JSX.Element {
               alt="Mario Bennekers"
               width={192}
               height={192}
-              className="w-full h-full object-cover object-[30%_-8px] md:object-[30%_-10px] scale-125"
+              className="w-full h-full object-cover"
               priority
             />
           </div>
