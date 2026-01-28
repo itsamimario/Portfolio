@@ -26,7 +26,7 @@ Building a location-based gaming platform that turns cities into playgrounds.
 
 ---
 
-## 2022 - 2023
+## 2022 - 2024
 
 ### Product Manager @ Maxem Energy
 **Location:** [TODO: Add location]

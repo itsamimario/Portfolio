@@ -33,7 +33,7 @@ export const timeline: TimelineEntry[] = [
     company: 'Freelance',
     companyDescription: 'Independent consulting for sustainability startups',
     role: 'Product Development Consultant',
-    period: 'Dec 2023 - Present',
+    period: 'Jan 2024 - Present',
     location: 'Madrid, Spain',
     description:
       'Providing product strategy for sustainability-focused companies. **Interim Product Lead** at Ecometro, building the product team and preparing the product for market. Consulted for Imageryst, adapting their technology to renewables and delivering **product and go-to-market strategy**.',
@@ -55,7 +55,7 @@ export const timeline: TimelineEntry[] = [
     company: 'Maxem Energy Solutions',
     companyDescription: 'B2B SaaS platform for energy storage optimization',
     role: 'Product Manager',
-    period: 'May 2022 - Dec 2023',
+    period: 'May 2022 - Jan 2024',
     location: 'Amsterdam, Netherlands',
     description:
       'Led **product strategy, requirements and UX** for a B2B energy SaaS platform. Delivered onboarding, dashboards, workflows and a complete UX revamp, enabling adoption by new enterprise clients. Contributed to **2x YoY revenue growth**.',

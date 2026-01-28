@@ -2,7 +2,7 @@
 
 **Company:** Maxem Energy
 **Role:** Product Manager
-**Period:** 2022 - 2023
+**Period:** 2022 - 2024
 
 ---
 
