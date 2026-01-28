@@ -54,9 +54,15 @@ export function ChatContainer({}: ChatContainerProps): JSX.Element {
   // Track whether suggestion chips should be visible (after typing animation completes)
   const [chipsVisible, setChipsVisible] = useState(false);
 
-  // Scroll to bottom during typing animation
+  // Scroll to bottom during typing animation (throttled to avoid iOS Safari issues)
+  const lastScrollRef = useRef<number>(0);
   const handleTypingUpdate = useCallback(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    const now = Date.now();
+    // Only scroll every 500ms to avoid scroll jank on iOS Safari
+    if (now - lastScrollRef.current > 500) {
+      lastScrollRef.current = now;
+      messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }
   }, []);
 
   // Handle typing completion for intro and regular messages
@@ -119,10 +125,14 @@ export function ChatContainer({}: ChatContainerProps): JSX.Element {
   const isIntroComplete = animatingIntroMessages.length === 0 ||
     (completedIntroIds.size >= animatingIntroMessages.length && visibleIntroCount >= INTRO_MESSAGE_IDS.length);
 
-  // Auto-scroll to bottom when new messages arrive
+  // Auto-scroll to bottom only when new messages are added (not during typing updates)
+  const prevMessageCountRef = useRef(visibleMessages.length);
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [visibleMessages]);
+    if (visibleMessages.length > prevMessageCountRef.current) {
+      messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }
+    prevMessageCountRef.current = visibleMessages.length;
+  }, [visibleMessages.length]);
 
   // Scroll up when chips appear so content isn't hidden behind the sticky area
   useEffect(() => {
@@ -135,7 +145,7 @@ export function ChatContainer({}: ChatContainerProps): JSX.Element {
 
 
   return (
-    <main className="flex flex-col max-w-3xl mx-auto min-h-[calc(100vh-3.5rem)]">
+    <main className="flex flex-col max-w-3xl mx-auto min-h-[calc(100vh-3.5rem)] min-h-[calc(100dvh-3.5rem)]">
       <h1 className="sr-only">Mario Bennekers - Portfolio Chat</h1>
 
       {/* Messages Area */}
