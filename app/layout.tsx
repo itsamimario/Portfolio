@@ -22,7 +22,7 @@ const catchitFont = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Mario Bennekers - Product Manager & Technical Builder",
+  title: "Mario Bennekers - Product Manager & Builder",
   description: "Product Manager combining strategic thinking with hands-on technical execution. 6+ years leading cross-functional teams and shipping impactful digital products.",
   keywords: ["Product Manager", "Product Management", "Technical PM", "React", "TypeScript", "AI"],
   authors: [{ name: "Mario Bennekers" }],
@@ -30,9 +30,23 @@ export const metadata: Metadata = {
     icon: "/images/portfolio-favicon.png",
   },
   openGraph: {
-    title: "Mario Bennekers - Product Manager & Technical Builder",
+    title: "Mario Bennekers - Product Manager & Builder",
     description: "Product Manager combining strategic thinking with hands-on technical execution.",
     type: "website",
+    images: [
+      {
+        url: "/images/mario-profile.jpg",
+        width: 1024,
+        height: 768,
+        alt: "Mario Bennekers",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Mario Bennekers - Product Manager & Builder",
+    description: "Product Manager combining strategic thinking with hands-on technical execution.",
+    images: ["/images/mario-profile.jpg"],
   },
 };
 
