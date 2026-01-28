@@ -58,7 +58,7 @@ To learn, I decided to build a personal project alongside my consulting work, to
 
 - **Spanish**: Native language
 - **English**: Professional proficiency (C1 certified). I have worked in environments where English was the primary communication language, such as in India, at RatedPower, and at Maxem Energy Solutions.
-- **Dutch**: Very good spoken level, slightly lower written level. It's a language I never formally studied but learned through conversations with my Dutch family, with whom I have a very close relationship.
+- **Dutch**: Conversational level. It's a language I never formally studied but learned through conversations with my Dutch family, with whom I have a very close relationship. I can hold conversations comfortably but wouldn't call myself fully fluent.
 
 ## Hobbies & Interests
 
@@ -74,8 +74,8 @@ I love water sports. My father is an avid sailor and passed that passion on to m
 ### Music, Film & Art
 I'm crazy about music, especially 2000s bands like The Strokes and Arctic Monkeys and all the indie scene that grew from there. I love films, especially weird thriller or horror movies—the Sitges Film Festival is my favorite. I'm also passionate about art. In fact, CatchIT! is a reflection of this passion. I don't just appreciate art from institutional museums but also art created by less mainstream illustrators who do it without it being their main economic activity—simply out of pure love for art.
 
-### Reading & Meditation
-I love reading. If I had to highlight someone whose work I've been especially hooked on, it would be Yuval Noah Harari—I've read all his books. He's also one of the main reasons I started meditating, which I've been doing daily for the past 3 years.
+### Reading
+I love reading, especially non-fiction books about history, technology, and how societies evolve.
 
 ## Values & What Drives Me
 
