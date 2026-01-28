@@ -71,9 +71,9 @@ function TimelineEntryRow({ entry, index }: TimelineEntryRowProps): JSX.Element 
         }`}
       />
 
-      {/* Year marker */}
+      {/* Year marker - shows end year */}
       <div className="absolute left-[-60px] md:left-[-80px] top-0 text-sm md:text-base font-pixel text-gray-500 dark:text-gray-400 w-12 md:w-16 text-right">
-        {parseYears(entry.period).start}
+        {entry.period.includes('Present') ? 'now' : parseYears(entry.period).end}
       </div>
 
       {/* Content */}

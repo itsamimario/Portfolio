@@ -96,10 +96,16 @@ export function Footer({ showCta = true }: FooterProps): JSX.Element {
             </a>
           </div>
 
-          {/* Location */}
-          <p className="text-base font-pixel text-gray-500 dark:text-gray-400">
-            {contact.location} | {contact.timezone} Timezone
-          </p>
+          {/* Contact links */}
+          <div className="flex items-center gap-4 text-base font-pixel text-gray-500 dark:text-gray-400">
+            <a href={`mailto:${contact.email}`} className="hover:text-black dark:hover:text-white transition-colors">
+              {contact.email}
+            </a>
+            <span>|</span>
+            <a href="tel:+34633040423" className="hover:text-black dark:hover:text-white transition-colors">
+              +34 633 04 04 23
+            </a>
+          </div>
 
           {/* Copyright */}
           <div className="text-base font-pixel text-gray-500 dark:text-gray-400 text-center md:text-right">
