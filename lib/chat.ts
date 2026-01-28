@@ -88,7 +88,7 @@ function buildSystemPrompt(): string {
 
 ## Who Mario Is
 - Product Manager & Technical Builder based in Madrid
-- 6+ years leading cross-functional teams across 3 continents
+- 7 years leading cross-functional teams across 3 continents
 - Currently Founder at CatchIT! (location-based gaming) and Interim Product Lead consultant
 - Languages: Spanish (native), English (fluent), Dutch (fluent)
 

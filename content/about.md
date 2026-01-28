@@ -14,7 +14,7 @@
 
 ## Introduction
 
-I'm a Product Manager based in Madrid with 6+ years leading cross-functional teams and shipping impactful digital products. I bridge strategy, design, and engineering to turn complex problems into elegant solutions.
+I'm a Product Manager based in Madrid with 7 years leading cross-functional teams and shipping impactful digital products. I bridge strategy, design, and engineering to turn complex problems into elegant solutions.
 
 ---
 

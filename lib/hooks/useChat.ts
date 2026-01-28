@@ -75,7 +75,7 @@ const INITIAL_MESSAGES: ChatMessage[] = [
   {
     id: 'intro-description',
     role: 'assistant',
-    content: "This is my AI-powered [portfolio](/case-studies/portfolio-rag-chatbot). Ask anything about [me](/about) \u2014 my projects, how I work, what I\u2019ve shipped \u2014 and get answers grounded in my real experience.",
+    content: "Explore my [work](/about#work) or learn [about](/about) me \u2014 ask anything and get answers grounded in my real experience.",
     timestamp: new Date(),
     variant: 'intro',
     isTyping: true,

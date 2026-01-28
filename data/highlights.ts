@@ -35,7 +35,7 @@ export const highlights: Highlight[] = [
     context: 'Global Experience',
   },
   {
-    metric: '6+',
+    metric: '7',
     label: 'Years',
     context: 'Product Experience',
   },
