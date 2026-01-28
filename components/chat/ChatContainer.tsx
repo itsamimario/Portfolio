@@ -54,15 +54,9 @@ export function ChatContainer({}: ChatContainerProps): JSX.Element {
   // Track whether suggestion chips should be visible (after typing animation completes)
   const [chipsVisible, setChipsVisible] = useState(false);
 
-  // Scroll to bottom during typing animation (throttled to avoid iOS Safari issues)
-  const lastScrollRef = useRef<number>(0);
+  // Keep at bottom during typing animation (instant, no smooth scroll)
   const handleTypingUpdate = useCallback(() => {
-    const now = Date.now();
-    // Only scroll every 500ms to avoid scroll jank on iOS Safari
-    if (now - lastScrollRef.current > 500) {
-      lastScrollRef.current = now;
-      messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-    }
+    messagesEndRef.current?.scrollIntoView({ behavior: 'instant' });
   }, []);
 
   // Handle typing completion for intro and regular messages
@@ -125,13 +119,9 @@ export function ChatContainer({}: ChatContainerProps): JSX.Element {
   const isIntroComplete = animatingIntroMessages.length === 0 ||
     (completedIntroIds.size >= animatingIntroMessages.length && visibleIntroCount >= INTRO_MESSAGE_IDS.length);
 
-  // Auto-scroll to bottom only when new messages are added (not during typing updates)
-  const prevMessageCountRef = useRef(visibleMessages.length);
+  // Auto-scroll to bottom when new messages arrive
   useEffect(() => {
-    if (visibleMessages.length > prevMessageCountRef.current) {
-      messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-    }
-    prevMessageCountRef.current = visibleMessages.length;
+    messagesEndRef.current?.scrollIntoView({ behavior: 'instant' });
   }, [visibleMessages.length]);
 
   // Scroll up when chips appear so content isn't hidden behind the sticky area
