@@ -12,7 +12,7 @@ export const caseStudies: CaseStudy[] = [
     title: 'CatchIT! - Location-Based Art Game',
     role: 'Founder & Product Lead',
     company: 'CatchIT!',
-    period: '2024 - Present',
+    period: '2024 - 2025',
     thumbnail: '/images/case-studies/catchit-thumbnail.gif',
     thumbnailAlt: 'CatchIT! logo with Catchito mascot',
     featuredImage: '/images/case-studies/catchit-mechanics.png',
@@ -194,7 +194,7 @@ export const caseStudies: CaseStudy[] = [
     title: 'RatedPower - Topography Tool',
     role: 'Product Manager',
     company: 'RatedPower',
-    period: '2019 - 2022',
+    period: '2019 - 2021',
     thumbnail: '/images/case-studies/ratedpower-topography-thumbnail.png',
     thumbnailAlt: 'RatedPower accelerating photovoltaics',
     featuredImage: '/images/case-studies/ratedpower-topography-tool.png',
@@ -277,13 +277,89 @@ export const caseStudies: CaseStudy[] = [
     ],
   },
 
+  // RatedPower CRM Integration Case Study
+  {
+    id: 'ratedpower-crm-integration',
+    title: 'RatedPower - CRM Integration',
+    role: 'Product Manager',
+    company: 'RatedPower',
+    period: '2021 - 2022',
+    thumbnail: '/images/case-studies/ratedpower-topography-thumbnail.png',
+    thumbnailAlt: 'RatedPower accelerating photovoltaics',
+    tagline:
+      'Integrating **pvDesign with HubSpot** to automate sales workflows and reduce GTM team overhead.',
+    resultsDescription:
+      'By making HubSpot the single source of truth and automating data flows from pvDesign, we **eliminated duplicate data entry** and enabled the GTM team to focus on helping clients instead of fighting tools.',
+    results: [
+      {
+        metric: 'Time Saved',
+        value: '~5h/week',
+        description: 'Per rep, eliminated duplicate entry',
+      },
+      {
+        metric: 'Data Accuracy',
+        value: '60%→95%',
+        description: 'Complete records for automation',
+      },
+      {
+        metric: 'CAC',
+        value: '~20%↓',
+        description: 'More efficient GTM, better conversion',
+      },
+    ],
+    challenge:
+      'As RatedPower scaled, our GTM teams (SDRs, AEs, CSMs) had to input data across **three separate platforms**: HubSpot for CRM, pvDesign for licenses, and Notion for product feedback. The manual overhead caused **missing data, wrong license assignments**, and frustrated teams who couldn\'t focus on what mattered—helping clients.',
+    approach: [
+      {
+        title: 'Discovery & Shadowing',
+        description:
+          'Created a **discovery team with Marketing, Sales, and CS leads**. Ran workshops to map pains and **shadowed team members** during daily work—watching them toggle between platforms and copy-paste the same data multiple times per deal.',
+      },
+      {
+        title: 'Technical Feasibility',
+        description:
+          'Partnered with the engineer who would own the implementation to **investigate HubSpot APIs** and assess what was feasible with our data architecture. Mapped the information flow between all three platforms.',
+      },
+      {
+        title: 'Solution Design',
+        description:
+          'Designed a solution where **HubSpot became the single source of truth**. Usage data from pvDesign flowed automatically into HubSpot, enabling **automated follow-ups, segmented campaigns, and usage-based lead scoring**.',
+      },
+      {
+        title: 'Phased Rollout',
+        description:
+          '**Left license automation for phase 2**—too risky since bugs could affect customer access. Simplified feedback capture with **hashtag tagging in meeting notes** that Product could process asynchronously.',
+      },
+    ],
+    keyDecisions: [
+      '**HubSpot as single source of truth** rather than keeping three parallel systems. Consolidating where teams work reduces errors more than training ever will.',
+      '**Automated usage data sync** from pvDesign to HubSpot. This enabled marketing automation, follow-up reminders, and lead scoring without manual data entry.',
+      '**Deferred license automation** to phase 2. The risk of affecting customer access wasn\'t worth the speed gain—we validated the integration first.',
+      '**Simplified feedback to hashtags** instead of structured forms. Lower friction meant GTM teams actually captured feedback instead of skipping it.',
+    ],
+    learnings: [
+      '**Internal efficiency = business impact.** Investing in tools that help your team work better often delivers more ROI than building new customer features.',
+      '**Shadowing beats interviews.** Watching people work reveals friction they\'ve normalized and won\'t mention. I saw reps toggle between platforms dozens of times per deal.',
+      '**Single source of truth matters.** Consolidating where teams work reduces errors more than training ever will.',
+      '**Scope ruthlessly.** Leaving license automation for phase 2 was the right call—shipping fast and iterating built trust with GTM teams.',
+    ],
+    techStack: ['HubSpot', 'REST APIs', 'Webhooks', 'Notion', 'pvDesign'],
+    links: [
+      {
+        label: 'RatedPower Website',
+        url: 'https://ratedpower.com',
+        icon: 'website',
+      },
+    ],
+  },
+
   // Maxem Case Study
   {
     id: 'maxem-platform',
     title: 'Maxem - Smart Charging Algorithm',
     role: 'Product Manager',
     company: 'Maxem',
-    period: '2022 - 2024',
+    period: '2022 - 2023',
     thumbnail: '/images/case-studies/maxem-smart-thumbnail.png',
     thumbnailAlt: 'Maxem smart charging - accelerators of the energy transition',
     featuredImage: '/images/case-studies/maxem-smart-features.png',
@@ -367,7 +443,7 @@ export const caseStudies: CaseStudy[] = [
     title: 'Portfolio - RAG Chatbot',
     role: 'Builder',
     company: 'Personal Project',
-    period: '2025',
+    period: '2026',
     thumbnail: '/images/case-studies/portfolio-thumbnail.gif',
     thumbnailAlt: 'Portfolio chat interface with blinking cursor',
     tagline:

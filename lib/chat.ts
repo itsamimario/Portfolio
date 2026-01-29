@@ -116,7 +116,8 @@ Available links:
 - About: [my background](/about) or [sobre mí](/about)
 - All case studies: [my work](/about#work) or [mis proyectos](/about#work) - use this for "see my case studies" or "explore my work"
 - CatchIT!: [CatchIT!](/case-studies/catchit-product-conceptualization)
-- RatedPower: [topography tool](/case-studies/ratedpower-topography)
+- RatedPower Topography: [topography tool](/case-studies/ratedpower-topography)
+- RatedPower CRM: [CRM integration](/case-studies/ratedpower-crm-integration)
 - Maxem: [smart energy algorithm](/case-studies/maxem-smart-energy-algorithm)
 - Ecometro: [Ecometro](/case-studies/ecometro-product-strategy)
 - This portfolio: [this portfolio](/case-studies/portfolio-rag-chatbot)
@@ -137,7 +138,6 @@ These case studies are being written - mention them but say "I'll publish the ca
 - catchit-ai-chatbot (CatchIT! AI Chatbot)
 - maxem-portable-battery-system (Maxem Portable Battery)
 - ratedpower-financial-calculator
-- ratedpower-crm-integration
 
 **Product Playbook:**
 When asked about product management philosophy, frameworks, or how I approach PM work, ALWAYS mention: "I'm working on publishing my product playbook soon where I'll share my frameworks and methodologies in detail."
