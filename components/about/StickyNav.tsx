@@ -8,7 +8,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState, useRef } from 'react';
-type Section = 'home' | 'about' | 'case-studies';
+type Section = 'home' | 'about' | 'case-studies' | 'playbook';
 
 interface NavLink {
   label: string;
@@ -46,6 +46,7 @@ function HamburgerIcon({ open }: { open: boolean }): JSX.Element {
 
 function getSection(pathname: string): Section {
   if (pathname.startsWith('/case-studies')) return 'case-studies';
+  if (pathname.startsWith('/playbook')) return 'playbook';
   if (pathname.startsWith('/about')) return 'about';
   return 'home';
 }
@@ -143,15 +144,45 @@ export function StickyNav(): JSX.Element {
             <Link href="/about#work" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white font-pixel text-sm">
               Work
             </Link>
+            <span className="text-gray-300 dark:text-gray-600">|</span>
+            <Link href="/playbook" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white font-pixel text-sm">
+              Playbook
+            </Link>
           </>
         );
       case 'about':
         return (
-          <Link href="/" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white font-pixel text-sm">
-            AI Assistant
-          </Link>
+          <>
+            <Link href="/" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white font-pixel text-sm">
+              AI Assistant
+            </Link>
+            <span className="text-gray-300 dark:text-gray-600">|</span>
+            <Link href="/playbook" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white font-pixel text-sm">
+              Playbook
+            </Link>
+          </>
         );
       case 'case-studies':
+        return (
+          <>
+            <Link href="/" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white font-pixel text-sm">
+              AI Assistant
+            </Link>
+            <span className="text-gray-300 dark:text-gray-600">|</span>
+            <Link href="/about" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white font-pixel text-sm">
+              About
+            </Link>
+            <span className="text-gray-300 dark:text-gray-600">|</span>
+            <Link href="/about#work" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white font-pixel text-sm">
+              Work
+            </Link>
+            <span className="text-gray-300 dark:text-gray-600">|</span>
+            <Link href="/playbook" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white font-pixel text-sm">
+              Playbook
+            </Link>
+          </>
+        );
+      case 'playbook':
         return (
           <>
             <Link href="/" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white font-pixel text-sm">
@@ -194,6 +225,8 @@ export function StickyNav(): JSX.Element {
         );
       case 'case-studies':
         return null;
+      case 'playbook':
+        return <span className="font-pixel text-sm font-bold text-gray-900 dark:text-gray-100">Product Playbook</span>;
     }
   };
 
@@ -275,6 +308,17 @@ export function StickyNav(): JSX.Element {
               onClick={() => setMobileMenuOpen(false)}
             >
               Work
+            </Link>
+
+            {/* Playbook */}
+            <Link
+              href="/playbook"
+              className={`block text-base font-pixel transition-colors ${
+                section === 'playbook' ? 'text-gray-900 dark:text-gray-100 font-bold' : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
+              }`}
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Playbook
             </Link>
 
             {/* Divider */}

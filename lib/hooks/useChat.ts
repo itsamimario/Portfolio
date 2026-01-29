@@ -75,7 +75,7 @@ const INITIAL_MESSAGES: ChatMessage[] = [
   {
     id: 'intro-description',
     role: 'assistant',
-    content: "Explore my [work](/about#work) or learn [about](/about) me \u2014 ask anything and get answers grounded in my real experience.",
+    content: "Explore my [work](/about#work), see my [playbook](/playbook), or learn [about](/about) me \u2014 ask anything and get answers grounded in my real experience.",
     timestamp: new Date(),
     variant: 'intro',
     isTyping: true,
