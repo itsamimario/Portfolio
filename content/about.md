@@ -22,7 +22,7 @@ I'm a Product Manager based in Madrid with 7 years leading cross-functional team
 
 - **Education:** Civil Engineering → Product Management
 - **Experience:** 3 continents (Europe, Asia, South America)
-- **Current:** Founder and Product Lead at CatchIT!, building location-based gaming experiences
+- **Recent:** Founded CatchIT! (Sep 2024 - Dec 2025), a location-based gaming startup
 - **Languages:** Spanish, English, Dutch
 
 ---

@@ -7,28 +7,6 @@ import type { TimelineEntry } from '@/types/timeline';
 
 export const timeline: TimelineEntry[] = [
   {
-    id: 'catchit',
-    company: 'CatchIT!',
-    companyDescription: 'Location-based mobile game startup',
-    role: 'Founder & Product Lead',
-    period: 'Sep 2024 - Present',
-    location: 'Madrid, Spain',
-    description:
-      '**Founded a mobile game startup**, owning the full product lifecycle. Led product strategy, user research, and rapid iteration cycles. **Built and shipped cross-platform app** integrating AI tools. Achieved 50% D1, 35% D7, 12% D30 retention through data-driven optimization.',
-    caseStudies: [
-      {
-        id: 'catchit-product-conceptualization',
-        title: 'Product Conceptualization',
-        status: 'complete',
-      },
-      {
-        id: 'catchit-ai-chatbot',
-        title: 'AI Chatbot',
-        status: 'under-construction',
-      },
-    ],
-  },
-  {
     id: 'freelance',
     company: 'Freelance',
     companyDescription: 'Independent consulting for sustainability startups',
@@ -46,6 +24,28 @@ export const timeline: TimelineEntry[] = [
       {
         id: 'imageryst-renewables-pivot',
         title: 'Imageryst Renewables Pivot',
+        status: 'under-construction',
+      },
+    ],
+  },
+  {
+    id: 'catchit',
+    company: 'CatchIT!',
+    companyDescription: 'Location-based mobile game startup',
+    role: 'Founder & Product Lead',
+    period: 'Sep 2024 - Dec 2025',
+    location: 'Madrid, Spain',
+    description:
+      '**Founded a mobile game startup**, owning the full product lifecycle. Led product strategy, user research, and rapid iteration cycles. **Built and shipped cross-platform app** integrating AI tools. Achieved 50% D1, 35% D7, 12% D30 retention through data-driven optimization.',
+    caseStudies: [
+      {
+        id: 'catchit-product-conceptualization',
+        title: 'Product Conceptualization',
+        status: 'complete',
+      },
+      {
+        id: 'catchit-ai-chatbot',
+        title: 'AI Chatbot',
         status: 'under-construction',
       },
     ],

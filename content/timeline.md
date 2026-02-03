@@ -4,7 +4,7 @@ A CV-style timeline of my professional journey. Each role links to related case 
 
 ---
 
-## 2024 - Present
+## Sep 2024 - Dec 2025
 
 ### Founder & Product Lead @ CatchIT!
 **Location:** Madrid, Spain
