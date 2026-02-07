@@ -74,7 +74,7 @@ I worked closely with one dedicated engineer throughout the implementation. My r
 |--------|--------|-------------|
 | Time Saved | **~5 hours/week per rep** | Eliminated duplicate data entry across platforms |
 | Data Accuracy | **~60% → ~95%** | Complete records enabled better automation |
-| CAC | **~20% reduction** | More efficient GTM team, better conversion rates |
+| CAC | **~5% reduction** | More efficient GTM team, better conversion rates |
 
 ### Business Impact
 - Reduced cost of customer acquisition and renewal

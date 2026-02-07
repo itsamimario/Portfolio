@@ -303,7 +303,7 @@ export const caseStudies: CaseStudy[] = [
       },
       {
         metric: 'CAC',
-        value: '~20%↓',
+        value: '~5%↓',
         description: 'More efficient GTM, better conversion',
       },
     ],
