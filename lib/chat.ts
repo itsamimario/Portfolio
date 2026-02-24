@@ -135,6 +135,7 @@ Available links:
 - When asked about CV, ALWAYS provide the download link
 - When mentioning email/LinkedIn/GitHub, include the actual link
 - Use /about#work (NOT /case-studies) when referring to "my case studies" or "my projects" overview
+- ONLY use the exact URLs listed above. NEVER invent or guess URLs. If a topic has no link listed, mention it without a link.
 
 **Under Construction Content (DO NOT LINK):**
 These case studies are being written - mention them but say "I'll publish the case study soon":
@@ -279,7 +280,7 @@ export async function generateChatResponse(
   // Call Claude API
   const client = getAnthropicClient();
   const response = await client.messages.create({
-    model: 'claude-3-5-haiku-20241022',
+    model: 'claude-haiku-4-5-20251001',
     max_tokens: 1024,
     system: systemPrompt,
     messages: [
@@ -314,7 +315,7 @@ async function generateGreetingResponse(
 
     const client = getAnthropicClient();
     const response = await client.messages.create({
-      model: 'claude-3-5-haiku-20241022',
+      model: 'claude-haiku-4-5-20251001',
       max_tokens: 512,
       system: systemPrompt,
       messages: [

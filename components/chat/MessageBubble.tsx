@@ -89,7 +89,8 @@ function renderTypedSegments(segments: ContentSegment[], visibleChars: number): 
       const isFullyTyped = chars >= segment.text.length;
 
       if (isFullyTyped && isSafeUrl(segment.url)) {
-        if (segment.url.startsWith('/')) {
+        const isFilePath = /\.(pdf|docx?|xlsx?|csv|zip|png|jpg|jpeg|gif|svg)(\?|$)/i.test(segment.url);
+        if (segment.url.startsWith('/') && !isFilePath) {
           parts.push(
             <Link key={key++} href={segment.url} className="text-blue-600 dark:text-blue-400 underline hover:text-blue-800 dark:hover:text-blue-300">
               {segment.text}
